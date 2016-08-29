@@ -18,14 +18,18 @@ reg clk = 0;
 always #0.5 clk = ~clk;
 
 //-- Leds port
-wire l0, l1, l2, l3, l4;
+wire led0, led1, led2, led3, led4, led5, led6, led7;
 
 //-- Instantiate the unit to test
 leds UUT (
-           .LED1(l1),
-           .LED2(l2),
-           .LED3(l3),
-           .LED4(l4)
+           .LED0(led0),
+           .LED1(led1),
+           .LED2(led2),
+           .LED3(led3),
+           .LED4(led4),
+           .LED5(led5),
+           .LED6(led6),
+           .LED7(led7)
          );
 
 

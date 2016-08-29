@@ -5,7 +5,7 @@
 #- GPL license
 # -----------------------------------------------------------------------------
 # --  Repo: https://github.com/FPGAwars/icezum/wiki
-# --  Pinout:
+# --  Pinout: https://github.com/FPGAwars/icezum/blob/master/doc/pinout/icezum-pinout.pdf
 
 # ------------ User Leds ------------------------------------------------------
 set_io --warn-no-port LED0  95

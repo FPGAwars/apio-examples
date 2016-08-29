@@ -2,3 +2,5 @@
 *.asc
 *.bin
 *.blif
+*.vcd
+*.out

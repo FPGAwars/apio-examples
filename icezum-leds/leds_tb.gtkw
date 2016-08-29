@@ -1,14 +1,14 @@
 [*]
 [*] GTKWave Analyzer v3.3.66 (w)1999-2015 BSI
-[*] Mon Aug 29 09:15:38 2016
+[*] Mon Aug 29 09:12:21 2016
 [*]
-[dumpfile] "/home/jesus/code/apio-examples/go-board-leds/leds_tb.vcd"
-[dumpfile_mtime] "Mon Aug 29 09:15:35 2016"
-[dumpfile_size] 567
-[savefile] "/home/jesus/code/apio-examples/go-board-leds/leds_tb.gtkw"
+[dumpfile] "/home/jesus/code/apio-examples/icestick-leds/leds_tb.vcd"
+[dumpfile_mtime] "Mon Aug 29 09:10:49 2016"
+[dumpfile_size] 606
+[savefile] "/home/jesus/code/apio-examples/icestick-leds/leds_tb.gtkw"
 [timestart] 0
 [size] 1000 600
-[pos] 12 0
+[pos] 507 137
 *0.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] leds_tb.
 [sst_width] 223
@@ -16,10 +16,14 @@
 [sst_expanded] 1
 [sst_vpaned_height] 160
 @28
+leds_tb.UUT.LED0
 leds_tb.UUT.LED1
 leds_tb.UUT.LED2
 leds_tb.UUT.LED3
 @29
 leds_tb.UUT.LED4
+leds_tb.UUT.LED5
+leds_tb.UUT.LED6
+leds_tb.UUT.LED7
 [pattern_trace] 1
 [pattern_trace] 0
