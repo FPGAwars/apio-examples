@@ -5,6 +5,7 @@
 //------------------------------------------------------------------
 
 `default_nettype none
+`define DUMPSTR(x) `"x.vcd`"
 `timescale 100 ns / 10 ns
 
 module main_tb();
@@ -28,7 +29,7 @@ top UUT (
 initial begin
 
   //-- File were to store the simulation results
-  $dumpfile("main_tb.vcd");
+  $dumpfile(`DUMPSTR(`VCD_OUTPUT));
   $dumpvars(0, main_tb);
 
    #(DURATION) $display("End of simulation");

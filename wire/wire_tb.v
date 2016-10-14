@@ -3,9 +3,11 @@
 //-- Testbench
 //-------------------------------------------------------------------
 //-- Juan Gonzalez (Obijuan). April-2016
+//-- Jesus Arroyo Torrens
 //-- GPL license
 //-------------------------------------------------------------------
 `default_nettype none
+`define DUMPSTR(x) `"x.vcd`"
 `timescale 100 ns / 10 ns
 
 module wire_tb();
@@ -31,7 +33,7 @@ simplewire UUT (
 initial begin
 
   //-- File were to store the simulation results
-  $dumpfile("wire_tb.vcd");
+  $dumpfile(`DUMPSTR(`VCD_OUTPUT));
   $dumpvars(0, wire_tb);
 
   //-- Set the cable to 0

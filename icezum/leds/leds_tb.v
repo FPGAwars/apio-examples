@@ -3,9 +3,11 @@
 //-- Testbench
 //-------------------------------------------------------------------
 //-- Juan Gonzalez (Obijuan)
+//-- Jesus Arroyo Torrens
 //-- GPL license
 //-------------------------------------------------------------------
 `default_nettype none
+`define DUMPSTR(x) `"x.vcd`"
 `timescale 100 ns / 10 ns
 
 module leds_tb();
@@ -36,7 +38,7 @@ leds UUT (
 initial begin
 
   //-- File were to store the simulation results
-  $dumpfile("leds_tb.vcd");
+  $dumpfile(`DUMPSTR(`VCD_OUTPUT));
   $dumpvars(0, leds_tb);
 
    #(DURATION) $display("End of simulation");
