@@ -1,0 +1,216 @@
+//-- Marcha imperial. Compuesta por John Williams para Star Wars: A new hope.
+//-- Código original por Obijuan para open-fpga-verilog-tutorial Capítulo 27 [https://github.com/Obijuan/open-fpga-verilog-tutorial/wiki/Cap%C3%ADtulo-27%3A-Memoria-ROM-gen%C3%A9rica]
+//-- Remake del código original por JorFru: Ajuste a compases 4/4 y añadida la tercera parte de la melodía.
+0  //-- Un 0 es un SILENCIO
+0
+0
+0
+0
+0
+0
+0
+//
+3BCA //-- SOL_4
+3BCA
+3BCA
+0
+3BCA //-- SOL_4
+3BCA
+3BCA
+0
+3BCA //-- SOL_4
+3BCA
+3BCA
+0
+4B55 //-- REs_4
+4B55
+4B55
+3247 //-- SIb_4
+//
+3BCA //-- SOL_4
+3BCA
+3BCA
+0
+4B55 //-- REs_4
+4B55
+4B55
+3247 //-- SIb_4
+3BCA //-- SOL_4
+3BCA
+3BCA
+3BCA
+3BCA
+3BCA
+3BCA
+0
+//----------- Segundo trozo
+27E8  //-- RE_5
+27E8
+27E8
+0
+27E8  //-- RE_5
+27E8
+27E8
+0
+27E8  //-- RE_5
+27E8
+27E8
+0
+25AA  //-- REs_5
+25AA
+25AA
+3247 //-- LAs_4
+//
+3F58  //-- FAs_4
+3F58
+3F58
+0
+4B55  //--REs_4
+4B55
+4B55
+3247  //--LAs_4
+3BCA  //--SOL_4
+3BCA
+3BCA
+3BCA
+3BCA
+3BCA
+3BCA
+0
+//------------Tercer trozo
+1DE5  //--SOL_5
+1DE5
+1DE5
+0
+3BCA  //--SOL_4
+3BCA
+0
+3BCA
+1DE5  //--SOL_5
+1DE5
+1DE5
+0
+1FAC  //--FAs_5
+1FAC
+1FAC
+218E //--FA_5
+//
+238D //--MI_5
+25AA //--REs_5
+238D //--MI_5
+238D
+0
+0
+386F  //--SOLs_4
+386F
+2A47  //--DOs_5
+2A47
+2A47
+0
+2CCB  //--DO_5
+2CCB
+2CCB
+2F75  //--SI_4
+//
+3247  //--LAs_4
+3544  //--LA_4
+3247 //--LAs_4
+3247
+0
+0
+4B55 //REs_4
+4B55
+3F58 //FAs_4
+3F58
+3F58
+0
+4B55 //REs_4
+4B55
+4B55
+3BCA //SOL_4
+//
+3247 //LAs_4
+3247
+3247
+0
+3BCA //SOL_4
+3BCA
+3BCA
+3247 //LAs_4
+27E8
+27E8
+27E8
+27E8
+27E8
+27E8
+27E8
+0
+//--------------Tercer trozo se repite pero el ultimo compas es diferente
+1DE5  //--SOL_5
+1DE5
+1DE5
+0
+3BCA  //--SOL_4
+3BCA
+0
+3BCA
+1DE5  //--SOL_5
+1DE5
+1DE5
+0
+1FAC  //--FAs_5
+1FAC
+1FAC
+218E //--FA_5
+//
+238D //--MI_5
+25AA //--REs_5
+238D //--MI_5
+238D
+0
+0
+386F  //--SOLs_4
+386F
+2A47  //--DOs_5
+2A47
+2A47
+0
+2CCB  //--DO_5
+2CCB
+2CCB
+2F75  //--SI_4
+//
+3247  //--LAs_4
+3544  //--LA_4
+3247 //--LAs_4
+3247
+0
+0
+4B55 //REs_4
+4B55
+3F58 //FAs_4
+3F58
+3F58
+0
+4B55 //REs_4
+4B55
+4B55
+3247 //LAs_4
+//
+3BCA //SOL_4
+3BCA
+3BCA
+0
+4B55 //REs_4
+4B55
+4B55
+3247 //LAs_4
+3BCA //SOL_4
+3BCA
+3BCA
+3BCA
+3BCA
+3BCA
+3BCA
+0
+//
