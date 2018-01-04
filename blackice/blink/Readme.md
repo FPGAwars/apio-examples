@@ -1,9 +1,9 @@
-Simple example for testing the Blackice board
+Simple example for testing the mystorm Blackice board
 It just blinks the red led 4
 
 ## Hardware setup
 
-![]()
+![](blackice-setup.jpg)
 
 ## Instructions
 
