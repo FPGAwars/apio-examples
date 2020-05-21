@@ -1,8 +1,9 @@
 //------------------------------------------------------------------
 //-- Hello world example
-//-- Control leds by pushing the buttons
+//-- Turn on all the leds
 //-- This example has been tested on the following boards:
-//--   * iCE40-HX1K-EVB Olimex
+//--   * Lattice icestick
+//--   * Icezum alhambra (https://github.com/FPGAwars/icezum)
 //------------------------------------------------------------------
 
 module leds(output wire  [1:0] led,
