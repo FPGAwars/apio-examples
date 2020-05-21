@@ -1,0 +1,23 @@
+[*]
+[*] GTKWave Analyzer v3.3.98 (w)1999-2019 BSI
+[*] Thu May 21 10:25:11 2020
+[*]
+[dumpfile] "/home/micha/git/gitlab/leds/leds_tb.vcd"
+[dumpfile_mtime] "Thu May 21 10:24:51 2020"
+[dumpfile_size] 1151
+[savefile] "/home/micha/git/gitlab/leds/leds_tb.gtkw"
+[timestart] 0
+[size] 1000 600
+[pos] 12 0
+*-20.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] leds_tb.
+[sst_width] 238
+[signals_width] 94
+[sst_expanded] 1
+[sst_vpaned_height] 160
+@28
+leds_tb.UUT.but[1:0]
+@29
+leds_tb.UUT.led[1:0]
+[pattern_trace] 1
+[pattern_trace] 0
