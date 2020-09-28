@@ -1,0 +1,14 @@
+# -----------------------------------------------------------------------------
+#- EDU-CIAA-FPGA constraint file (.pcf)
+#- Sep - 2020
+#- GPL license
+#- Repo: https://gitlab.com/educiaafpga
+# -----------------------------------------------------------------------------
+
+#------ User LEDs
+#-- Green LED
+set_io LEDG 4  #-- output 
+
+
+
+
