@@ -4,7 +4,8 @@
 
 module Test (
   input CLK,    // 12MHz clock
-  output LED7
+  output LED7,   // LED to blicnk
+  output LED6, LED5, LED4, LED3, LED2, LED1, LED0 //-- The rest of the LED (turned off)
 );
 
   reg [23:0] counter = 0;
@@ -13,6 +14,10 @@ module Test (
     counter <= counter + 1;
 
   assign LED7 = counter[23];
+
+  //-- Turn off the other LEDs
+  assign {LED6, LED5, LED4} = 3'b0;
+  assign {LED3, LED2, LED1, LED0} = 4'b0;
 
 endmodule
 
