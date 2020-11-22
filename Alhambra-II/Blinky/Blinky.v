@@ -4,7 +4,7 @@
 
 module Test (
   input CLK,    // 12MHz clock
-  output LED7,   // LED to blicnk
+  output LED7,   // LED to blink
   output LED6, LED5, LED4, LED3, LED2, LED1, LED0 //-- The rest of the LED (turned off)
 );
 
