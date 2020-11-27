@@ -1,0 +1,1 @@
+A simple clock divider. It produces two clocks with 1/4 of the input frequency. One with the original phase and one shifted by 90 degrees. This divider by itself could run at >200 MHz.
