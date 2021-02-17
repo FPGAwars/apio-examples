@@ -1,0 +1,53 @@
+# physical constrain file
+# assign io-pins to pin numbering of iCE40-HX8K on olimex board iCE40-HX8K-EVB
+# compare to the schematic of the board and the datasheet of fpga
+
+#set_io clk_in J3				
+set_io but[0] K11
+set_io but[1] P13
+
+set_io led[0] M12
+set_io led[1] R16
+
+#set_io rx L11	# UEXT
+#set_io tx T16	# UEXT
+
+#set_io sram_addr[0] N6
+#set_io sram_addr[1] T1
+#set_io sram_addr[2] P4
+#set_io sram_addr[3] R2
+#set_io sram_addr[4] N5
+#set_io sram_addr[5] T2
+#set_io sram_addr[6] P5
+#set_io sram_addr[7] R3
+#set_io sram_addr[8] R5
+#set_io sram_addr[9] T3
+#set_io sram_addr[10] R4
+#set_io sram_addr[11] M7
+#set_io sram_addr[12] N7
+#set_io sram_addr[13] P6
+#set_io sram_addr[14] M8
+#set_io sram_addr[15] T5
+#set_io sram_addr[16] R6
+#set_io sram_addr[17] P8
+
+#set_io sram_cen T6
+#set_io sram_oen L9
+#set_io sram_wen T7
+
+#set_io sram_data[0] T8
+#set_io sram_data[1] P7
+#set_io sram_data[2] N9
+#set_io sram_data[3] T9
+#set_io sram_data[4] M9
+#set_io sram_data[5] R9
+#set_io sram_data[6] K9
+#set_io sram_data[7] P9
+#set_io sram_data[8] R10
+#set_io sram_data[9] L10
+#set_io sram_data[10] P10
+#set_io sram_data[11] N10
+#set_io sram_data[12] T10
+#set_io sram_data[13] T11
+#set_io sram_data[14] T15
+#set_io sram_data[15] T14
