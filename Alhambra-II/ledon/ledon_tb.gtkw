@@ -1,0 +1,28 @@
+[*]
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Wed Apr 27 18:37:07 2022
+[*]
+[dumpfile] "/home/obijuan/Develop/FPGAwars/apio-examples/Alhambra-II/ledon/ledon_tb.vcd"
+[dumpfile_mtime] "Wed Apr 27 18:32:17 2022"
+[dumpfile_size] 623
+[savefile] "/home/obijuan/Develop/FPGAwars/apio-examples/Alhambra-II/ledon/ledon_tb.gtkw"
+[timestart] 0
+[size] 1000 600
+[pos] -1 -1
+*-18.262543 146000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] ledon_tb.
+[sst_width] 233
+[signals_width] 78
+[sst_expanded] 1
+[sst_vpaned_height] 144
+@28
+ledon_tb.UUT.LED7
+ledon_tb.UUT.LED6
+ledon_tb.UUT.LED5
+ledon_tb.UUT.LED4
+ledon_tb.UUT.LED3
+ledon_tb.UUT.LED2
+ledon_tb.UUT.LED1
+ledon_tb.UUT.LED0
+[pattern_trace] 1
+[pattern_trace] 0
