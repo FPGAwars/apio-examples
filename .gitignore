@@ -4,3 +4,4 @@
 *.blif
 *.vcd
 *.out
+hardware.json
