@@ -1,0 +1,8 @@
+# -- Board: ColorLight-5A-75E-V71_(FT2232H)
+
+# -- LED
+LOCATE COMP "led" SITE "T6";
+IOBUF PORT "led" IO_TYPE=LVCMOS33;
+
+
+
