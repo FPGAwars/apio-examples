@@ -1,0 +1,23 @@
+# -----------------------------------------------------------------------------
+#- Blinky example for the Alchitry-Cu board (cb132)
+#- Constraint file (.pcf)
+#- By Reid Holderfield
+#- April - 2023
+#- GPL license
+# -----------------------------------------------------------------------------
+# --  Pinout:
+# --  Guide:
+
+
+# clk
+set_io  clk     P7  #81_gbin5
+
+# leds
+set_io  led[0]  J11 #D2
+set_io  led[1]  K11 #..
+set_io  led[2]  K12 #..
+set_io  led[3]  K14 #..
+set_io  led[4]  L12 #..
+set_io  led[5]  L14 #..
+set_io  led[6]  M12 #..
+set_io  led[7]  N14 #D9
