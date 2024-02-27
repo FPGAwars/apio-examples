@@ -1,0 +1,8 @@
+# Mapping of the design signals to FPGA pins.
+
+# The full Upduino3 PCF file is availble at:
+#  https://github.com/tinyvision-ai-inc/UPduino-v3.0/tree/master/RTL/common
+
+set_io leds_out[0]     41  # Red.
+set_io leds_out[1]     39  # Green.
+set_io leds_out[2]     40  # Blue.
