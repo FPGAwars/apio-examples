@@ -24,6 +24,15 @@
                 "cwd": "${workspaceFolder}/${relativeFileDirname}"
             },
             "problemMatcher": []
+        },
+        {
+            "label": "Apio clean",
+            "type": "shell",
+            "command": "apio clean",
+            "options": {
+                "cwd": "${workspaceFolder}/${relativeFileDirname}"
+            },
+            "problemMatcher": []
         }
     ]
 }
