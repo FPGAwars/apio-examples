@@ -9,6 +9,11 @@
             "command": "apio build",
             "options": {
                 "cwd": "${workspaceFolder}/${relativeFileDirname}"
+            },
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
             }
         },
         {
