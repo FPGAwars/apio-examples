@@ -8,10 +8,10 @@
 
 # ------------ User Leds ------------------------------------------------------
 #-- Red LED
-set_io --warn-no-port LEDR A5  # output
+set_io -nowarn LEDR A5  # output
 
 #-- Green LED
-set_io --warn-no-port LEDG M4  # output
+set_io -nowarn LEDG M4  # output
 
 #-- 12 Mhz clock 
-set_io --warn-no-port CLK	P7 # input
+set_io -nowarn CLK	P7 # input
