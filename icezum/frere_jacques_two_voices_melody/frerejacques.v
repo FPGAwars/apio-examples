@@ -231,7 +231,7 @@ case (sel2)
 default: ch_out2<=0;
 endcase
 
-always @(posedge clk_dur)
+always @(posedge clk)  //-- Fix-me! Before: clk_dur
   begin
   sel<=sel+1;
   sel2<=sel2+1;
