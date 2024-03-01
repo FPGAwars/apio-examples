@@ -2,7 +2,7 @@
 # the external pins of the fpga are defined
 # compare to the schematic of the board and the datasheet of fpga
 
-set_io clk_in 15
+set_io -nowarn clk_in 15
 set_io but[0] 41
 set_io but[1] 42
 set_io led[0] 40
