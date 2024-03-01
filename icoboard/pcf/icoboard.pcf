@@ -8,7 +8,7 @@
 
 
 # ------------ System clock ---------------------------------------------------
-set_io --warn-no-port CLK R9
+set_io -nowarn CLK R9
 
 
 # ------------ LEDs map -------------------------------------------------------
@@ -29,11 +29,11 @@ set_io --warn-no-port CLK R9
 # --   LED3: Red led
 
 # ------------| Green leds |---------------------------------------------------
-set_io --warn-no-port LED1 C8
-set_io --warn-no-port LED2 F7
+set_io -nowarn LED1 C8
+set_io -nowarn LED2 F7
 
 # ------------| Red led |------------------------------------------------------
-set_io --warn-no-port LED3 K9
+set_io -nowarn LED3 K9
 
 
 # ------------ PMOD connectors ------------------------------------------------
@@ -61,14 +61,14 @@ set_io --warn-no-port LED3 K9
 #      -------------------------------        ---------------------------
 #
 
-set_io --warn-no-port P10 B4
-set_io --warn-no-port P11 C3
-set_io --warn-no-port P12 A2
-set_io --warn-no-port P13 A5
-set_io --warn-no-port P14 B5
-set_io --warn-no-port P15 B3
-set_io --warn-no-port P16 B6
-set_io --warn-no-port P17 B7
+set_io -nowarn P10 B4
+set_io -nowarn P11 C3
+set_io -nowarn P12 A2
+set_io -nowarn P13 A5
+set_io -nowarn P14 B5
+set_io -nowarn P15 B3
+set_io -nowarn P16 B6
+set_io -nowarn P17 B7
 
 # -------------| P2 |----------------------------------------------------------
 #
@@ -80,14 +80,14 @@ set_io --warn-no-port P17 B7
 #      ---------------------------------        ---------------------------
 #
 
-set_io --warn-no-port P20 B11
-set_io --warn-no-port P21 B10
-set_io --warn-no-port P22 B9
-set_io --warn-no-port P23 D8
-set_io --warn-no-port P24 A11
-set_io --warn-no-port P25 A10
-set_io --warn-no-port P26 A9
-set_io --warn-no-port P27 B8
+set_io -nowarn P20 B11
+set_io -nowarn P21 B10
+set_io -nowarn P22 B9
+set_io -nowarn P23 D8
+set_io -nowarn P24 A11
+set_io -nowarn P25 A10
+set_io -nowarn P26 A9
+set_io -nowarn P27 B8
 
 # -------------| P3 |----------------------------------------------------------
 #
@@ -99,14 +99,14 @@ set_io --warn-no-port P27 B8
 #      -------------------------------        ---------------------------
 #
 
-set_io --warn-no-port P30 N6
-set_io --warn-no-port P31 L7
-set_io --warn-no-port P32 G5
-set_io --warn-no-port P33 L9
-set_io --warn-no-port P34 N7
-set_io --warn-no-port P35 M8
-set_io --warn-no-port P36 P9
-set_io --warn-no-port P37 N9
+set_io -nowarn P30 N6
+set_io -nowarn P31 L7
+set_io -nowarn P32 G5
+set_io -nowarn P33 L9
+set_io -nowarn P34 N7
+set_io -nowarn P35 M8
+set_io -nowarn P36 P9
+set_io -nowarn P37 N9
 
 # -------------| P4 |----------------------------------------------------------
 #
@@ -118,14 +118,14 @@ set_io --warn-no-port P37 N9
 #      -----------------------------------       ---------------------------
 #
 
-set_io --warn-no-port P40 T11
-set_io --warn-no-port P41 T14
-set_io --warn-no-port P42 T15
-set_io --warn-no-port P43 T9
-set_io --warn-no-port P44 T10
-set_io --warn-no-port P45 T13
-set_io --warn-no-port P46 R14
-set_io --warn-no-port P47 R10
+set_io -nowarn P40 T11
+set_io -nowarn P41 T14
+set_io -nowarn P42 T15
+set_io -nowarn P43 T9
+set_io -nowarn P44 T10
+set_io -nowarn P45 T13
+set_io -nowarn P46 R14
+set_io -nowarn P47 R10
 
 
 # ------------ 4*17 connectors ------------------------------------------------
@@ -181,73 +181,73 @@ set_io --warn-no-port P47 R10
 #
 #
 
-set_io --warn-no-port C00 C13
-set_io --warn-no-port C01 A15
-set_io --warn-no-port C02 L12
-set_io --warn-no-port C03 J16
-set_io --warn-no-port C04 E9
-set_io --warn-no-port C05 C11
-set_io --warn-no-port C06 P14
-set_io --warn-no-port C07 J15
-set_io --warn-no-port C08 B14
-set_io --warn-no-port C09 E10
+set_io -nowarn C00 C13
+set_io -nowarn C01 A15
+set_io -nowarn C02 L12
+set_io -nowarn C03 J16
+set_io -nowarn C04 E9
+set_io -nowarn C05 C11
+set_io -nowarn C06 P14
+set_io -nowarn C07 J15
+set_io -nowarn C08 B14
+set_io -nowarn C09 E10
 
-set_io --warn-no-port C10 T16
-set_io --warn-no-port C11 J14
-set_io --warn-no-port C12 A16
-set_io --warn-no-port C13 F9
-set_io --warn-no-port C14 F14
-set_io --warn-no-port C15 K16
-set_io --warn-no-port C16 D15
-set_io --warn-no-port C17 B16
-set_io --warn-no-port C18 G13
-set_io --warn-no-port C19 G14
+set_io -nowarn C10 T16
+set_io -nowarn C11 J14
+set_io -nowarn C12 A16
+set_io -nowarn C13 F9
+set_io -nowarn C14 F14
+set_io -nowarn C15 K16
+set_io -nowarn C16 D15
+set_io -nowarn C17 B16
+set_io -nowarn C18 G13
+set_io -nowarn C19 G14
 
-set_io --warn-no-port C20 D16
-set_io --warn-no-port C21 G11
-set_io --warn-no-port C22 K15
-set_io --warn-no-port C23 L16
-set_io --warn-no-port C24 F16
-set_io --warn-no-port C25 D10
-set_io --warn-no-port C26 H14
-set_io --warn-no-port C27 H13
-set_io --warn-no-port C28 G15
-set_io --warn-no-port C29 D11
+set_io -nowarn C20 D16
+set_io -nowarn C21 G11
+set_io -nowarn C22 K15
+set_io -nowarn C23 L16
+set_io -nowarn C24 F16
+set_io -nowarn C25 D10
+set_io -nowarn C26 H14
+set_io -nowarn C27 H13
+set_io -nowarn C28 G15
+set_io -nowarn C29 D11
 
-set_io --warn-no-port C30 M16
-set_io --warn-no-port C31 H12
-set_io --warn-no-port C32 G10
-set_io --warn-no-port C33 E11
-set_io --warn-no-port C34 M15
-set_io --warn-no-port C35 N16
-set_io --warn-no-port C36 J10
-set_io --warn-no-port C37 F12
-set_io --warn-no-port C38 J11
-set_io --warn-no-port C39 R16
+set_io -nowarn C30 M16
+set_io -nowarn C31 H12
+set_io -nowarn C32 G10
+set_io -nowarn C33 E11
+set_io -nowarn C34 M15
+set_io -nowarn C35 N16
+set_io -nowarn C36 J10
+set_io -nowarn C37 F12
+set_io -nowarn C38 J11
+set_io -nowarn C39 R16
 
-set_io --warn-no-port C40 G16
-set_io --warn-no-port C41 E14
-set_io --warn-no-port C42 J13
-set_io --warn-no-port C43 K12
-set_io --warn-no-port C44 H16
-set_io --warn-no-port C45 F11
-set_io --warn-no-port C46 K13
-set_io --warn-no-port C47 K14
-set_io --warn-no-port C48 F15
-set_io --warn-no-port C49 G12
+set_io -nowarn C40 G16
+set_io -nowarn C41 E14
+set_io -nowarn C42 J13
+set_io -nowarn C43 K12
+set_io -nowarn C44 H16
+set_io -nowarn C45 F11
+set_io -nowarn C46 K13
+set_io -nowarn C47 K14
+set_io -nowarn C48 F15
+set_io -nowarn C49 G12
 
-set_io --warn-no-port C50 L11
-set_io --warn-no-port C51 M9
-set_io --warn-no-port C52 E16
-set_io --warn-no-port C53 B13
-set_io --warn-no-port C54 N12
-set_io --warn-no-port C55 L14
-set_io --warn-no-port C56 D14
-set_io --warn-no-port C57 C12
-set_io --warn-no-port C58 M12
-set_io --warn-no-port C59 M14
+set_io -nowarn C50 L11
+set_io -nowarn C51 M9
+set_io -nowarn C52 E16
+set_io -nowarn C53 B13
+set_io -nowarn C54 N12
+set_io -nowarn C55 L14
+set_io -nowarn C56 D14
+set_io -nowarn C57 C12
+set_io -nowarn C58 M12
+set_io -nowarn C59 M14
 
-set_io --warn-no-port C60 C16
-set_io --warn-no-port C61 B12
-set_io --warn-no-port C62 R15
-set_io --warn-no-port C63 L10
+set_io -nowarn C60 C16
+set_io -nowarn C61 B12
+set_io -nowarn C62 R15
+set_io -nowarn C63 L10
