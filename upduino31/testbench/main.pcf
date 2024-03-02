@@ -1,0 +1,20 @@
+# Mapping of the design signals to FPGA pins.
+
+# The full Upduino3 PCF file is availble at:
+#  https://github.com/tinyvision-ai-inc/UPduino-v3.0/tree/master/RTL/common
+
+set_io clk          10
+set_io reset        12
+set_io count_en     21
+set_io carry        13
+
+set_io digit_1[0]   19
+set_io digit_1[1]   18 
+set_io digit_1[2]   11
+set_io digit_1[3]    9
+
+set_io digit_10[0]  44 
+set_io digit_10[1]   4
+set_io digit_10[2]   3
+set_io digit_10[3]  48
+
