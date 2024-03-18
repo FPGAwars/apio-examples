@@ -65,7 +65,7 @@ module main_tb ();
       .count_en(count_en),
       .digit_1(digit_1),
       .digit_10(digit_10),
-      .carry
+      .carry(carry)
   );
 
   initial begin
