@@ -1,0 +1,58 @@
+[*]
+[*] GTKWave Analyzer v3.4.0 (w)1999-2022 BSI
+[*] Sat Mar  2 22:47:15 2024
+[*]
+[dumpfile] "main_tb.vcd"
+[dumpfile_mtime] "Sat Mar  2 22:46:12 2024"
+[dumpfile_size] 7168
+[savefile] "main_tb.gtkw"
+[timestart] 0
+[size] 1440 900
+[pos] -1 -26
+*-22.382421 3100000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+[markername] AA
+[markername] BB
+[markername] CC
+[markername] DD
+[markername] EE
+[markername] FF
+[markername] GG
+[markername] HH
+[markername] II
+[markername] JJ
+[markername] KK
+[markername] LL
+[markername] MM
+[markername] NN
+[markername] OO
+[markername] PP
+[markername] QQ
+[markername] RR
+[markername] SS
+[markername] TT
+[markername] UU
+[markername] VV
+[markername] WW
+[markername] XX
+[markername] YY
+[markername] ZZ
+[treeopen] main_tb.
+[sst_width] 253
+[signals_width] 161
+[sst_expanded] 1
+[sst_vpaned_height] 264
+@28
+main_tb.clk
+main_tb.reset
+[color] 3
+main_tb.count_en
+@24
+main_tb.digit_1[3:0]
+@25
+main_tb.digit_10[3:0]
+@28
+main_tb.carry
+@24
+main_tb.carry_count[5:0]
+[pattern_trace] 1
+[pattern_trace] 0
