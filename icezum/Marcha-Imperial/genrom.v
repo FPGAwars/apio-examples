@@ -13,6 +13,8 @@
 //----------------------------------------------------------------------------
 
 module genrom #(             //-- Parametros
+         //-- Parametro: Nombre del fichero con el contenido de la ROM
+         parameter ROMFILE = "rom1.list",
          parameter AW = 5,   //-- Bits de las direcciones (Adress width)
          parameter DW = 4)   //-- Bits de los datos (Data witdh)
 
@@ -20,9 +22,6 @@ module genrom #(             //-- Parametros
          input clk,                   //-- Señal de reloj global
          input wire [AW-1: 0] addr,   //-- Direcciones
          output reg [DW-1: 0] data);  //-- Dato de salida
-
-//-- Parametro: Nombre del fichero con el contenido de la ROM
-parameter ROMFILE = "rom1.list";
 
 //-- Calcular el numero de posiciones totales de memoria
 localparam NPOS = 2 ** AW;
