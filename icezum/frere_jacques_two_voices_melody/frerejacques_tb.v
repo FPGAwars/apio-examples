@@ -33,7 +33,7 @@ always
 initial begin
 
   //-- Fichero donde almacenar los resultados
-  $dumpfile("secnotas_tb.vcd");
+  $dumpfile("frerejacques_tb.vcd");
   $dumpvars(0, secnotas_tb);
 
   # 200 $display("FIN de la simulacion");
