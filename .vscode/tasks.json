@@ -33,6 +33,15 @@
                 "cwd": "${workspaceFolder}/${relativeFileDirname}"
             },
             "problemMatcher": []
+        },
+        {
+            "label": "Apio Sim",
+            "type": "shell",
+            "command": "apio sim",
+            "options": {
+                "cwd": "${workspaceFolder}/${relativeFileDirname}"
+            },
+            "problemMatcher": []
         }
     ]
 }
