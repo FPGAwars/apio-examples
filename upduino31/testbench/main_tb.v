@@ -8,16 +8,16 @@
 // A macro to increment the tested counter by n.
 `define INCREMENT(n) \
     begin \
-        `CLK(1) \
+        `CLK \
         count_en = 1; \
-        `CLK(n) \
+        `CLKS(n) \
         count_en = 0; \
-        `CLK(1) \
+        `CLK \
     end
 
 module main_tb ();
   // Declare the 'signal' name that is managed by apio_testings.vh.
-  `DEF_CLK();
+  `DEF_CLK;
 
   // Inputs to the tested module.
   reg reset;
@@ -54,12 +54,12 @@ module main_tb ();
     // Reset the tested module.
     count_en = 0;
     reset = 1;
-    `CLK(3)
+    `CLKS(3)
     reset = 0;
     `EXPECT(digit_10, 0)  // count = 00
     `EXPECT(digit_1, 0)
     `EXPECT(carry_count, 0)
-    `CLK(3);
+    `CLKS(3);
 
     // Count to 09.
     `INCREMENT(9)
@@ -92,8 +92,8 @@ module main_tb ();
     `EXPECT(carry_count, 1)
 
     // All done.
-    `CLK(10)
-    `TEST_END()
+    `CLKS(10)
+    `TEST_END
   end
 
 endmodule

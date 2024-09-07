@@ -6,7 +6,7 @@
 
 // Call this macro at the begining of the testbench macro. It defines
 // a clk signal and a variable clk_num that indicates the clock num.
-`define DEF_CLK(ignored=0) \
+`define DEF_CLK \
     reg clk = 0; \
     integer clk_num = 0; \
     always begin \
@@ -28,7 +28,7 @@
 
 // Transition from clock low to clock high. Typically this is not
 // called directly and clock is managed using `CLK().
-`define CLK_HIGH(ignored=0) \
+`define CLK_HIGH \
     begin \
         `EXPECT(clk, 0); \
         @ (posedge clk); \
@@ -38,7 +38,7 @@
 
 // Transition from clock high to clock low. Typically this is not
 // called directly and clock is managed using `CLK().
-`define CLK_LOW(ignored=0) \
+`define CLK_LOW \
     begin \
         `EXPECT(clk, 1); \
         @ (negedge clk); \
@@ -46,13 +46,18 @@
         `EXPECT(clk, 0); \
     end
 
-// Wait for n clock cycles. A clock cycle is a low to high transition
-// followed by a high to low transition.
-`define CLK(n) \
+// Simulate one clock. Wait for low to high and then high to low transition.
+`define CLK \
+    begin \
+        `CLK_HIGH \
+        `CLK_LOW \
+    end
+
+// Simulate n clocks.
+`define CLKS(n) \
     begin \
         repeat(n) begin \
-            `CLK_HIGH() \
-            `CLK_LOW() \
+            `CLK \
         end \
     end
 
@@ -63,12 +68,16 @@
 // and contains base name of the expected output file.
 `define TEST_BEGIN(testbench) \
     begin \
-        $dumpfile(`DUMP_FILE_NAME(`VCD_OUTPUT)); \
-        $dumpvars(0, testbench); \
+        `ifdef VCD_OUTPUT \
+            $dumpfile(`DUMP_FILE_NAME(`VCD_OUTPUT)); \
+            $dumpvars(0, testbench); \
+        `else \
+            $fatal(1, "Automatic macro VCD_OUTPUT not defined."); \
+        `endif \
     end
 
 // Place this macro at the end of the 'initial begin' block of the testbench.
-`define TEST_END(ignore=0) \
+`define TEST_END \
     begin \
         @ (posedge clk); \
         $display("End of simulation"); \
