@@ -2,11 +2,27 @@ from pathlib import Path
 from typing import List
 import os
 
+# -- Examples that are known to be problematic.
+PROBLEMATIC_EXAMPLES = [
+    # -- Non buildable pcf examples.
+    "icezum/pcf",
+    "icoboard/pcf",
+    "go-board/pcf",
+    "icestick/pcf",
+    "kefir/pcf",
+    # -- Non standard structure, relies on custom
+    # -- SCOnstruct (non supported), contains VHLD code
+    # -- (non supported)
+    "TinyFPGA-BX/clock_divider",
+]
+
 
 def collect_examples(examples_root: Path) -> List[str]:
     """Scan the examples directory and identify all the examples.
     Returns a list with items such as "Alhambra-II/Blinky".
     'examples_root' is the path of the repo/examples dir.
+    The function returns also examples that are in the PROBLEMATIC_EXAMPLES
+    list.
     """
     dir_entries = os.listdir(examples_root)
     # -- Collect the board names. We select only dirs that don't
@@ -32,17 +48,3 @@ def collect_examples(examples_root: Path) -> List[str]:
         result.extend(board_examples)
 
     return result
-
-
-KNOWN_BROKEN_EXAMPLEDS = [
-    # -- Non buildable pcf examples.
-    "icezum/pcf",
-    "icoboard/pcf",
-    "go-board/pcf",
-    "icestick/pcf",
-    "kefir/pcf",
-    # -- Non standard structure, relies on custom
-    # -- SCOnstruct (non supported), contains VHLD code
-    # -- (non supported)
-    "TinyFPGA-BX/clock_divider",
-]

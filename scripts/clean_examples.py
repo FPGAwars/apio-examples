@@ -14,7 +14,7 @@ examples = utils.collect_examples(examples_root)
 
 for example in examples:
     # -- Skip broken examples.
-    if example in utils.KNOWN_BROKEN_EXAMPLEDS:
+    if example in utils.PROBLEMATIC_EXAMPLES:
         continue
 
     # -- Change to the project dir
