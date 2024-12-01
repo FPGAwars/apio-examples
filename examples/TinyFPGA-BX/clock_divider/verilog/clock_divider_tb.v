@@ -1,4 +1,6 @@
 `timescale 1 ns / 100 ps
+`define DUMP_FILE_NAME(x) `"x.vcd`"
+
 
 module clock_divider_tb;
 
@@ -12,7 +14,7 @@ clock_divider cdiv (.clock_in(clk),
 	.clock_div4_90(clock_div4_90));
 
 initial begin
-	$dumpfile("clock_divider_tb.vcd");
+	$dumpfile(`DUMP_FILE_NAME(`VCD_OUTPUT));
 	$dumpvars;
 	#1000
 	$finish;

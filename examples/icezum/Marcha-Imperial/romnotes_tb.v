@@ -7,6 +7,8 @@
 //-- GPL License
 //-------------------------------------------------------------------
 
+`define DUMP_FILE_NAME(x) `"x.vcd`"
+
 module romnotes_tb();
 
 //-- Registro para generar la señal de reloj
@@ -33,7 +35,7 @@ always
 initial begin
 
   //-- Fichero donde almacenar los resultados
-  $dumpfile("romnotes_tb.vcd");
+  $dumpfile(`DUMP_FILE_NAME(`VCD_OUTPUT));
   $dumpvars(0, romnotes_tb);
 
   # 200 $display("FIN de la simulacion");
