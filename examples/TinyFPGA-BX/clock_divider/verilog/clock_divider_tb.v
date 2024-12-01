@@ -14,7 +14,7 @@ clock_divider cdiv (.clock_in(clk),
 	.clock_div4_90(clock_div4_90));
 
 initial begin
-	$dumpfile(`DUMP_FILE_NAME(`VCD_OUTPUT));
+    //-- Dump vars to the .vcd output file
 	$dumpvars;
 	#1000
 	$finish;

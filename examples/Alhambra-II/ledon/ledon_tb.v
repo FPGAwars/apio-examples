@@ -6,7 +6,6 @@
 //-- GPL license
 //-------------------------------------------------------------------
 `default_nettype none
-`define DUMPSTR(x) `"x.vcd`"
 `timescale 100 ns / 10 ns
 
 module ledon_tb();
@@ -32,8 +31,7 @@ leds UUT (
 
 initial begin
 
-  //-- File were to store the simulation results
-  $dumpfile(`DUMPSTR(`VCD_OUTPUT));
+  //-- Dump vars to the .vcd output file
   $dumpvars(0, ledon_tb);
 
    #(DURATION) $display("End of simulation");

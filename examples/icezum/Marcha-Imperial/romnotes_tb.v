@@ -34,8 +34,7 @@ always
 //-- Proceso al inicio
 initial begin
 
-  //-- Fichero donde almacenar los resultados
-  $dumpfile(`DUMP_FILE_NAME(`VCD_OUTPUT));
+  //-- Dump vars to the .vcd output file
   $dumpvars(0, romnotes_tb);
 
   # 200 $display("FIN de la simulacion");
