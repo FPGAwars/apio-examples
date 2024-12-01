@@ -1,0 +1,27 @@
+### left side of board
+set_io -nowarn pin1_usb_dp A3
+set_io -nowarn pin2_usb_dn A4
+set_io -nowarn pin3_clk_16mhz B4
+set_io -nowarn pin4 B2
+set_io -nowarn pin5 A2
+set_io -nowarn pin6 A1
+set_io -nowarn pin7 B1
+set_io -nowarn pin8 C1
+set_io -nowarn pin9 D1
+set_io -nowarn pin10 E1
+set_io -nowarn pin11 G1
+set_io -nowarn pin12 H1
+set_io -nowarn pin13 J1
+
+### right side of board
+set_io -nowarn pin14_sdo G6
+set_io -nowarn pin15_sdi H7
+set_io -nowarn pin16_sck G7
+set_io -nowarn pin17_ss F7
+set_io -nowarn pin18 D9
+set_io -nowarn pin19 C9
+set_io -nowarn pin20 E8
+set_io -nowarn pin21 A9
+set_io -nowarn pin22 A8
+set_io -nowarn pin23 A7
+set_io -nowarn pin24 A6
