@@ -1,0 +1,14 @@
+
+set_io -nowarn led_blue 39
+set_io -nowarn led_green 40
+set_io -nowarn led_red 41
+set_io -nowarn clk 35
+set_io -nowarn sw3 23
+set_io -nowarn sw2 25
+set_io -nowarn sw1 34
+set_io -nowarn sw0 43
+
+
+
+
+
