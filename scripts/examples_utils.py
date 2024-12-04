@@ -6,6 +6,7 @@ from glob import glob
 from enum import Enum
 from dataclasses import dataclass
 from typing import Set, List, Union
+from apio.apio_context import ApioContext
 
 
 class BoardIssues(Enum):
@@ -88,15 +89,20 @@ def collect_example_names(board_dir: Path) -> List[str]:
     return example_names
 
 
-board_name_regex = re.compile(r"^[a-z][a-z0-9_-]*$")
+# board_name_regex = re.compile(r"^[a-z][a-z0-9_-]*$")
 
 
 def scan_board_issues(board_name: str, board_dir: Path) -> Set[BoardIssues]:
+
+    print(f"\n\n***** {board_dir}\n")
+
+    apio_ctx = ApioContext(load_project=False)
+
     # -- Create an empty test to collect the issues.
     issues: Set[BoardIssues] = set()
 
-    # -- Test if the name matches the regex.
-    if not board_name_regex.match(board_name):
+    # -- Test that the name is a valid board name
+    if board_name != apio_ctx.lookup_board_id(board_name):
         issues.add(BoardIssues.BAD_NAME)
 
     # -- Test if an example named 'template' exists.
@@ -116,18 +122,24 @@ example_name_regex = re.compile(r"^[a-z][a-z0-9_-]*$")
 def scan_example_issues(
     example_name: str, example_dir: Path
 ) -> Set[ExampleIssues]:
-    # -- Create an empty test to collect the issues.
-    issues: Set[ExampleIssues] = set()
-
-    # -- Test if the name matches the regex.
-    if not board_name_regex.match(example_name):
-        issues.add(ExampleIssues.BAD_NAME)
+    
+    print(f"\n\n***** {example_dir}\n")
 
     # -- Change to example dir
     print(f"cd {example_dir}")
     os.chdir(example_dir)
 
-    # -- Clean
+    # -- Create an apio context for this project.
+    apio_ctx = ApioContext(load_project=True)
+
+    # -- Create an empty test to collect the issues.
+    issues: Set[ExampleIssues] = set()
+
+    # -- Test if the name matches the regex.
+    if not example_name_regex.match(example_name):
+        issues.add(ExampleIssues.BAD_NAME)
+
+    # -- Test if cleans ok.
     if run("apio clean") != 0:
         issues.add(ExampleIssues.CLEAN_FAILS)
 
@@ -148,8 +160,12 @@ def scan_example_issues(
     # -- Check apio_ini
     if not (example_dir / "apio.ini").is_file():
         issues.add(ExampleIssues.NO_APIO_INI)
-    elif (
-        run("grep board apio.ini") != 0 or run("grep top-module apio.ini") != 0
+    elif not apio_ctx.project:
+        issues.add(ExampleIssues.BAD_APIO_INI)
+    elif not apio_ctx.project["board"] or not apio_ctx.project["top-module"]:
+        issues.add(ExampleIssues.BAD_APIO_INI)
+    elif apio_ctx.project["board"] != apio_ctx.lookup_board_id(
+        apio_ctx.project["board"]
     ):
         issues.add(ExampleIssues.BAD_APIO_INI)
 
