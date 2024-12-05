@@ -44,6 +44,8 @@ class ExampleIssues(Enum):
     INFO_TOO_SHORT = 12
     MULTIPLE_INFO_LINES = 13
     CONTAINS_DIRS = 14
+    HAS_DUMPFILE = 15
+    HAS_VCD_OUTPUT = 16
 
 
 @dataclass
@@ -181,6 +183,15 @@ def scan_example_issues(
     board_name = os.path.basename(example_dir.parent)
     if apio_ctx.project and apio_ctx.project["board"] != board_name:
         issues.add(ExampleIssues.BOARD_MISMATCH)
+
+    # -- Check if a testbench contains '$dumpfile'
+    if os.system("grep '$dumpfile(' *_tb.v") == 0:
+        issues.add(ExampleIssues.HAS_DUMPFILE)
+
+    # -- Check if a testbench contains 'VCD_OUTPUT'
+    if os.system("grep VCD_OUTPUT *_tb.v") == 0:
+        issues.add(ExampleIssues.HAS_VCD_OUTPUT)
+
 
     # Restore caller's cwd.
     os.chdir(save_dir)
