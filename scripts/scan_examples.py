@@ -79,7 +79,7 @@ def read_lines(file: Union[str, Path]) -> List[str]:
 
 def scan_board_issues(board_name: str, board_dir: Path) -> Set[BoardIssues]:
 
-    # print(f"\n\n***** {board_dir}\n")
+    print(f"\n\n***** BOARD {board_dir}\n")
 
     apio_ctx = ApioContext(load_project=False)
 
@@ -87,7 +87,7 @@ def scan_board_issues(board_name: str, board_dir: Path) -> Set[BoardIssues]:
     issues: Set[BoardIssues] = set()
 
     # -- Test that the name is a valid board name
-    if board_name != apio_ctx.lookup_board_id(board_name):
+    if board_name != apio_ctx.lookup_board_id(board_name, strict=False, warn=False):
         issues.add(BoardIssues.BAD_DIR_NAME)
 
     # -- Test if an example named 'template' exists.
@@ -110,7 +110,7 @@ def scan_example_issues(
 
     save_dir = Path().absolute()
 
-    print(f"\n\n***** {example_dir}\n")
+    print(f"\n\n***** EXAMPLE {example_dir}\n")
 
     # -- Change to example dir
     print(f"cd {example_dir}")
@@ -153,7 +153,7 @@ def scan_example_issues(
     elif not apio_ctx.project["board"] or not apio_ctx.project["top-module"]:
         issues.add(ExampleIssues.BAD_APIO_INI)
     elif apio_ctx.project["board"] != apio_ctx.lookup_board_id(
-        apio_ctx.project["board"]
+        apio_ctx.project["board"], warn=False, strict=False
     ):
         issues.add(ExampleIssues.BAD_APIO_INI)
 
@@ -215,6 +215,8 @@ for board_name in glob("*", root_dir=examples_dir):
         board_scan.examples.append(example_scan)
         examples_scans.append(example_scan)
 
+print("\n\n**** scan done.\n")
+
 # -- Append entries for supported boards that don't have a directory.
 boards_with_dirs = [b.name for b in boards_scans]
 apio_ctx = ApioContext(load_project=False)
@@ -228,6 +230,8 @@ for b in apio_ctx.boards:
 boards_scans.sort(key=lambda b: b.name)
 examples_scans.sort(key=lambda e: (e.board.name, e.name))
 
+
+print("\n\n**** sgenerating files.\n")
 
 # -- Write the boards report file _boards.csv
 boards_file = "_boards_report.csv"
