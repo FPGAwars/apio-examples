@@ -5,23 +5,22 @@ Usage:
 """
 
 from pathlib import Path
-from typing import List
 import os
-import examples_utils as utils
+from glob import glob
 
-examples_root = Path(os.path.realpath("../examples"))
-examples = utils.collect_examples(examples_root)
+# -- The examples root directory.
+examples_dir = Path("examples").resolve()
+assert examples_dir.is_dir(), examples_dir
 
-for example in examples:
-    # -- Skip broken examples.
-    if example in utils.PROBLEMATIC_EXAMPLES:
-        continue
+for board in glob("*", root_dir=examples_dir):
+    board_dir = examples_dir / board
+    for example in glob("*", root_dir=board_dir):
+       example_dir = board_dir / example  
 
-    # -- Change to the project dir
-    example_dir = examples_root / example
-    print(f"\ncd {example_dir}")
-    os.chdir(example_dir)
+       # -- Change to example directory.
+       print(f"cd {example_dir}")
+       os.chdir(example_dir)
 
-    # -- Run 'apio clean'
-    print("apio clean")
-    assert os.system("apio clean") == 0
+       # -- Run 'apio clean'. We don't check the status.
+       print(f"apio clean")
+       os.system("apio clean")
