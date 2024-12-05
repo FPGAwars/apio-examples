@@ -1,13 +1,11 @@
 module clock_divider
 (
 	input clock_in,
-	output clock_div4_0,
-	output clock_div4_90
+	output reg clock_div4_0 = 0,
+	output reg clock_div4_90 = 0
 );
 
 reg clock_div2 = 0;
-reg clock_div4_0 = 0;
-reg clock_div4_90 = 0;
 
 always @(posedge clock_in) begin
 	clock_div2 <= ~clock_div2;

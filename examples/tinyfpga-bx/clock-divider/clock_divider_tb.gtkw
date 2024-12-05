@@ -1,0 +1,26 @@
+[*]
+[*] GTKWave Analyzer v3.4.0 (w)1999-2022 BSI
+[*] Thu Dec  5 05:13:16 2024
+[*]
+[dumpfile] "/Volumes/projects/apio-examples/repo/examples/tinyfpga-bx/clock-divider/_build/clock_divider_tb.vcd"
+[dumpfile_mtime] "Thu Dec  5 05:11:25 2024"
+[dumpfile_size] 45675
+[savefile] "/Volumes/projects/apio-examples/repo/examples/tinyfpga-bx/clock-divider/clock_divider_tb.gtkw"
+[timestart] 0
+[size] 1000 600
+[pos] -1 -1
+*-15.388074 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] clock_divider_tb.
+[sst_width] 253
+[signals_width] 136
+[sst_expanded] 1
+[sst_vpaned_height] 158
+@29
+[color] 2
+clock_divider_tb.cdiv.clock_in
+@28
+clock_divider_tb.cdiv.clock_div2
+clock_divider_tb.cdiv.clock_div4_0
+clock_divider_tb.cdiv.clock_div4_90
+[pattern_trace] 1
+[pattern_trace] 0
