@@ -23,7 +23,7 @@ class BoardIssues(Enum):
 
     MISSING_DIR = 1
     BAD_DIR_NAME = 2
-    NO_TEMPLATE = 3
+    NO_TEMPLATE_EXAMPLE = 3
     EMPTY_DIR = 4
 
 
@@ -92,7 +92,7 @@ def scan_board_issues(board_name: str, board_dir: Path) -> Set[BoardIssues]:
 
     # -- Test if an example named 'template' exists.
     if not (board_dir / "template").is_dir():
-        issues.add(BoardIssues.NO_TEMPLATE)
+        issues.add(BoardIssues.NO_TEMPLATE_EXAMPLE)
 
     # -- Test if it has at least one example.
     if not glob("*", root_dir=board_dir):
