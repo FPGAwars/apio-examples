@@ -18,6 +18,15 @@ set -e
 # Set english language for propper pattern matching
 export LC_ALL=C
 
+# Sanity check
+if find . | grep -e _build -e .sconsign.dblite
+then
+  echo
+  echo "Error: the examples directory seems to contain build artifacts."
+  echo "Try running ./clean_examples.sh"
+  exit 1
+fi
+
 # -- Store the current dir
 WORK_DIR=$PWD
 
