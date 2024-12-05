@@ -242,7 +242,7 @@ def report_boards(file_name: str, issues_only: bool):
                 if issue in b.issues:
                     values.append("X")
                 else:
-                    values.append("")
+                    values.append(" ")
             f.write(",".join(values) + "\n")
 
         click.secho(f"Generated {file_name}", fg="green")
@@ -284,7 +284,7 @@ def report_examples(file_name: str, issues_only: bool):
                 if issue in e.issues:
                     values.append(f"X")
                 else:
-                    values.append(f"")
+                    values.append(f" ")
             f.write(",".join(values) + "\n")
 
         click.secho(f"Generated {file_name}", fg="green")
