@@ -9,6 +9,7 @@ from enum import Enum
 from dataclasses import dataclass
 import os
 from apio.apio_context import ApioContext
+
 # from examples_utils import scan_examples_tree, BoardIssues, ExampleIssues
 from typing import Set, List, Union
 from pathlib import Path
@@ -63,6 +64,10 @@ class ExampleScan:
     example_dir: Path
     issues: Set[ExampleIssues]
 
+    @property
+    def full_name(self):
+        return f"{self.board.name}/{self.name}"
+
 
 def run(cmd: str) -> int:
     print(f"{cmd}")
@@ -89,7 +94,9 @@ def scan_board_issues(board_name: str, board_dir: Path) -> Set[BoardIssues]:
     issues: Set[BoardIssues] = set()
 
     # -- Test that the name is a valid board name
-    if board_name != apio_ctx.lookup_board_id(board_name, strict=False, warn=False):
+    if board_name != apio_ctx.lookup_board_id(
+        board_name, strict=False, warn=False
+    ):
         issues.add(BoardIssues.BAD_DIR_NAME)
 
     # -- Test if an example named 'template' exists.
@@ -171,7 +178,7 @@ def scan_example_issues(
         elif len(info_lines[0]) > 100:
             issues.add(ExampleIssues.INFO_TOO_LONG)
 
-    # -- Check that the project doesn't contains subdirectoreis. This 
+    # -- Check that the project doesn't contains subdirectoreis. This
     # -- creates an issue with 'apio examples -f".
     run("apio clean")
     for e in glob("*"):
@@ -192,12 +199,96 @@ def scan_example_issues(
     if os.system("grep VCD_OUTPUT *_tb.v") == 0:
         issues.add(ExampleIssues.HAS_VCD_OUTPUT)
 
-
     # Restore caller's cwd.
     os.chdir(save_dir)
 
     # All done.
     return issues
+
+
+def report_boards(file_name: str, issues_only: bool):
+
+    # -- Collect the boards issues that shoule be included in the report.
+    boards_to_show = set()
+    issues_to_show = set()
+    if issues_only:
+        for b in boards_scans:
+            if b.issues:
+                boards_to_show.add(b.name)
+            issues_to_show.update(b.issues)
+    else:
+        boards_to_show.update([b.name for b in boards_scans])
+        issues_to_show.update([i for i in BoardIssues])
+
+    # -- Write the report
+    with open(file_name, "w") as f:
+
+        # -- Print boards table header.
+        header = ["BOARD"]
+        for issue in BoardIssues:
+            if issue not in issues_to_show:
+                continue
+            header.append(issue.name.replace("_", " "))
+        f.write(",".join(header) + "\n")
+
+        # # -- Print board values
+        for b in boards_scans:
+            if b.name not in boards_to_show:
+                continue
+            values = [b.name]
+            for issue in BoardIssues:
+                if issue not in issues_to_show:
+                    continue
+                if issue in b.issues:
+                    values.append("X")
+                else:
+                    values.append(" ")
+            f.write(",".join(values) + "\n")
+
+        click.secho(f"Generated {file_name}", fg="green")
+
+
+def report_examples(file_name: str, issues_only: bool):
+
+    # -- Collect the examples and issues that shoule be included
+    # -- in the report.
+    examples_to_show = set()
+    issues_to_show = set()
+    if issues_only:
+        for e in examples_scans:
+            if e.issues:
+                examples_to_show.add(e.full_name)
+            issues_to_show.update(e.issues)
+    else:
+        examples_to_show.update(e.full_name for e in examples_scans)
+        issues_to_show.update([i for i in ExampleIssues])
+
+    with open(file_name, "w") as f:
+        # -- Print boards table header.
+        header = ["BOARD", "EXAMPLE"]
+        for issue in ExampleIssues:
+            if issue not in issues_to_show:
+                continue
+            header.append(issue.name.replace("_", " "))
+        f.write(",".join(header) + "\n")
+
+        # # -- Print board values
+        for e in examples_scans:
+            if e.full_name not in examples_to_show:
+                continue
+            #   issues = [x.name for x in b.issues]
+            values = [e.board.name, e.name]
+            for issue in ExampleIssues:
+                if issue not in issues_to_show:
+                    continue
+                if issue in e.issues:
+                    values.append(f"X")
+                else:
+                    values.append(f" ")
+            f.write(",".join(values) + "\n")
+
+        click.secho(f"Generated {file_name}", fg="green")
+
 
 # -- MAIN starts here
 
@@ -206,8 +297,8 @@ examples_dir = Path("examples").resolve()
 print(examples_dir)
 assert examples_dir.is_dir(), examples_dir
 
-boards_scans:List[BoardScan] = []
-examples_scans:List[ExampleScan] = []
+boards_scans: List[BoardScan] = []
+examples_scans: List[ExampleScan] = []
 
 # -- Scan boards and examples. Results are in boards_scan and examples_scan
 # -- respectivly.
@@ -236,55 +327,17 @@ for b in apio_ctx.boards:
         board_scan = BoardScan(b, None, set([BoardIssues.MISSING_DIR]), [])
         boards_scans.append(board_scan)
 
-# -- Sort the bboards and examples lists
-
+# -- Sort by names
 boards_scans.sort(key=lambda b: b.name)
 examples_scans.sort(key=lambda e: (e.board.name, e.name))
 
 
 print("\n\n**** sgenerating files.\n")
 
-# -- Write the boards report file _boards.csv
-boards_file = "_boards_report.csv"
-with open(boards_file, "w") as f:
+# -- Generate for boards
+report_boards("_boards_full.csv", issues_only=False)
+report_boards("_boards_issues_only.csv", issues_only=True)
 
-    # -- Print boards table header.
-    header = ["BOARD"]
-    for issue in BoardIssues:
-        header.append(issue.name.replace("_", " "))
-    f.write(",".join(header) + "\n")
-
-    # # -- Print board values
-    for b in boards_scans:
-        values = [b.name]
-        for issue in BoardIssues:
-            if issue in b.issues:
-                values.append("X")
-            else:
-                values.append("")
-        f.write(",".join(values) + "\n")
-
-    click.secho(f"Generated boards report {boards_file}", fg="green")
-
-# -- Write examples report file _examples.csv
-examples_file = "_examples_report.csv"
-with open(examples_file, "w") as f:
-
-    # -- Print boards table header.
-    header = ["BOARD", "EXAMPLE"]
-    for issue in ExampleIssues:
-        header.append(issue.name.replace("_", " "))
-    f.write(",".join(header) + "\n")
-
-    # # -- Print board values
-    for e in examples_scans:
-        #   issues = [x.name for x in b.issues]
-        values = [e.board.name, e.name]
-        for issue in ExampleIssues:
-            if issue in e.issues:
-                values.append(f"X")
-            else:
-                values.append(f"")
-        f.write(",".join(values) + "\n")
-
-    click.secho(f"Generated examples report {examples_file}", fg="green")
+# -- Generate for examples
+report_examples("_examples_full.csv", issues_only=False)
+report_examples("_examples_issues_only.csv", issues_only=True)
