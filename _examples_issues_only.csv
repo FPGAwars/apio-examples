@@ -1,11 +1,10 @@
 BOARD,EXAMPLE,LINT FAILS,NO TESTBENCH
-alchitry-cu,blinky,X,X
 alhambra-ii,blinky, ,X
 alhambra-ii,template, ,X
 blackice,blink, ,X
 blackice,blinky, ,X
 cat-board,blinky, ,X
-colorlight-5a-75b-v8,blinky,X,X
+colorlight-5a-75b-v8,blinky, ,X
 colorlight-5a-75e-v71-ft2232h,blinky,X,X
 colorlight-5a-75e-v71-ft2232h,ledon,X,X
 cynthion-r1-4,blinky, ,X
