@@ -21,7 +21,7 @@ module TinyFPGA_B (
   //inout pin10,
   //inout pin11,
   //inout pin12,
-  output pin13,
+  output pin13
   //inout pin14_sdo,
   //inout pin15_sdi,
   //inout pin16_sck,
