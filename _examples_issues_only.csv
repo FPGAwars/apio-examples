@@ -19,7 +19,7 @@ ice40-up5k,led-green, ,X
 ice40-up5k,switches, ,X
 icebreaker,blinky, ,X
 icebreaker,buttons, ,X
-icebreaker,led-green,X,X
+icebreaker,led-green, ,X
 icesugar-1-5,blinky, ,X
 icewerx,blinky, ,X
 icezum,frere-jacques,X, 
