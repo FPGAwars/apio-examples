@@ -7,7 +7,7 @@ module led_test (
 	output LED2,
 	output LED3,
 	output LED4,
-	output LED5,
+	output LED5 
 );
 
 //-- Turn on the green signal (inverse logic)

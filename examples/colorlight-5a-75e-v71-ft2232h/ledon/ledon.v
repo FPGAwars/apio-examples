@@ -3,7 +3,7 @@
 //--------------------------------------
 
 module top(
-    output led,   //-- LED
+    output led   //-- LED
 );
 
   // -- The LED on the ColorLight-5A-75E works

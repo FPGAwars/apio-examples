@@ -9,7 +9,7 @@ module led_on(
   assign led[0] = 1'b1;
 
   //-- The other LEDs are off
-  assign led[7:1] = 6'b0;
+  assign led[7:1] = 7'b0;
   
 endmodule
 
