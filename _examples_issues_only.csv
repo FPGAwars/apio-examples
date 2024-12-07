@@ -17,8 +17,7 @@ go-board,blinky, ,X
 ice40-up5k,blinky, ,X
 ice40-up5k,led-green, ,X
 ice40-up5k,switches, ,X
-icebreaker,blink,X,X
-icebreaker,blinky,X,X
+icebreaker,blinky, ,X
 icebreaker,buttons, ,X
 icebreaker,led-green,X,X
 icesugar-1-5,blinky, ,X

@@ -22,7 +22,7 @@ reg [23:0] counter = 0;
   assign LEDG_N = counter[23];
 
   //-- Turn off the other LEDs
-  assign LEDR_N = 3'b1;
+  assign LEDR_N = 1'b1;
   assign {LED5, LED4, LED3, LED2, LED1} = 5'b0;
 
 endmodule
