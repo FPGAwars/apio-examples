@@ -29,8 +29,7 @@ tinyfpga-bx,blink-sos, ,X
 tinyfpga-bx,blinky, ,X
 tinyfpga-bx,template, ,X
 ulx3s-12f,blinky, ,X
-ulx3s-12f,ledon,X, 
-ulx3s-45f,blinky,X,X
-ulx3s-85f,blinky,X,X
+ulx3s-45f,blinky, ,X
+ulx3s-85f,blinky, ,X
 upduino31,blinky,X,X
 upduino31,pll,X,X
