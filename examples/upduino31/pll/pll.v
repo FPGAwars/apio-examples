@@ -25,12 +25,22 @@ module pll (
       .DIVF(7'b1001111),  // DIVF = 79
       .DIVQ(3'b101),  // DIVQ =  5
       .FILTER_RANGE(3'b001)  // FILTER_RANGE = 1
-  ) uut (
+  ) pll_core (
       .LOCK(locked),
       .RESETB(1'b1),
       .BYPASS(1'b0),
       .REFERENCECLK(clock_in),
-      .PLLOUTCORE(clock_out)
+      .PLLOUTCORE(clock_out),
+
+      // Unused
+      .PLLOUTGLOBAL(),
+      .EXTFEEDBACK(),
+      .LATCHINPUTVALUE(),
+      .SDO(),
+      .SDI(),
+      .SCLK(),
+      .DYNAMICDELAY()
+
   );
 
 endmodule

@@ -24,9 +24,9 @@ module leds (
   // 9 bits PWM counter.
   wire [ 8:0] pwm_counter = divider[15:7];
 
-  wire        pwm_red = pwm_counter < IntensityRed;
-  wire        pwm_green = pwm_counter < IntensityGreen;
-  wire        pwm_blue = pwm_counter < IntensityBlue;
+  wire        pwm_red = pwm_counter < IntensityRed[8:0];
+  wire        pwm_green = pwm_counter < IntensityGreen[8:0];
+  wire        pwm_blue = pwm_counter < IntensityBlue[8:0];
 
   // Behavior.
   always @(posedge clk) begin

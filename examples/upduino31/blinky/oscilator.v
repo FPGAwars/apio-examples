@@ -8,7 +8,19 @@ module oscilator (
   SB_HFOSC interal_osc (
       .CLKHFPU(1'b1),
       .CLKHFEN(1'b1),
-      .CLKHF  (clk)
+      .CLKHF  (clk),
+
+      // Unused
+      .TRIM0(),
+      .TRIM1(),
+      .TRIM2(),
+      .TRIM3(),
+      .TRIM4(),
+      .TRIM5(),
+      .TRIM6(),
+      .TRIM7(),
+      .TRIM8(),
+      .TRIM9()
   );
 
 endmodule
