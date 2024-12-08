@@ -7,7 +7,7 @@
 #  ./build.sh
 
 # -- Set the version the generated package
-VERSION=0.1.0
+VERSION=0.1.2
 
 # For debugging, echo executed commands.
 # set -x
