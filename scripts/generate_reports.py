@@ -40,13 +40,14 @@ class ExampleIssues(Enum):
     LINT_FAILS = 7
     NO_TESTBENCH = 8
     TEST_FAILS = 9
-    CLEAN_FAILS = 10
-    INFO_TOO_LONG = 11
-    INFO_TOO_SHORT = 12
-    MULTIPLE_INFO_LINES = 13
-    CONTAINS_DIRS = 14
-    HAS_DUMPFILE = 15
-    HAS_VCD_OUTPUT = 16
+    MISSING_VCD = 10
+    CLEAN_FAILS = 11
+    INFO_TOO_LONG = 12
+    INFO_TOO_SHORT = 13
+    MULTIPLE_INFO_LINES = 14
+    CONTAINS_DIRS = 15
+    HAS_DUMPFILE = 16
+    HAS_VCD_OUTPUT = 17
 
 
 @dataclass
@@ -149,10 +150,17 @@ def scan_example_issues(
         issues.add(ExampleIssues.LINT_FAILS)
 
     # -- If there are testbenches, test them.
-    if not glob("*_tb.v"):
+    testbenches = glob("*_tb.v")
+    if not testbenches:
         issues.add(ExampleIssues.NO_TESTBENCH)
     elif run("apio test") != 0:
         issues.add(ExampleIssues.TEST_FAILS)
+    else:
+        # Test passed. Verify that each testbench generated the expected .vcd.
+        for tb in testbenches:
+            expected_vcd = Path("_build") / tb.replace(".v", ".vcd")
+            if not expected_vcd.is_file():
+                issues.add(ExampleIssues.MISSING_VCD)
 
     # -- Check a few requirements from teh apio.ini file.
     if not (example_dir / "apio.ini").is_file():
