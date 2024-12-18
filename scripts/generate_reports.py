@@ -41,13 +41,15 @@ class ExampleIssues(Enum):
     NO_TESTBENCH = 8
     TEST_FAILS = 9
     MISSING_VCD = 10
-    CLEAN_FAILS = 11
-    INFO_TOO_LONG = 12
-    INFO_TOO_SHORT = 13
-    MULTIPLE_INFO_LINES = 14
-    CONTAINS_DIRS = 15
-    HAS_DUMPFILE = 16
-    HAS_VCD_OUTPUT = 17
+    MISSING_GTKW = 11
+    CLEAN_FAILS = 12
+    INFO_TOO_LONG = 13
+    INFO_TOO_SHORT = 14
+    MULTIPLE_INFO_LINES = 15
+    CONTAINS_DIRS = 16
+    HAS_DUMPFILE = 17
+    HAS_VCD_OUTPUT = 18
+    
 
 
 @dataclass
@@ -150,7 +152,13 @@ def scan_example_issues(
         issues.add(ExampleIssues.LINT_FAILS)
 
     # -- If there are testbenches, test them.
-    testbenches = glob("*_tb.v")
+    testbenches = glob("*_tb.v") + glob("*_tb.sv")
+    for tb in testbenches:
+        # -- Each testbench should have a matching .gtkw file with signal
+        # -- selection for 'apio sim' gtkwave view.
+        gtkw_file_name = os.path.splitext(tb)[0] + ".gtkw"
+        if not Path(gtkw_file_name).is_file():
+            issues.add(ExampleIssues.MISSING_GTKW)
     if not testbenches:
         issues.add(ExampleIssues.NO_TESTBENCH)
     elif run("apio test") != 0:
@@ -158,7 +166,8 @@ def scan_example_issues(
     else:
         # Test passed. Verify that each testbench generated the expected .vcd.
         for tb in testbenches:
-            expected_vcd = Path("_build") / tb.replace(".v", ".vcd")
+            vcd_file_name = os.path.splitext(tb)[0] + ".vcd"
+            expected_vcd = Path("_build") / vcd_file_name
             if not expected_vcd.is_file():
                 issues.add(ExampleIssues.MISSING_VCD)
 
@@ -202,9 +211,13 @@ def scan_example_issues(
     # -- Check if a testbench contains '$dumpfile'
     if os.system("grep '$dumpfile(' *_tb.v") == 0:
         issues.add(ExampleIssues.HAS_DUMPFILE)
+    if os.system("grep '$dumpfile(' *_tb.sv") == 0:
+        issues.add(ExampleIssues.HAS_DUMPFILE)
 
     # -- Check if a testbench contains 'VCD_OUTPUT'
     if os.system("grep VCD_OUTPUT *_tb.v") == 0:
+        issues.add(ExampleIssues.HAS_VCD_OUTPUT)
+    if os.system("grep VCD_OUTPUT *_tb.sv") == 0:
         issues.add(ExampleIssues.HAS_VCD_OUTPUT)
 
     # Restore caller's cwd.
