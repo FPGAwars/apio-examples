@@ -128,6 +128,12 @@ def scan_example_issues(
     print(f"cd {example_dir}")
     os.chdir(example_dir)
 
+    # -- Format all source files
+    # src_files = glob("*.v") + glob("*.sv")
+    # for f in src_files:
+    #     status = run(f"apio raw -- verible-verilog-format --inplace '{f}'")
+    #     assert status == 0, f"Failed formatting {f}"
+
     # -- Create an apio context for this project.
     apio_ctx = ApioContext(load_project=True)
 
