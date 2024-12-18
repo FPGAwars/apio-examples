@@ -15,24 +15,25 @@
 //-- SALIDAS:
 //--     - clk_out. Señal de salida para lograr la velocidad en baudios indicada
 //--                Anchura de 1 periodo de clk. SALIDA NO REGISTRADA
-module dividerp1(input wire clk,
-                 output wire clk_out);
+module dividerp1 (
+    input  wire clk,
+    output wire clk_out
+);
 
-//-- Valor por defecto de la velocidad en baudios
-parameter M = `T_100ms;
+  //-- Valor por defecto de la velocidad en baudios
+  parameter M = `T_100ms;
 
-//-- Numero de bits para almacenar el divisor de baudios
-localparam N = $clog2(M);
+  //-- Numero de bits para almacenar el divisor de baudios
+  localparam N = $clog2(M);
 
-//-- Registro para implementar el contador modulo M
-reg [N-1:0] divcounter = 0;
+  //-- Registro para implementar el contador modulo M
+  reg [N-1:0] divcounter = 0;
 
-//-- Contador módulo M
-always @(posedge clk)
-    divcounter <= (divcounter == M - 1) ? 0 : divcounter + 1;
+  //-- Contador módulo M
+  always @(posedge clk) divcounter <= (divcounter == M - 1) ? 0 : divcounter + 1;
 
-//-- Sacar un pulso de anchura 1 ciclo de reloj si el generador
-assign clk_out = (divcounter == 0) ? 1 : 0;
+  //-- Sacar un pulso de anchura 1 ciclo de reloj si el generador
+  assign clk_out = (divcounter == 0) ? 1 : 0;
 
 
 endmodule

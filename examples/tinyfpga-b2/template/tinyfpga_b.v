@@ -9,30 +9,30 @@
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 module TinyFPGA_B (
-  output pin1_usb_dp,
-  output pin2_usb_dn,
-  input pin3_clk_16mhz,
-  //inout pin4,
-  //inout pin5,
-  //inout pin6,
-  //inout pin7,
-  //inout pin8,
-  //inout pin9,
-  //inout pin10,
-  //inout pin11,
-  //inout pin12,
-  output pin13
-  //inout pin14_sdo,
-  //inout pin15_sdi,
-  //inout pin16_sck,
-  //inout pin17_ss,
-  //inout pin18,
-  //inout pin19,
-  //inout pin20,
-  //inout pin21,
-  //inout pin22,
-  //inout pin23,
-  //inout pin24
+    output pin1_usb_dp,
+    output pin2_usb_dn,
+    input  pin3_clk_16mhz,
+    //inout pin4,
+    //inout pin5,
+    //inout pin6,
+    //inout pin7,
+    //inout pin8,
+    //inout pin9,
+    //inout pin10,
+    //inout pin11,
+    //inout pin12,
+    output pin13
+    //inout pin14_sdo,
+    //inout pin15_sdi,
+    //inout pin16_sck,
+    //inout pin17_ss,
+    //inout pin18,
+    //inout pin19,
+    //inout pin20,
+    //inout pin21,
+    //inout pin22,
+    //inout pin23,
+    //inout pin24
 );
   reg [23:0] counter;
   always @(posedge pin3_clk_16mhz) counter <= counter + 1;

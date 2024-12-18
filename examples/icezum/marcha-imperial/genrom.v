@@ -12,33 +12,35 @@
 //-- Con este componente podemos hacer memorias rom de cualquier tamaño
 //----------------------------------------------------------------------------
 
-module genrom #(             //-- Parametros
-         //-- Parametro: Nombre del fichero con el contenido de la ROM
-         parameter ROMFILE = "rom1.list",
-         parameter AW = 5,   //-- Bits de las direcciones (Adress width)
-         parameter DW = 4)   //-- Bits de los datos (Data witdh)
+module genrom #(  //-- Parametros
+    //-- Parametro: Nombre del fichero con el contenido de la ROM
+    parameter ROMFILE = "rom1.list",
+    parameter AW = 5,  //-- Bits de las direcciones (Adress width)
+    parameter DW = 4
+)  //-- Bits de los datos (Data witdh)
 
-       (                              //-- Puertos
-         input clk,                   //-- Señal de reloj global
-         input wire [AW-1: 0] addr,   //-- Direcciones
-         output reg [DW-1: 0] data);  //-- Dato de salida
+(  //-- Puertos
+    input                clk,   //-- Señal de reloj global
+    input  wire [AW-1:0] addr,  //-- Direcciones
+    output reg  [DW-1:0] data
+);  //-- Dato de salida
 
-//-- Calcular el numero de posiciones totales de memoria
-localparam NPOS = 2 ** AW;
+  //-- Calcular el numero de posiciones totales de memoria
+  localparam NPOS = 2 ** AW;
 
   //-- Memoria
-  reg [DW-1: 0] rom [0: NPOS-1];
+  reg [DW-1:0] rom[0:NPOS-1];
 
   //-- Lectura de la memoria
   always @(posedge clk) begin
     data <= rom[addr];
   end
 
-//-- Cargar en la memoria el fichero ROMFILE
-//-- Los valores deben estan dados en hexadecimal
-initial begin
-  $readmemh(ROMFILE, rom);
-end
+  //-- Cargar en la memoria el fichero ROMFILE
+  //-- Los valores deben estan dados en hexadecimal
+  initial begin
+    $readmemh(ROMFILE, rom);
+  end
 
 
 endmodule

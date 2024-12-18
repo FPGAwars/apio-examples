@@ -5,11 +5,12 @@
 //--   * iCE40-HX1K-EVB Olimex
 //------------------------------------------------------------------
 
-module leds(output wire  [1:0] led,
-			input wire [1:0] but
-	);
+module leds (
+    output wire [1:0] led,
+    input  wire [1:0] but
+);
 
-assign led[0]=but[0];
-assign led[1]=but[1];
+  assign led[0] = but[0];
+  assign led[1] = but[1];
 
 endmodule

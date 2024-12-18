@@ -13,15 +13,17 @@
 *                                                                             *
 ******************************************************************************/
 
-module blink(input clk, output LED);
+module blink (
+    input  clk,
+    output LED
+);
 
-localparam N = 24;
+  localparam N = 24;
 
-	reg [N:0] count;
+  reg [N:0] count;
 
-	assign LED = count[N];
+  assign LED = count[N];
 
-	always @(posedge clk)
-			count <= count + 1;
+  always @(posedge clk) count <= count + 1;
 
 endmodule

@@ -49,6 +49,7 @@ class ExampleIssues(Enum):
     CONTAINS_DIRS = 16
     HAS_DUMPFILE = 17
     HAS_VCD_OUTPUT = 18
+    GRAPH_FAILS = 19
     
 
 
@@ -150,6 +151,15 @@ def scan_example_issues(
     # -- Tests if lints ok.
     if run("apio lint") != 0:
         issues.add(ExampleIssues.LINT_FAILS)
+
+    # -- Tests if graphs ok
+    if run("apio graph") != 0:
+        issues.add(ExampleIssues.GRAPH_FAILS)
+    if not Path("_build/hardware.dot").is_file():
+        issues.add(ExampleIssues.GRAPH_FAILS)
+    if not Path("_build/hardware.svg").is_file():
+        issues.add(ExampleIssues.GRAPH_FAILS)
+
 
     # -- If there are testbenches, test them.
     testbenches = glob("*_tb.v") + glob("*_tb.sv")

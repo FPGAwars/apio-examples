@@ -24,7 +24,7 @@ module blinky_tb;
     // Dump vars to the output .vcd file
     $dumpvars(0, blinky_tb);
 
-    repeat(50) begin
+    repeat (50) begin
       #10 clk = ~clk;
     end
 

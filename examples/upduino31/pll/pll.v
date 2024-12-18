@@ -1,5 +1,5 @@
- // MOTE: This file was generated with the command:
- // icepll -m -i 12 -o 30
+// MOTE: This file was generated with the command:
+// icepll -m -i 12 -o 30
 
 /**
  * PLL configuration

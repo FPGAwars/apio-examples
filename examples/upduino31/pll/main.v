@@ -10,7 +10,7 @@
 // to feed the external 12Mhz clock to the FPGA.
 
 module main (
-    input  ext_clk,  // 12Mhz in
+    input ext_clk,  // 12Mhz in
     output pll_clk,  // 30Mhz out
     output pll_locked,
     output [2:0] leds_out
@@ -32,7 +32,7 @@ module main (
       .locked(pll_locked)
   );
 
-   leds leds (
+  leds leds (
       .clk(pll_clk),
       .red_en(1'b0),
       .green_en(led_on),
