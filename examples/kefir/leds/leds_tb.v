@@ -6,37 +6,36 @@
 //-- Jesus Arroyo Torrens
 //-- GPL license
 //-------------------------------------------------------------------
-`default_nettype none
-`timescale 100 ns / 10 ns
+`default_nettype none `timescale 100 ns / 10 ns
 
-module leds_tb();
+module leds_tb ();
 
-//-- Simulation time: 1us (10 * 100ns)
-parameter DURATION = 10;
+  //-- Simulation time: 1us (10 * 100ns)
+  parameter DURATION = 10;
 
-//-- Clock signal. It is not used in this simulation
-reg clk = 0;
-always #0.5 clk = ~clk;
+  //-- Clock signal. It is not used in this simulation
+  reg clk = 0;
+  always #0.5 clk = ~clk;
 
-//-- Leds port
-wire d1, d2, d3, d4;
+  //-- Leds port
+  wire d1, d2, d3, d4;
 
-//-- Instantiate the unit to test
-leds UUT (
-           .D1(d1),
-           .D2(d2),
-           .D3(d3),
-           .D4(d4)
-         );
+  //-- Instantiate the unit to test
+  leds UUT (
+      .D1(d1),
+      .D2(d2),
+      .D3(d3),
+      .D4(d4)
+  );
 
 
-initial begin
+  initial begin
 
-  //-- Dump vars to the .vcd output file
-  $dumpvars(0, leds_tb);
+    //-- Dump vars to the .vcd output file
+    $dumpvars(0, leds_tb);
 
-   #(DURATION) $display("End of simulation");
-  $finish;
-end
+    #(DURATION) $display("End of simulation");
+    $finish;
+  end
 
 endmodule

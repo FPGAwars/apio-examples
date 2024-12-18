@@ -9,9 +9,9 @@
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 module TinyFPGA_B (
-  input CLK,    // 16MHz clock
-  output LED,   // User/boot LED next to power LED
-  output USBPU  // USB pull-up resistor
+    input  CLK,   // 16MHz clock
+    output LED,   // User/boot LED next to power LED
+    output USBPU  // USB pull-up resistor
 );
   reg [23:0] counter;
   always @(posedge CLK) counter <= counter + 1;
@@ -19,6 +19,6 @@ module TinyFPGA_B (
   // drive USB pull-up resistor to '0' to disable USB
   assign USBPU = 0;
 
-  assign LED = counter[23];
+  assign LED   = counter[23];
 
 endmodule

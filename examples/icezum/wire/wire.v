@@ -7,10 +7,12 @@
 //--   * Icezum alhambra (https://github.com/FPGAwars/icezum)
 //------------------------------------------------------------------
 
-module simplewire(input  wire in,
-                  output wire out);
+module simplewire (
+    input  wire in,
+    output wire out
+);
 
-//-- Wire: Connect the input with the output
-assign out = in;
+  //-- Wire: Connect the input with the output
+  assign out = in;
 
 endmodule

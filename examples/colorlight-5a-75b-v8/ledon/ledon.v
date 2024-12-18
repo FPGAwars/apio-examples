@@ -2,8 +2,8 @@
 //-- Turning on the LED
 //--------------------------------------
 
-module ledon(
-    output led   //-- LED
+module ledon (
+    output led  //-- LED
 );
 
   // -- The LED on the ColorLight-5A-75E works

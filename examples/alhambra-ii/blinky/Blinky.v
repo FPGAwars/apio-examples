@@ -3,15 +3,21 @@
 //------------------------------------------------------------------
 
 module Test (
-  input CLK,    // 12MHz clock
-  output LED7,   // LED to blink
-  output LED6, LED5, LED4, LED3, LED2, LED1, LED0 //-- The rest of the LED (turned off)
+    input  CLK,   // 12MHz clock
+    output LED7,  // LED to blink
+    // The rest of the LEDs are turned off.
+    output LED6,  
+    output LED5,
+    output LED4,
+    output LED3,
+    output LED2,
+    output LED1,
+    output LED0  
 );
 
   reg [23:0] counter = 0;
 
-  always @(posedge CLK) 
-    counter <= counter + 1;
+  always @(posedge CLK) counter <= counter + 1;
 
   assign LED7 = counter[23];
 

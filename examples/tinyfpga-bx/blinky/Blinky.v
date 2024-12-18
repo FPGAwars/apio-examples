@@ -3,7 +3,7 @@
 //------------------------------------------------------------------
 
 module Test (
-  input CLK,    // 16MHz clock
+    input  CLK,   // 16MHz clock
     output LED,   // User/boot LED next to power LED
     output USBPU  // USB pull-up resistor
 );
@@ -13,8 +13,7 @@ module Test (
 
   reg [24:0] counter = 0;
 
-  always @(posedge CLK) 
-    counter <= counter + 1;
+  always @(posedge CLK) counter <= counter + 1;
 
   assign LED = counter[24];
 
