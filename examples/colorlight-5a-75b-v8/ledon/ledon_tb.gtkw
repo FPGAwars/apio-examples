@@ -1,0 +1,21 @@
+[*]
+[*] GTKWave Analyzer v3.4.0 (w)1999-2022 BSI
+[*] Wed Dec 18 18:59:41 2024
+[*]
+[dumpfile] "/Volumes/projects/apio-examples/repo/examples/colorlight-5a-75b-v8/ledon/_build/ledon_tb.vcd"
+[dumpfile_mtime] "Wed Dec 18 18:59:05 2024"
+[dumpfile_size] 358
+[savefile] "/Volumes/projects/apio-examples/repo/examples/colorlight-5a-75b-v8/ledon/ledon_tb.gtkw"
+[timestart] 0
+[size] 1000 600
+[pos] -1 -1
+*-8.286901 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] ledon_tb.
+[sst_width] 253
+[signals_width] 78
+[sst_expanded] 1
+[sst_vpaned_height] 158
+@28
+ledon_tb.led
+[pattern_trace] 1
+[pattern_trace] 0
