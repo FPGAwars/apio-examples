@@ -1,4 +1,4 @@
-BOARD,MISSING DIR,BAD DIR NAME,NO TEMPLATE EXAMPLE,EMPTY DIR
+BOARD,MISSING DIR,BAD DIR NAME,NO TEMPLATE,EMPTY DIR
 alchitry-cu, , ,X, 
 alhambra-ii, , , , 
 arice1,X, , , 
@@ -53,6 +53,7 @@ icewerx, , ,X,
 icezum, , , , 
 icoboard, , , , 
 kefir, , , , 
+mimas-ecp5-mini,X, , , 
 odt-icyblue-feather,X, , , 
 odt-rpga-feather,X, , , 
 ok-ice40pro,X, , , 
