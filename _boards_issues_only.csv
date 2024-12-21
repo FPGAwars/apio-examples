@@ -1,4 +1,4 @@
-BOARD,MISSING DIR,NO TEMPLATE EXAMPLE
+BOARD,MISSING DIR,NO TEMPLATE
 alchitry-cu, ,X
 arice1,X, 
 blackice, ,X
@@ -46,6 +46,7 @@ icesugar-pro-ft2232h,X,
 icesugar-pro-ft232h,X, 
 icesugar-pro-usb-blaster,X, 
 icewerx, ,X
+mimas-ecp5-mini,X, 
 odt-icyblue-feather,X, 
 odt-rpga-feather,X, 
 ok-ice40pro,X, 
