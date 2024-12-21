@@ -8,7 +8,7 @@ module Test (
     //-- The other LEDs
     output LED2,
     output LED3,
-    output LED4  
+    output LED4
 );
 
   reg [23:0] counter = 0;
