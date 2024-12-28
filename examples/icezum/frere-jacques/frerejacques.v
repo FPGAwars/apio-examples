@@ -90,141 +90,141 @@ module secnotas (
   always @*
     case (sel)
       //Frere Jacques
-      0: ch_out <= ch0;
-      1: ch_out <= ch1;
-      2: ch_out <= ch2;
-      3: ch_out <= ch0;
+      0: ch_out = ch0;
+      1: ch_out = ch1;
+      2: ch_out = ch2;
+      3: ch_out = ch0;
 
-      4: ch_out <= 0;
+      4: ch_out = 0;
 
       //Frere Jacques
-      5: ch_out <= ch0;
-      6: ch_out <= ch1;
-      7: ch_out <= ch2;
-      8: ch_out <= ch0;
+      5: ch_out = ch0;
+      6: ch_out = ch1;
+      7: ch_out = ch2;
+      8: ch_out = ch0;
 
-      9: ch_out <= 0;
-
-      //Dormez-vous?
-      10: ch_out <= ch2;
-      11: ch_out <= ch3;
-      12: ch_out <= ch4;
-
-      13: ch_out <= 0;
+      9: ch_out = 0;
 
       //Dormez-vous?
-      14: ch_out <= ch2;
-      15: ch_out <= ch3;
-      16: ch_out <= ch4;
+      10: ch_out = ch2;
+      11: ch_out = ch3;
+      12: ch_out = ch4;
 
-      17: ch_out <= 0;
+      13: ch_out = 0;
 
-      //Sonnez les matines
-      18: ch_out <= ch4;
-      19: ch_out <= ch5;
-      20: ch_out <= ch4;
-      21: ch_out <= ch3;
-      22: ch_out <= ch2;
-      23: ch_out <= ch0;
+      //Dormez-vous?
+      14: ch_out = ch2;
+      15: ch_out = ch3;
+      16: ch_out = ch4;
 
-      24: ch_out <= 0;
+      17: ch_out = 0;
 
       //Sonnez les matines
-      25: ch_out <= ch4;
-      26: ch_out <= ch5;
-      27: ch_out <= ch4;
-      28: ch_out <= ch3;
-      29: ch_out <= ch2;
-      30: ch_out <= ch0;
+      18: ch_out = ch4;
+      19: ch_out = ch5;
+      20: ch_out = ch4;
+      21: ch_out = ch3;
+      22: ch_out = ch2;
+      23: ch_out = ch0;
 
-      31: ch_out <= 0;
+      24: ch_out = 0;
+
+      //Sonnez les matines
+      25: ch_out = ch4;
+      26: ch_out = ch5;
+      27: ch_out = ch4;
+      28: ch_out = ch3;
+      29: ch_out = ch2;
+      30: ch_out = ch0;
+
+      31: ch_out = 0;
 
       //Din dan don
-      32: ch_out <= ch0;
-      33: ch_out <= ch4;
-      34: ch_out <= ch0;
+      32: ch_out = ch0;
+      33: ch_out = ch4;
+      34: ch_out = ch0;
 
-      35: ch_out <= 0;
+      35: ch_out = 0;
 
       //Din dan don
-      36: ch_out <= ch0;
-      37: ch_out <= ch4;
-      38: ch_out <= ch0;
+      36: ch_out = ch0;
+      37: ch_out = ch4;
+      38: ch_out = ch0;
 
-      39: ch_out <= 0;
+      39: ch_out = 0;
 
 
-      default: ch_out <= 0;
+      default: ch_out = 0;
     endcase
 
   always @*
     case (sel2)
       //Frere Jacques
-      0: ch_out2 <= ch0;
-      1: ch_out2 <= ch1;
-      2: ch_out2 <= ch2;
-      3: ch_out2 <= ch0;
+      0: ch_out2 = ch0;
+      1: ch_out2 = ch1;
+      2: ch_out2 = ch2;
+      3: ch_out2 = ch0;
 
-      4: ch_out2 <= 0;
+      4: ch_out2 = 0;
 
       //Frere Jacques
-      5: ch_out2 <= ch0;
-      6: ch_out2 <= ch1;
-      7: ch_out2 <= ch2;
-      8: ch_out2 <= ch0;
+      5: ch_out2 = ch0;
+      6: ch_out2 = ch1;
+      7: ch_out2 = ch2;
+      8: ch_out2 = ch0;
 
-      9: ch_out2 <= 0;
-
-      //Dormez-vous?
-      10: ch_out2 <= ch2;
-      11: ch_out2 <= ch3;
-      12: ch_out2 <= ch4;
-
-      13: ch_out2 <= 0;
+      9: ch_out2 = 0;
 
       //Dormez-vous?
-      14: ch_out2 <= ch2;
-      15: ch_out2 <= ch3;
-      16: ch_out2 <= ch4;
+      10: ch_out2 = ch2;
+      11: ch_out2 = ch3;
+      12: ch_out2 = ch4;
 
-      17: ch_out2 <= 0;
+      13: ch_out2 = 0;
 
-      //Sonnez les matines
-      18: ch_out2 <= ch4;
-      19: ch_out2 <= ch5;
-      20: ch_out2 <= ch4;
-      21: ch_out2 <= ch3;
-      22: ch_out2 <= ch2;
-      23: ch_out2 <= ch0;
+      //Dormez-vous?
+      14: ch_out2 = ch2;
+      15: ch_out2 = ch3;
+      16: ch_out2 = ch4;
 
-      24: ch_out2 <= 0;
+      17: ch_out2 = 0;
 
       //Sonnez les matines
-      25: ch_out2 <= ch4;
-      26: ch_out2 <= ch5;
-      27: ch_out2 <= ch4;
-      28: ch_out2 <= ch3;
-      29: ch_out2 <= ch2;
-      30: ch_out2 <= ch0;
+      18: ch_out2 = ch4;
+      19: ch_out2 = ch5;
+      20: ch_out2 = ch4;
+      21: ch_out2 = ch3;
+      22: ch_out2 = ch2;
+      23: ch_out2 = ch0;
 
-      31: ch_out2 <= 0;
+      24: ch_out2 = 0;
+
+      //Sonnez les matines
+      25: ch_out2 = ch4;
+      26: ch_out2 = ch5;
+      27: ch_out2 = ch4;
+      28: ch_out2 = ch3;
+      29: ch_out2 = ch2;
+      30: ch_out2 = ch0;
+
+      31: ch_out2 = 0;
 
       //Din dan don
-      32: ch_out2 <= ch0;
-      33: ch_out2 <= ch4;
-      34: ch_out2 <= ch0;
+      32: ch_out2 = ch0;
+      33: ch_out2 = ch4;
+      34: ch_out2 = ch0;
 
-      35: ch_out2 <= 0;
+      35: ch_out2 = 0;
 
       //Din dan don
-      36: ch_out2 <= ch0;
-      37: ch_out2 <= ch4;
-      38: ch_out2 <= ch0;
+      36: ch_out2 = ch0;
+      37: ch_out2 = ch4;
+      38: ch_out2 = ch0;
 
-      39: ch_out2 <= 0;
+      39: ch_out2 = 0;
 
 
-      default: ch_out2 <= 0;
+      default: ch_out2 = 0;
     endcase
 
   always @(posedge clk)  //-- Fix-me! Before: clk_dur
