@@ -8,7 +8,7 @@ from pathlib import Path
 from enum import Enum
 from dataclasses import dataclass
 import os
-from apio.apio_context import ApioContext
+from apio.apio_context import ApioContext, ApioContextScope
 
 # from examples_utils import scan_examples_tree, BoardIssues, ExampleIssues
 from typing import Set, List, Union
@@ -92,7 +92,7 @@ def scan_board_issues(board_name: str, board_dir: Path) -> Set[BoardIssues]:
 
     print(f"\n\n***** BOARD {board_dir}\n")
 
-    apio_ctx = ApioContext(load_project=False)
+    apio_ctx = ApioContext(scope=ApioContextScope.NO_PROJECT)
 
     # -- Create an empty test to collect the issues.
     issues: Set[BoardIssues] = set()
@@ -130,7 +130,7 @@ def scan_example_issues(
     os.chdir(example_dir)
 
     # -- Create an apio context for this project.
-    apio_ctx = ApioContext(load_project=True)
+    apio_ctx = ApioContext(scope=ApioContextScope.PROJECT_REQUIRED)
 
     # -- Create an empty test to collect the issues.
     issues: Set[ExampleIssues] = set()
@@ -352,7 +352,7 @@ print("\n\n**** scan done.\n")
 
 # -- Append entries for supported boards that don't have a directory.
 boards_with_dirs = [b.name for b in boards_scans]
-apio_ctx = ApioContext(load_project=False)
+apio_ctx = ApioContext(scope=ApioContextScope.NO_PROJECT)
 for b in apio_ctx.boards:
     if b not in boards_with_dirs:
         board_scan = BoardScan(b, None, set([BoardIssues.MISSING_DIR]), [])
