@@ -1,5 +1,6 @@
 BOARD,EXAMPLE,BAD DIR NAME,BOARD MISMATCH,NO INFO,NO APIO INI,BAD APIO INI,BUILD FAILS,LINT FAILS,NO TESTBENCH,TEST FAILS,MISSING VCD,MISSING GTKW,CLEAN FAILS,INFO TOO LONG,INFO TOO SHORT,MULTIPLE INFO LINES,CONTAINS DIRS,HAS DUMPFILE,HAS VCD OUTPUT,GRAPH FAILS
 alchitry-cu,blinky, , , , , , , , , , , , , , , , , , , 
+alhambra-ii,bcd-counter, , , , , , , , , , , , , , , , , , , 
 alhambra-ii,blinky, , , , , , , ,X, , , , , , , , , , , 
 alhambra-ii,ledon, , , , , , , , , , , , , , , , , , , 
 alhambra-ii,template, , , , , , , ,X, , , , , , , , , , , 
