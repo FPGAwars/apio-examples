@@ -1,0 +1,6 @@
+// Board details at
+// https://wiki.sipeed.com/hardware/en/tang/Tang-Nano-4K/examples/led.html
+
+IO_LOC "sys_clk"   45;
+IO_LOC "sys_reset" 15; // Active low
+IO_LOC "led"       10; // Active low
