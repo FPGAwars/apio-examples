@@ -50,7 +50,7 @@ class ExampleIssues(Enum):
     HAS_DUMPFILE = 17
     HAS_VCD_OUTPUT = 18
     GRAPH_FAILS = 19
-    
+    NO_DEFAULT_SIM = 20
 
 
 @dataclass
@@ -160,7 +160,6 @@ def scan_example_issues(
     if not Path("_build/hardware.svg").is_file():
         issues.add(ExampleIssues.GRAPH_FAILS)
 
-
     # -- If there are testbenches, test them.
     testbenches = glob("*_tb.v") + glob("*_tb.sv")
     for tb in testbenches:
@@ -180,6 +179,16 @@ def scan_example_issues(
             expected_vcd = Path("_build") / vcd_file_name
             if not expected_vcd.is_file():
                 issues.add(ExampleIssues.MISSING_VCD)
+
+    # -- If there are testbenches, test that default sim 'apio sim'
+    # -- does not fails. This is true if 'default-testbench' is defined
+    # -- in the apio.ini file, or the project has exactly one testbench.
+    has_multiple_testbenchs = len(testbenches) > 1
+    has_valid_default_testbench = (
+        apio_ctx.project.get("default-testbench") in testbenches
+    )
+    if  has_multiple_testbenchs and not has_valid_default_testbench:
+            issues.add(ExampleIssues.NO_DEFAULT_SIM)
 
     # -- Check a few requirements from teh apio.ini file.
     if not (example_dir / "apio.ini").is_file():
