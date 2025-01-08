@@ -7,7 +7,7 @@
 #  ./build.sh
 
 # -- Set the version the generated package
-VERSION=0.1.3
+VERSION=0.1.4
 
 # For debugging, echo executed commands.
 # set -x
@@ -27,7 +27,7 @@ then
   exit 1
 fi
 
-# -- Store the current dir
+# -- Save the current dir path.
 WORK_DIR=$PWD
 
 # -- This version is stored in a temporal file so that github actions
@@ -58,11 +58,11 @@ cp LICENSE _package/${PACKAGE_NAME}
 # -- Copy the build version as VERSION file.
 cp VERSION_BUILD _package/${PACKAGE_NAME}/VERSION
 
-# -- Go to the package dir.
-cd _package
+# -- Go to the examples dir
+cd _package/${PACKAGE_NAME}
 
 # -- Zip the dir with the examples copies.
-zip -r "${PACKAGE_NAME}.zip" "${PACKAGE_NAME}"
+zip -r "../${PACKAGE_NAME}.zip" *
 
 # -- Return to the original directory (repo top).
 cd ${WORK_DIR}
