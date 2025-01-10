@@ -98,7 +98,7 @@ def scan_board_issues(board_name: str, board_dir: Path) -> Set[BoardIssues]:
     issues: Set[BoardIssues] = set()
 
     # -- Test that the name is a valid board name
-    if board_name != apio_ctx.lookup_board_id(
+    if board_name != apio_ctx.lookup_board_name(
         board_name, strict=False, warn=False
     ):
         issues.add(BoardIssues.BAD_DIR_NAME)
@@ -197,7 +197,7 @@ def scan_example_issues(
         issues.add(ExampleIssues.BAD_APIO_INI)
     elif not apio_ctx.project["board"] or not apio_ctx.project["top-module"]:
         issues.add(ExampleIssues.BAD_APIO_INI)
-    elif apio_ctx.project["board"] != apio_ctx.lookup_board_id(
+    elif apio_ctx.project["board"] != apio_ctx.lookup_board_name(
         apio_ctx.project["board"], warn=False, strict=False
     ):
         issues.add(ExampleIssues.BAD_APIO_INI)
