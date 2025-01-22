@@ -1,1 +1,1 @@
-Using the PLL to generate 30Mhz clock from the external 12Mhz clock.
+Generating 30Mhz clock using a pll.
