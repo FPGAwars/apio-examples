@@ -17,7 +17,7 @@
 
 module main_tb ();
   // Declare the 'signal' name that is managed by apio_testings.vh.
-  `DEF_CLK;
+  `DEF_CLK
 
   // Inputs to the tested module.
   reg reset;
