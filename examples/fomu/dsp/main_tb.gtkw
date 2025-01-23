@@ -1,0 +1,35 @@
+[*]
+[*] GTKWave Analyzer v3.4.0 (w)1999-2022 BSI
+[*] Thu Jan 23 06:27:03 2025
+[*]
+[dumpfile] "/Volumes/projects/apio-examples/repo/examples/fomu/dsp/_build/main_tb.vcd"
+[dumpfile_mtime] "Thu Jan 23 06:25:12 2025"
+[dumpfile_size] 21907
+[savefile] "/Volumes/projects/apio-examples/repo/examples/fomu/dsp/main_tb.gtkw"
+[timestart] 0
+[size] 1408 825
+[pos] -1 -1
+*-22.912270 13570000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] main_tb.
+[sst_width] 253
+[signals_width] 111
+[sst_expanded] 1
+[sst_vpaned_height] 237
+@420
+main_tb.clk_num
+@28
+main_tb.clk
+@200
+-
+@28
+main_tb.user_1
+@29
+[color] 2
+main_tb.user_2
+@200
+-
+@22
+main_tb.tested.reg1[31:0]
+main_tb.tested.reg2[31:0]
+[pattern_trace] 1
+[pattern_trace] 0
