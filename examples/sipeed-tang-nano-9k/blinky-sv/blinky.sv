@@ -2,16 +2,16 @@ module blinky #(
     // Num of click cycle per led toggle.
     parameter integer DIV = (27000000 / 2)
 ) (
-    input      sys_clk,
-    output reg led       // Active low
+    input        sys_clk,
+    output logic led       // Active low
 );
 
   // ---- Reset generator.
 
-  reg [3:0] reset_counter = 0;
-  reg sys_reset = 1;
+  logic [3:0] reset_counter = 0;
+  logic sys_reset = 1;
 
-  always @(posedge sys_clk) begin
+  always_ff @(posedge sys_clk) begin
     if (reset_counter < 3) begin
       sys_reset <= 1;
       reset_counter <= reset_counter + 1;
@@ -24,7 +24,7 @@ module blinky #(
 
   reg [31:0] blink_counter;
 
-  always @(posedge sys_clk) begin
+  always_ff @(posedge sys_clk) begin
     if (sys_reset) begin
       blink_counter <= 0;
       led <= 1;
