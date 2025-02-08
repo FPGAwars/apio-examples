@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.4.0 (w)1999-2022 BSI
-[*] Sun Jan  5 07:47:26 2025
+[*] Fri Feb  7 22:09:03 2025
 [*]
-[dumpfile] "/Volumes/projects/apio-examples/repo/examples/sipeed-tang-nano-9k/blinky/_build/blinky_tb.vcd"
-[dumpfile_mtime] "Sun Jan  5 07:45:31 2025"
-[dumpfile_size] 1557
-[savefile] "/Volumes/projects/apio-examples/repo/examples/sipeed-tang-nano-9k/blinky/blinky_tb.gtkw"
+[dumpfile] "/Volumes/projects/apio-examples/repo/examples/sipeed-tang-nano-9k/blinky-sv/_build/blinky_tb.vcd"
+[dumpfile_mtime] "Fri Feb  7 22:07:34 2025"
+[dumpfile_size] 1897
+[savefile] "/Volumes/projects/apio-examples/repo/examples/sipeed-tang-nano-9k/blinky-sv/blinky_tb.gtkw"
 [timestart] 0
 [size] 1296 600
 [pos] -1 -1
-*-10.521719 1900 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-10.682656 550 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] blinky_tb.
 [sst_width] 253
 [signals_width] 185
@@ -23,16 +23,16 @@ blinky_tb.clk
 -
 -Reset Generator
 @22
-blinky_tb.ticker.reset_counter[3:0]
+blinky_tb.blinky.reset_counter[3:0]
 @28
-blinky_tb.ticker.sys_reset
+blinky_tb.blinky.sys_reset
 @200
 -
 -
 -LED Blinker
-@22
-blinky_tb.ticker.blink_counter[31:0]
-@29
+@23
+blinky_tb.blinky.blink_counter[31:0]
+@28
 [color] 3
 blinky_tb.led
 @200
