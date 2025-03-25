@@ -9,8 +9,7 @@ from enum import Enum
 from dataclasses import dataclass
 import os
 from apio.apio_context import ApioContext, ApioContextScope
-
-# from examples_utils import scan_examples_tree, BoardIssues, ExampleIssues
+import apio.common.apio_console as apio_console
 from typing import Set, List, Union
 from pathlib import Path
 import os
@@ -331,6 +330,8 @@ def report_examples(file_name: str, issues_only: bool):
 
 
 # -- MAIN starts here
+
+apio_console.configure()
 
 # -- The examples root directory.
 examples_dir = Path("examples").resolve()
