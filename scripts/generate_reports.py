@@ -1,4 +1,4 @@
-"""A python script that scans the entire examples tree for 
+"""A python script that scans the entire examples tree for
 various issues.
 
 Do not run directly, run scan_examples.py from repo's root.
@@ -98,8 +98,12 @@ def scan_board_issues(board_name: str, board_dir: Path) -> Set[BoardIssues]:
 
     # -- Test that the name is a valid board name
     if board_name != apio_ctx.lookup_board_name(
-        board_name, strict=False, warn=False
+        board_name,
+        accept_legacy_names=False,
+        warn_if_legacy_name=False,
+        exit_if_not_found=False,
     ):
+        # board_name is the name of the directory with the board's examples.
         issues.add(BoardIssues.BAD_DIR_NAME)
 
     # -- Test if an example named 'template' exists.
@@ -116,9 +120,7 @@ def scan_board_issues(board_name: str, board_dir: Path) -> Set[BoardIssues]:
 example_name_regex = re.compile(r"^[a-z][a-z0-9-]*$")
 
 
-def scan_example_issues(
-    example_name: str, example_dir: Path
-) -> Set[ExampleIssues]:
+def scan_example_issues(example_name: str, example_dir: Path) -> Set[ExampleIssues]:
 
     save_dir = Path().absolute()
 
@@ -186,8 +188,8 @@ def scan_example_issues(
     has_valid_default_testbench = (
         apio_ctx.project.get("default-testbench") in testbenches
     )
-    if  has_multiple_testbenchs and not has_valid_default_testbench:
-            issues.add(ExampleIssues.NO_DEFAULT_SIM)
+    if has_multiple_testbenchs and not has_valid_default_testbench:
+        issues.add(ExampleIssues.NO_DEFAULT_SIM)
 
     # -- Check a few requirements from teh apio.ini file.
     if not (example_dir / "apio.ini").is_file():
@@ -197,7 +199,10 @@ def scan_example_issues(
     elif not apio_ctx.project["board"] or not apio_ctx.project["top-module"]:
         issues.add(ExampleIssues.BAD_APIO_INI)
     elif apio_ctx.project["board"] != apio_ctx.lookup_board_name(
-        apio_ctx.project["board"], warn=False, strict=False
+        apio_ctx.project["board"],
+        accept_legacy_names=False,
+        warn_if_legacy_name=False,
+        exit_if_not_found=False,
     ):
         issues.add(ExampleIssues.BAD_APIO_INI)
 
