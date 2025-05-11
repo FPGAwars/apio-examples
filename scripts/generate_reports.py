@@ -97,12 +97,7 @@ def scan_board_issues(board_name: str, board_dir: Path) -> Set[BoardIssues]:
     issues: Set[BoardIssues] = set()
 
     # -- Test that the name is a valid board name
-    if board_name != apio_ctx.lookup_board_name(
-        board_name,
-        accept_legacy_names=False,
-        warn_if_legacy_name=False,
-        exit_if_not_found=False,
-    ):
+    if board_name not in apio_ctx.boards:
         # board_name is the name of the directory with the board's examples.
         issues.add(BoardIssues.BAD_DIR_NAME)
 
@@ -198,12 +193,7 @@ def scan_example_issues(example_name: str, example_dir: Path) -> Set[ExampleIssu
         issues.add(ExampleIssues.BAD_APIO_INI)
     elif not apio_ctx.project["board"] or not apio_ctx.project["top-module"]:
         issues.add(ExampleIssues.BAD_APIO_INI)
-    elif apio_ctx.project["board"] != apio_ctx.lookup_board_name(
-        apio_ctx.project["board"],
-        accept_legacy_names=False,
-        warn_if_legacy_name=False,
-        exit_if_not_found=False,
-    ):
+    elif apio_ctx.project["board"] not in apio_ctx.boards:
         issues.add(ExampleIssues.BAD_APIO_INI)
 
     # -- Check a few requirements from the info file.

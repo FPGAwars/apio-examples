@@ -85,7 +85,7 @@ line, up to 50 characters long, desdribing the example.
 Each example should contain an apio.ini file with all the required options.  Example
 
 ```
-[env]
+[env:default]
 board = alhambra-ii
 top-module = main
 ```
