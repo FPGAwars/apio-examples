@@ -127,6 +127,7 @@ def scan_example_issues(example_name: str, example_dir: Path) -> Set[ExampleIssu
 
     # -- Create an apio context for this project.
     apio_ctx = ApioContext(scope=ApioContextScope.PROJECT_REQUIRED)
+    env_name = apio_ctx.project.env_name
 
     # -- Create an empty test to collect the issues.
     issues: Set[ExampleIssues] = set()
@@ -151,9 +152,9 @@ def scan_example_issues(example_name: str, example_dir: Path) -> Set[ExampleIssu
     # -- Tests if graphs ok
     if run("apio graph") != 0:
         issues.add(ExampleIssues.GRAPH_FAILS)
-    if not Path("_build/hardware.dot").is_file():
+    if not Path(f"_build/{env_name}/hardware.dot").is_file():
         issues.add(ExampleIssues.GRAPH_FAILS)
-    if not Path("_build/hardware.svg").is_file():
+    if not Path(f"_build/{env_name}/hardware.svg").is_file():
         issues.add(ExampleIssues.GRAPH_FAILS)
 
     # -- If there are testbenches, test them.
@@ -172,7 +173,7 @@ def scan_example_issues(example_name: str, example_dir: Path) -> Set[ExampleIssu
         # Test passed. Verify that each testbench generated the expected .vcd.
         for tb in testbenches:
             vcd_file_name = os.path.splitext(tb)[0] + ".vcd"
-            expected_vcd = Path("_build") / vcd_file_name
+            expected_vcd = Path("_build") / env_name / vcd_file_name
             if not expected_vcd.is_file():
                 issues.add(ExampleIssues.MISSING_VCD)
 
