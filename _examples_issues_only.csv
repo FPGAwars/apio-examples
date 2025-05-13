@@ -2,7 +2,6 @@ BOARD,EXAMPLE,NO TESTBENCH,CONTAINS DIRS
 alhambra-ii,bcd-counter, ,X
 alhambra-ii,bcd-counter-sv, ,X
 alhambra-ii,blinky,X, 
-alhambra-ii,multienv,X, 
 alhambra-ii,template,X, 
 blackice,blink,X, 
 blackice,blinky,X, 

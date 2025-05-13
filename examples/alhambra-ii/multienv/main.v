@@ -2,14 +2,16 @@
 //-- Blinking LED
 //------------------------------------------------------------------
 
-module main (
+module main #(
+    parameter CLK_DIV = `CLK_DIV
+) (
     input        CLK,  // 12MHz clock
     output [7:0] LEDS  // LED to blink
 );
 
   // The counter should count this number of clocks
   // between flipping LED state.
-  localparam limit = (`CLK_DIV / 2) - 1;
+  localparam limit = ((CLK_DIV) / 2) - 1;
 
   reg led = 0;
 
@@ -20,7 +22,7 @@ module main (
       counter <= counter + 1;
     end else begin
       counter <= 0;
-      led  <= ~led;
+      led <= ~led;
     end
   end
 
