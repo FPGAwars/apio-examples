@@ -45,11 +45,10 @@ class ExampleIssues(Enum):
     INFO_TOO_LONG = 13
     INFO_TOO_SHORT = 14
     MULTIPLE_INFO_LINES = 15
-    CONTAINS_DIRS = 16
-    HAS_DUMPFILE = 17
-    HAS_VCD_OUTPUT = 18
-    GRAPH_FAILS = 19
-    NO_DEFAULT_SIM = 20
+    HAS_DUMPFILE = 16
+    HAS_VCD_OUTPUT = 17
+    GRAPH_FAILS = 18
+    NO_DEFAULT_SIM = 19
 
 
 @dataclass
@@ -212,9 +211,6 @@ def scan_example_issues(example_name: str, example_dir: Path) -> Set[ExampleIssu
     # -- Check that the project doesn't contains subdirectoreis. This
     # -- creates an issue with 'apio examples -f".
     run("apio clean")
-    for e in glob("*"):
-        if (example_dir / e).is_dir():
-            issues.add(ExampleIssues.CONTAINS_DIRS)
 
     # -- If the project has a project file (it should) check that its
     # -- 'board' value equals the parent example directory name.
@@ -263,7 +259,7 @@ def report_boards(file_name: str, issues_only: bool):
         for issue in BoardIssues:
             if issue not in issues_to_show:
                 continue
-            header.append(issue.name.replace("_", " "))
+            header.append(issue.name.replace("_", "-"))
         f.write(",".join(header) + "\n")
 
         # # -- Print board values
@@ -304,7 +300,7 @@ def report_examples(file_name: str, issues_only: bool):
         for issue in ExampleIssues:
             if issue not in issues_to_show:
                 continue
-            header.append(issue.name.replace("_", " "))
+            header.append(issue.name.replace("_", "-"))
         f.write(",".join(header) + "\n")
 
         # # -- Print board values
