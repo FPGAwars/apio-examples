@@ -12,7 +12,6 @@ edu-ciaa-fpga,blinky,X
 edu-ciaa-fpga,led-green,X
 edu-ciaa-fpga,template,X
 fomu,blink,X
-fomu,blinky,X
 go-board,blinky,X
 ice40-up5k,blinky,X
 ice40-up5k,led-green,X
