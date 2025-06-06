@@ -36,6 +36,24 @@ jobs:
     # #   APIO_VERSION: value-tbd
 
     steps:
+            # - name: Pip install apio
+      #   run: |
+      #     python -m pip install --upgrade pip
+      #     pip install -e apio-repo
+
+      - name: Determine release version
+        run: |
+          release_version="$(date +'%Y.%m.%d')"
+          echo $release_version
+          echo "RELEASE_VERSION=$release_version" >> $GITHUB_ENV
+
+
+      - name: Determine release tag
+        run: |
+          release_tag="${RELEASE_VERSION//./-}"
+          echo $release_tag
+          echo "RELEASE_TAG=$release_tag" >> $GITHUB_ENV
+
 
       - name: Checkout this repo
         uses: actions/checkout@v4
@@ -49,6 +67,11 @@ jobs:
           echo $commit
           echo "RELEASE_COMMIT=$commit" >> $GITHUB_ENV
 
+      - name: Determine package file name
+        run: |
+          package_name="apio-examples-${RELEASE_VERSION}.zip"
+          echo $package_name
+          echo "PACKAGE_NAME=$package_name" >> $GITHUB_ENV
 
       # - name: Checkout the apio repo
       #   uses: actions/checkout@v4
@@ -59,22 +82,7 @@ jobs:
       #     fetch-depth: 0
 
 
-      # - name: Pip install apio
-      #   run: |
-      #     python -m pip install --upgrade pip
-      #     pip install -e apio-repo
 
-      - name: Determine release version
-        run: |
-          release_version="$(date +'%Y.%m.%d')"
-          echo $release_version
-          echo "RELEASE_VERSION=$release_version" >> $GITHUB_ENV
-
-      - name: Determine release tag
-        run: |
-          release_tag="${RELEASE_VERSION//./-}"
-          echo $release_tag
-          echo "RELEASE_TAG=$release_tag" >> $GITHUB_ENV
 
 
       # - name: Get apio config JSON
@@ -143,6 +151,25 @@ jobs:
           ls -al
           cat -n BUILD-INFO
 
+      - name: Create package
+        run: |
+          cd this-repo
+          ./make-package.sh
+          find _package
+
+      - name: Add build info file
+        run: |
+          copy BUILD_INFO this-repo/_package
+          ls -al _package
+
+      - name: Zip the package
+        run: |
+          cd _package
+          zip -r "../${$PACKAGE_NAME}.zip" *
+          popd
+          ls -al
+          
+
       # # This copy the apio config json key/val to the env.
       # - name: Set up env
       #   run: |
@@ -167,6 +194,7 @@ jobs:
       #     find artifacts
       #     cat artifacts/apio-build-info/BUILD-INFO
 
+      
 
       - name: Prepare release text
         run: |
@@ -214,8 +242,9 @@ jobs:
           tag_name: ${{env.RELEASE_TAG}}
           name: ${{env.RELEASE_TAG}}
           body_path: RELEASE_BODY.txt
-          # files: |
-          #   # Darwin
+          files: |
+            ${{env.PACKAGE_NAME}}
+            
           #   artifacts/apio-darwin-arm64-bundle/**
           #   artifacts/apio-darwin-arm64-installer/**
 
