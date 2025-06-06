@@ -210,10 +210,10 @@ jobs:
 
           echo -e "\n<br>\n" >> $out
 
-          echo "BUILD_INFO:"
+          echo "BUILD-INFO file:"
           echo '```' >> $out
           # echo "APIO_CONFIG" >> $out
-          cat BUILD_INFO >> $out
+          cat BUILD-INFO >> $out
           # echo "Time:        $(date +'%Y-%m-%d %H:%M:%S %Z')" >> ${out}
           # echo "Repo:        ${{github.repository}}" >> ${out}
           # echo "Commit:      $RELEASE_COMMIT" >>  ${out}
