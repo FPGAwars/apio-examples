@@ -47,7 +47,7 @@ jobs:
         run: |
           commit=$(git -C this-repo rev-parse HEAD)
           echo $commit
-          run: echo "RELEASE_COMMIT=$release_commit" >> $GITHUB_ENV
+          echo "RELEASE_COMMIT=$release_commit" >> $GITHUB_ENV
 
 
       # - name: Checkout the apio repo
