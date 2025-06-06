@@ -154,7 +154,7 @@ jobs:
       - name: Create package
         run: |
           pwd
-          push this-repo
+          pushd this-repo
           ./make-package.sh
           popd
           pwd
