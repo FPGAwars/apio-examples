@@ -168,8 +168,8 @@ jobs:
 
       - name: Zip the package
         run: |
-          cd _package
-          zip -r "../${$PACKAGE_NAME}.zip" *
+          pushd this-repo/_package
+          zip -r "../../${$PACKAGE_NAME}.zip" *
           popd
           ls -al
           
