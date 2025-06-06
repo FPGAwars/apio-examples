@@ -1,4 +1,4 @@
-name: "build-all"
+name: "build"
 
 on:
   # Run on each commit to this repo.
