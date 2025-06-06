@@ -153,14 +153,18 @@ jobs:
 
       - name: Create package
         run: |
-          cd this-repo
+          pwd
+          push this-repo
           ./make-package.sh
-          find _package
+          popd
+          pwd
+          find this-repo/_package
 
       - name: Add build info file
         run: |
+          pwd
           cp BUILD-INFO this-repo/_package
-          ls -al _package
+          ls -al this-repo/_package
 
       - name: Zip the package
         run: |
