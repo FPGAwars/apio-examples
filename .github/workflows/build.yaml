@@ -56,7 +56,7 @@ jobs:
 
       - name: Determine package file name
         run: |
-          package_name="apio-examples-${RELEASE_TAG}.zip"
+          package_name="apio-examples-${RELEASE_VERSION}.zip"
           echo $package_name
           echo "PACKAGE_NAME=$package_name" >> $GITHUB_ENV
 
