@@ -47,7 +47,7 @@ jobs:
         run: |
           commit=$(git -C this-repo rev-parse HEAD)
           echo $commit
-          echo "RELEASE_COMMIT=$release_commit" >> $GITHUB_ENV
+          echo "RELEASE_COMMIT=$commit" >> $GITHUB_ENV
 
 
       # - name: Checkout the apio repo
@@ -64,13 +64,13 @@ jobs:
       #     python -m pip install --upgrade pip
       #     pip install -e apio-repo
 
-      - name: Construct release version
+      - name: Determine release version
         run: |
           release_version="$(date +'%Y.%m.%d')"
           echo $release_version
           echo "RELEASE_VERSION=$release_version" >> $GITHUB_ENV
 
-      - name: Construct release tag
+      - name: Determine release tag
         run: |
           release_tag="${RELEASE_VERSION//./-}"
           echo $release_tag
@@ -109,30 +109,39 @@ jobs:
       #     echo '${{steps.get_apio_config_json.outputs.apio_config}}' | jq -r 'to_entries | .[] | "\(.key)=\(.value)"' >> $GITHUB_ENV
 
 
-      # - name: Create build info file
-      #   run: |
-      #     commit=$(git -C builder-repo rev-parse HEAD)
+      - name: Create build info file
+        run: |
+          # commit=$(git -C builder-repo rev-parse HEAD)
 
-      #     # echo "${apio_commit}"
-      #     # echo "Builder info" >  ${out}
+          # echo "${apio_commit}"
+          # echo "Builder info" >  ${out}
 
-      #     out="BUILD-INFO"
-      #     echo "Time:             $(date +'%Y-%m-%d %H:%M:%S %Z')" >> ${out}
-      #     echo "Build repo:       ${{github.repository}}" >> ${out}
-      #     echo "Builder commit:   $commit" >>  ${out}
-      #     echo "Run ID:           ${{github.run_id}}" >> ${out}
-      #     echo "Run number:       ${{github.run_number}}" >> ${out}
-      #     echo "Release version:  $RELEASE_VERSION" >> ${out}
-      #     echo "Release tag:      $RELEASE_TAG" >> ${out}
+          out="BUILD-INFO"
 
-      #     # echo >> ${out}
-      #     # echo "Apio info" >>  ${out}
-      #     # echo "Apio repo:        $APIO_REPO" >> ${out}
-      #     # echo "Apio SHA:         $APIO_COMMIT" >>  ${out}
-      #     # echo "Apio version:     $APIO_VERSION" >> ${out}
+          echo "Time:        $(date +'%Y-%m-%d %H:%M:%S %Z')" >> ${out}
+          echo "Repo:        ${{github.repository}}" >> ${out}
+          echo "Commit:      $RELEASE_COMMIT" >>  ${out}
+          echo "Run ID:      ${{github.run_id}}" >> ${out}
+          echo "Run number:  ${{github.run_number}}" >> ${out}
+          echo "Version:     $RELEASE_VERSION" >> ${out}
+          echo "Tag:         $RELEASE_TAG" >> ${out}
 
-      #     ls -al
-      #     cat -n BUILD-INFO
+          # echo "Time:             $(date +'%Y-%m-%d %H:%M:%S %Z')" >> ${out}
+          # echo "Build repo:       ${{github.repository}}" >> ${out}
+          # echo "Builder commit:   $commit" >>  ${out}
+          # echo "Run ID:           ${{github.run_id}}" >> ${out}
+          # echo "Run number:       ${{github.run_number}}" >> ${out}
+          # echo "Release version:  $RELEASE_VERSION" >> ${out}
+          # echo "Release tag:      $RELEASE_TAG" >> ${out}
+
+          # echo >> ${out}
+          # echo "Apio info" >>  ${out}
+          # echo "Apio repo:        $APIO_REPO" >> ${out}
+          # echo "Apio SHA:         $APIO_COMMIT" >>  ${out}
+          # echo "Apio version:     $APIO_VERSION" >> ${out}
+
+          ls -al
+          cat -n BUILD-INFO
 
       # # This copy the apio config json key/val to the env.
       # - name: Set up env
@@ -169,16 +178,17 @@ jobs:
 
           echo -e "\n<br>\n" >> $out
 
+          echo "BUILD_INFO:"
           echo '```' >> $out
           # echo "APIO_CONFIG" >> $out
-          # cat APIO_CONFIG.json >> $out
-          echo "Time:             $(date +'%Y-%m-%d %H:%M:%S %Z')" >> ${out}
-          echo "Build repo:       ${{github.repository}}" >> ${out}
-          echo "Builder commit:   $RELEASE_COMMIT" >>  ${out}
-          echo "Run ID:           ${{github.run_id}}" >> ${out}
-          echo "Run number:       ${{github.run_number}}" >> ${out}
-          echo "Release version:  $RELEASE_VERSION" >> ${out}
-          echo "Release tag:      $RELEASE_TAG" >> ${out}
+          cat BUILD_INFO >> $out
+          # echo "Time:        $(date +'%Y-%m-%d %H:%M:%S %Z')" >> ${out}
+          # echo "Repo:        ${{github.repository}}" >> ${out}
+          # echo "Commit:      $RELEASE_COMMIT" >>  ${out}
+          # echo "Run ID:      ${{github.run_id}}" >> ${out}
+          # echo "Run number:  ${{github.run_number}}" >> ${out}
+          # echo "Version:     $RELEASE_VERSION" >> ${out}
+          # echo "Tag:         $RELEASE_TAG" >> ${out}
           echo '```' >> $out
 
           # echo -e "\n<br>\n" >> $out
