@@ -58,7 +58,7 @@ cp -r ./examples _package/${PACKAGE_NAME}
 cp LICENSE _package/${PACKAGE_NAME}
 
 # -- Copy the build version as VERSION file.
-cp VERSION_BUILD _package/${PACKAGE_NAME}/VERSION
+# cp VERSION_BUILD _package/${PACKAGE_NAME}/VERSION
 
 # -- Go to the examples dir
 cd _package/${PACKAGE_NAME}
