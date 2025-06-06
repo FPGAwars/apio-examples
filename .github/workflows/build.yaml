@@ -68,13 +68,13 @@ jobs:
         run: |
           release_version="$(date +'%Y.%m.%d')"
           echo $release_version
-          run: echo "RELEASE_VERSION=$release_version" >> $GITHUB_ENV
+          echo "RELEASE_VERSION=$release_version" >> $GITHUB_ENV
 
       - name: Construct release tag
         run: |
           release_tag="${$RELEASE_VERSION//./-}"
           echo $release_tag
-          run: echo "RELEASE_TAG=$release_tag" >> $GITHUB_ENV
+          echo "RELEASE_TAG=$release_tag" >> $GITHUB_ENV
 
 
       # - name: Get apio config JSON
