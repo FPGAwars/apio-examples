@@ -72,7 +72,7 @@ jobs:
 
       - name: Construct release tag
         run: |
-          release_tag="${$RELEASE_VERSION//./-}"
+          release_tag="${RELEASE_VERSION//./-}"
           echo $release_tag
           echo "RELEASE_TAG=$release_tag" >> $GITHUB_ENV
 
