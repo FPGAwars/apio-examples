@@ -159,7 +159,7 @@ jobs:
 
       - name: Add build info file
         run: |
-          cp BUILD_INFO this-repo/_package
+          cp BUILD-INFO this-repo/_package
           ls -al _package
 
       - name: Zip the package
