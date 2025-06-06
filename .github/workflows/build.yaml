@@ -1,0 +1,219 @@
+name: "build-all"
+
+on:
+  # Run on each commit to this repo.
+  push:
+
+  # Run every day at 2AM.
+  # schedule:
+  #   - cron: '0 2 * * *'
+
+  # Allow manual activations.
+  workflow_dispatch:
+
+permissions:
+  # Allow release creation
+  contents: write
+
+# env:
+#   APIO_REPO: 'FPGAwars/apio'
+
+jobs:
+
+  # ----- Parameters collection job
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    # outputs:
+    #   apio_config: ${{steps.get_apio_config_json.outputs.apio_config}}
+    #   # apio_build_info: "apio_build_info"
+
+    # # env:
+    # #   APIO_TAG: value-tbd
+    # #   APIO_COMMIT: value-tbd
+    # #   APIO_VERSION: value-tbd
+
+    steps:
+
+      - name: Checkout this repo
+        uses: actions/checkout@v4
+        with:
+          path: this-repo
+
+
+      - name: Determine commit
+        run: |
+          commit=$(git -C this-repo rev-parse HEAD)
+          echo $commit
+          run: echo "RELEASE_COMMIT=$release_commit" >> $GITHUB_ENV
+
+
+      # - name: Checkout the apio repo
+      #   uses: actions/checkout@v4
+      #   with:
+      #     repository: ${{env.APIO_REPO}}
+      #     ref: develop
+      #     path: apio-repo
+      #     fetch-depth: 0
+
+
+      # - name: Pip install apio
+      #   run: |
+      #     python -m pip install --upgrade pip
+      #     pip install -e apio-repo
+
+      - name: Construct release version
+        run: |
+          release_version="$(date +'%Y.%m.%d')"
+          echo $release_version
+          run: echo "RELEASE_VERSION=$release_version" >> $GITHUB_ENV
+
+      - name: Construct release tag
+        run: |
+          release_tag="${$RELEASE_VERSION//./-}"
+          echo $release_tag
+          run: echo "RELEASE_TAG=$release_tag" >> $GITHUB_ENV
+
+
+      # - name: Get apio config JSON
+      #   id: get_apio_config_json
+      #   run: |
+      #     apio_commit=$(git -C apio-repo rev-parse HEAD)
+      #     echo "${apio_commit}"
+
+      #     apio_version="$(pip show apio | grep Version: | cut -d ' ' -f2)"
+      #     echo ${apio_version}
+
+      #     apio_tag="$(date +'%Y-%m-%d')"
+      #     echo "${apio_tag}"
+
+      #     apio_config=$(jq -n -c \
+      #         --arg APIO_WF      "${{ github.workflow }}" \
+      #         --arg APIO_RUN     "${{github.run_id}}" \
+      #         --arg APIO_REPO    "$APIO_REPO" \
+      #         --arg APIO_COMMIT  "$apio_commit" \
+      #         --arg APIO_VERSION "$apio_version" \
+      #         --arg APIO_TAG     "$apio_tag" \
+      #         '{APIO_WF: $APIO_WF, APIO_RUN: $APIO_RUN, APIO_REPO: $APIO_REPO, APIO_COMMIT: $APIO_COMMIT, APIO_VERSION: $APIO_VERSION, APIO_TAG: $APIO_TAG}')
+
+      #     echo "$apio_config"
+      #     echo "apio_config=$apio_config" >> "$GITHUB_OUTPUT"
+
+
+      # This copies the apio config json key/val to the env.
+      # - name: Set up env
+      #   run: |
+      #     echo '${{steps.get_apio_config_json.outputs.apio_config}}' | jq .
+      #     echo '${{steps.get_apio_config_json.outputs.apio_config}}' | jq -r 'to_entries | .[] | "\(.key)=\(.value)"' >> $GITHUB_ENV
+
+
+      # - name: Create build info file
+      #   run: |
+      #     commit=$(git -C builder-repo rev-parse HEAD)
+
+      #     # echo "${apio_commit}"
+      #     # echo "Builder info" >  ${out}
+
+      #     out="BUILD-INFO"
+      #     echo "Time:             $(date +'%Y-%m-%d %H:%M:%S %Z')" >> ${out}
+      #     echo "Build repo:       ${{github.repository}}" >> ${out}
+      #     echo "Builder commit:   $commit" >>  ${out}
+      #     echo "Run ID:           ${{github.run_id}}" >> ${out}
+      #     echo "Run number:       ${{github.run_number}}" >> ${out}
+      #     echo "Release version:  $RELEASE_VERSION" >> ${out}
+      #     echo "Release tag:      $RELEASE_TAG" >> ${out}
+
+      #     # echo >> ${out}
+      #     # echo "Apio info" >>  ${out}
+      #     # echo "Apio repo:        $APIO_REPO" >> ${out}
+      #     # echo "Apio SHA:         $APIO_COMMIT" >>  ${out}
+      #     # echo "Apio version:     $APIO_VERSION" >> ${out}
+
+      #     ls -al
+      #     cat -n BUILD-INFO
+
+      # # This copy the apio config json key/val to the env.
+      # - name: Set up env
+      #   run: |
+      #     echo '${{needs.prepare.outputs.apio_config}}' | jq .
+      #     echo '${{needs.prepare.outputs.apio_config}}' | jq -r 'to_entries | .[] | "\(.key)=\(.value)"' >> $GITHUB_ENV
+
+
+      # - name: Download the build artifacts
+      #   uses: actions/download-artifact@v4
+      #   with:
+      #     path: artifacts
+
+
+      # - name: Rename apio-build-info artifact
+      #   run: |
+      #     find artifacts
+
+      #     # Remove the run id unique part.
+      #     mv artifacts/apio-build-info-${APIO_RUN} artifacts/apio-build-info
+
+      #     echo
+      #     find artifacts
+      #     cat artifacts/apio-build-info/BUILD-INFO
+
+
+      - name: Prepare release text
+        run: |
+
+          # echo '${{needs.prepare.outputs.apio_config}}' | jq . > APIO_CONFIG.json
+
+          out=RELEASE_BODY.txt
+          echo "This is an automated daily build Apio examples package." >> $out
+
+          echo -e "\n<br>\n" >> $out
+
+          echo '```' >> $out
+          # echo "APIO_CONFIG" >> $out
+          # cat APIO_CONFIG.json >> $out
+          echo "Time:             $(date +'%Y-%m-%d %H:%M:%S %Z')" >> ${out}
+          echo "Build repo:       ${{github.repository}}" >> ${out}
+          echo "Builder commit:   $RELEASE_COMMIT" >>  ${out}
+          echo "Run ID:           ${{github.run_id}}" >> ${out}
+          echo "Run number:       ${{github.run_number}}" >> ${out}
+          echo "Release version:  $RELEASE_VERSION" >> ${out}
+          echo "Release tag:      $RELEASE_TAG" >> ${out}
+          echo '```' >> $out
+
+          # echo -e "\n<br>\n" >> $out
+
+          # echo '```' >> $out
+          # cat artifacts/apio-build-info/BUILD-INFO >> $out
+          # echo '```' >> $out
+
+          echo -e "\n<br>\n" >> $out
+
+          # echo 'Additional resources:' >> $out
+          # echo '  * [installation instructions](https://github.com/${{github.repository}}).' >> $out
+          # echo '  * [Official Apio releases](https://github.com/FPGAwars/apio/releases).' >> $out
+          # echo '  * [Last commit](https://github.com/${{env.APIO_REPO}}/commit/${{env.APIO_COMMIT}})' >> $out
+
+          cat -n $out
+
+
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{env.RELEASE_TAG}}
+          name: ${{env.RELEASE_TAG}}
+          body_path: RELEASE_BODY.txt
+          # files: |
+          #   # Darwin
+          #   artifacts/apio-darwin-arm64-bundle/**
+          #   artifacts/apio-darwin-arm64-installer/**
+
+          #   # Linux
+          #   artifacts/apio-linux-x86-64-bundle/**
+          #   artifacts/apio-linux-x86-64-debian/**
+
+          #   # Windows
+          #   artifacts/apio-windows-amd64-bundle/**
+          #   artifacts/apio-windows-amd64-installer/**
+
