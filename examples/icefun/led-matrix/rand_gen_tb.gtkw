@@ -1,0 +1,34 @@
+[*]
+[*] GTKWave Analyzer v3.4.0 (w)1999-2022 BSI
+[*] Sat Jun  7 15:37:58 2025
+[*]
+[dumpfile] "/Users/user/work/_build/default/rand_gen_tb.vcd"
+[dumpfile_mtime] "Sat Jun  7 15:37:31 2025"
+[dumpfile_size] 10030
+[savefile] "/Users/user/work/rand_gen_tb.gtkw"
+[timestart] 0
+[size] 1376 786
+[pos] -1 -1
+*-17.793407 615000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] rand_gen_tb.
+[sst_width] 253
+[signals_width] 219
+[sst_expanded] 1
+[sst_vpaned_height] 224
+@28
+rand_gen_tb.clk
+@200
+-
+@28
+rand_gen_tb.rang_gen.feedback
+@200
+-
+@29
+rand_gen_tb.rang_gen.zero_loop
+@200
+-
+@22
+[color] 3
+rand_gen_tb.rnd[31:0]
+[pattern_trace] 1
+[pattern_trace] 0

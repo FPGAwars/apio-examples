@@ -1,0 +1,48 @@
+[*]
+[*] GTKWave Analyzer v3.4.0 (w)1999-2022 BSI
+[*] Sat Jun  7 16:24:41 2025
+[*]
+[dumpfile] "/Users/user/work/_build/default/led_matrix_tb.vcd"
+[dumpfile_mtime] "Sat Jun  7 16:22:05 2025"
+[dumpfile_size] 2418
+[savefile] "/Users/user/work/led_matrix_tb.gtkw"
+[timestart] 0
+[size] 1240 665
+[pos] -1 -1
+*-19.549362 383000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] led_matrix_tb.
+[sst_width] 253
+[signals_width] 177
+[sst_expanded] 1
+[sst_vpaned_height] 181
+@28
+led_matrix_tb.clk
+@200
+-
+@24
+led_matrix_tb.led_matrix.timer[31:0]
+@28
+led_matrix_tb.led_matrix.col[1:0]
+led_matrix_tb.frame_tick
+@200
+-
+@22
+led_matrix_tb.data[31:0]
+led_matrix_tb.led_matrix.shifted_data[31:0]
+@200
+-
+@28
+[color] 3
+led_matrix_tb.cols[3:0]
+[color] 3
+led_matrix_tb.rows[7:0]
+@200
+-
+-
+-Inverted cols/rows
+@68
+led_matrix_tb.cols[3:0]
+@63
+led_matrix_tb.rows[7:0]
+[pattern_trace] 1
+[pattern_trace] 0
