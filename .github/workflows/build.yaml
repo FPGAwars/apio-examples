@@ -5,8 +5,8 @@ on:
   push:
 
   # Run every day at 2AM.
-  # schedule:
-  #   - cron: '0 2 * * *'
+  schedule:
+    - cron: '0 2 * * *'
 
   # Allow manual activations.
   workflow_dispatch:
@@ -56,7 +56,7 @@ jobs:
 
       - name: Determine package file name
         run: |
-          package_name="apio-examples-${RELEASE_VERSION}.zip"
+          package_name="apio-examples-${RELEASE_TAG}.zip"
           echo $package_name
           echo "PACKAGE_NAME=$package_name" >> $GITHUB_ENV
 
@@ -75,7 +75,6 @@ jobs:
           ls -al
           cat -n BUILD-INFO
 
-          
       - name: Create package
         run: |
           pwd
