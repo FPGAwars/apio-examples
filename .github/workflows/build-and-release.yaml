@@ -106,7 +106,7 @@ jobs:
           # echo '${{needs.prepare.outputs.apio_config}}' | jq . > APIO_CONFIG.json
 
           out=RELEASE_BODY.txt
-          echo "This is an automated daily build Apio examples package." >> $out
+          echo "This is an automated release-and-build of the Apio examples package." >> $out
 
           echo -e "\n<br>\n" >> $out
 
