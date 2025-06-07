@@ -66,6 +66,7 @@ jobs:
           out="BUILD-INFO"
           echo "Time:        $(date +'%Y-%m-%d %H:%M:%S %Z')" >> ${out}
           echo "Repo:        ${{github.repository}}" >> ${out}
+          echo "Workflow:    ${{github.workflow}}" >> ${out}
           echo "Commit:      $RELEASE_COMMIT" >>  ${out}
           echo "Run ID:      ${{github.run_id}}" >> ${out}
           echo "Run number:  ${{github.run_number}}" >> ${out}
