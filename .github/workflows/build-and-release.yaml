@@ -123,6 +123,7 @@ jobs:
       # release tag to also be updated.
       - name: Force-update tag to current commit
         run: |
+          cd this-repo
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git tag -f $RELEASE_TAG
