@@ -19,7 +19,7 @@ jobs:
 
   # ----- Parameters collection job
 
-  build:
+  build-and-release:
 
     runs-on: ubuntu-latest
 
