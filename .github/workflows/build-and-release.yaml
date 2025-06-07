@@ -63,7 +63,7 @@ jobs:
       - name: Create build info file
         run: |
           out="BUILD-INFO"
-          echo "Content:      Apio 'examples' package." >> ${out}
+          echo "Content:      Apio 'examples' package" >> ${out}
           echo "Time:         $(date +'%Y-%m-%d %H:%M:%S %Z')" >> ${out}
           echo "Repo:         ${{github.repository}}" >> ${out}
           echo "Workflow:     ${{github.workflow}}" >> ${out}
