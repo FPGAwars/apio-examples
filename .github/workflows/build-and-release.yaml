@@ -121,7 +121,7 @@ jobs:
 
       # In case we updating an existing daily release, force the
       # release tag to also be updated.
-      - name: Force-update tag to current commit
+      - name: Force release tag to current commit
         run: |
           cd this-repo
           git config user.name "github-actions"
