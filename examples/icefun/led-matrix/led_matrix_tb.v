@@ -14,6 +14,7 @@ module led_matrix_tb;
   ) led_matrix (
       .clk(clk),
       .data(data),
+      .intensity(15),
       .frame_tick(frame_tick),
       .rows(rows),
       .cols(cols)

@@ -1,7 +1,8 @@
 
 module main #(
-    parameter integer N1 = 50_000,
-    parameter integer N2 = 6_000_000
+    parameter integer N1 = 5_000,     // clks per col scan
+    parameter integer N2 = 6_000_000,  // clks per rnd update
+    parameter integer INTENSITY = 0      // Leds intensity, 0-15
 ) (
     input        CLK,   // 12MHz clock
     output [7:0] ROWS,  // LED rows
@@ -26,6 +27,7 @@ module main #(
   ) led_matrix (
       .clk(CLK),
       .data(sampled_rnd),
+      .intensity(INTENSITY[3:0]),
       .frame_tick(),
       .rows(ROWS),
       .cols(COLS)

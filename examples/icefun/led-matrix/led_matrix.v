@@ -4,6 +4,7 @@ module led_matrix #(
 ) (
     input             clk,                 // 12MHz clock
     input      [31:0] data,                // 4x32 LEDs data, '1' is on
+    input      [ 3:0] intensity,           // LEDs intensity, 0-15.
     output reg        frame_tick = 0,      // High for one clock per frame
     output reg [ 7:0] rows = 8'b11111111,  // LED rows, active low
     output reg [ 3:0] cols = 4'b1111       // LED columns, active low
@@ -11,6 +12,8 @@ module led_matrix #(
 
   // Timer for column time.
   reg [31:0] timer = 0;
+
+
 
   // The current displayed col.
   reg [1:0] col = 0;
@@ -38,11 +41,18 @@ module led_matrix #(
   // the data directly without sampling it every frame.
   wire [31:0] shifted_data = data << (col * 8);
 
+  // pwm counter.
+  reg  [11:0] pwm_counter = 0;
+
   // Update LEDs on each column tick.
   always @(posedge clk) begin
-    if (col_tick) begin
+    pwm_counter <= pwm_counter + 1;
+    if (pwm_counter[11:8] <= intensity) begin
       cols <= ~(4'b0001 << col);  // Active low
       rows <= ~(shifted_data[31:24]);  // Active low
+    end else begin
+      cols <= 4'b1111;
+      rows <= 8'b11111111;
     end
   end
 
