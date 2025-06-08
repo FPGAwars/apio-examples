@@ -131,7 +131,7 @@ jobs:
       # transition period
       - name: Create legacy file (temporary)
         run: |
-          legacy_package_name="apio-examples-${RELEASE_RELEASE}.zip"
+          legacy_package_name="apio-examples-${RELEASE_VERSION}.zip"
           echo $legacy_package_name
           echo "LEGACY_PACKAGE_NAME=$legacy_package_name" >> $GITHUB_ENV
           cp $PACKAGE_NAME $legacy_file_name
