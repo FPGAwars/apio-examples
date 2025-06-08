@@ -81,7 +81,7 @@ jobs:
           pwd
           pushd this-repo
           mkdir "_package"
-          cp -r ./examples _package
+          cp -r ./examples/* _package
           cp LICENSE _package
           # ./make-package.sh
           popd
