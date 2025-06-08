@@ -126,6 +126,17 @@ jobs:
           git push origin -f refs/tags/$RELEASE_TAG
 
 
+
+      # TODO: Delete this step and artifact. It's for the 
+      # transition period
+      - name: Create legacy file (temporary)
+        run: |
+          legacy_package_name="apio-examples-${RELEASE_VERSION}.zip"
+          echo $legacy_package_name
+          echo "LEGACY_PACKAGE_NAME=$legacy_package_name" >> $GITHUB_ENV
+          cp $PACKAGE_NAME $legacy_package_name
+
+
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
@@ -134,4 +145,5 @@ jobs:
           body_path: RELEASE_BODY.txt
           files: |
             ${{env.PACKAGE_NAME}}
+            ${{env.LEGACY_PACKAGE_NAME}}
 
