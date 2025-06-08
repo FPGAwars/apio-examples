@@ -134,9 +134,9 @@ jobs:
           legacy_package_name="apio-examples-${RELEASE_RELEASE}.zip"
           echo $legacy_package_name
           echo "LEGACY_PACKAGE_NAME=$legacy_package_name" >> $GITHUB_ENV
-          cp $PACKAGE_NAME $LEGACY_PACKAGE_NAME
+          cp $PACKAGE_NAME $legacy_file_name
 
-          
+
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
