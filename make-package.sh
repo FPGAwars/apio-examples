@@ -12,7 +12,7 @@
 #VERSION=0.1.4
 
 # For debugging, echo executed commands.
-# set -x
+set -x
 
 # Exit on any error
 set -e
@@ -61,7 +61,7 @@ cp LICENSE _package/${PACKAGE_NAME}
 # cp VERSION_BUILD _package/${PACKAGE_NAME}/VERSION
 
 # -- Go to the examples dir
-cd _package/${PACKAGE_NAME}
+# cd _package/${PACKAGE_NAME}
 
 # -- Zip the dir with the examples copies.
 #zip -r "../${PACKAGE_NAME}.zip" *
