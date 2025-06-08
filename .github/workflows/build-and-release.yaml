@@ -5,8 +5,8 @@ on:
   push:
 
   # Run every day at 2AM.
-  # schedule:
-  #   - cron: '0 2 * * *'
+  schedule:
+    - cron: '0 2 * * *'
 
   # Allow manual activations.
   workflow_dispatch:
@@ -26,6 +26,7 @@ jobs:
 
     steps:
 
+      # E.g. 0.1.2
       - name: Determine release version
         run: |
           release_version="$(date +'%Y.%m.%d')"
@@ -33,6 +34,7 @@ jobs:
           echo "RELEASE_VERSION=$release_version" >> $GITHUB_ENV
 
 
+      # Release tag is release version with '.' -> '-'.
       - name: Determine release tag
         run: |
           release_tag="${RELEASE_VERSION//./-}"
@@ -46,7 +48,7 @@ jobs:
           path: this-repo
 
 
-      - name: Determine commit
+      - name: Determine last commit
         run: |
           commit=$(git -C this-repo rev-parse HEAD)
           echo $commit
@@ -60,7 +62,7 @@ jobs:
           echo "PACKAGE_NAME=$package_name" >> $GITHUB_ENV
 
 
-      - name: Create build info file
+      - name: Create build-info file
         run: |
           out="BUILD-INFO"
           echo "Content:      Apio 'examples' package" >> ${out}
@@ -76,7 +78,7 @@ jobs:
           ls -al
           cat -n BUILD-INFO
 
-          
+
       - name: Collect package files
         run: |
           mkdir "_package"
