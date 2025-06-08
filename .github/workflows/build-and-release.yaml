@@ -80,7 +80,10 @@ jobs:
         run: |
           pwd
           pushd this-repo
-          ./make-package.sh
+          mkdir "_package"
+          cp -r ./examples _package
+          cp LICENSE _package
+          # ./make-package.sh
           popd
           pwd
           find this-repo/_package
