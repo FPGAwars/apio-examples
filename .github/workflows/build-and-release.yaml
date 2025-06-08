@@ -76,30 +76,19 @@ jobs:
           ls -al
           cat -n BUILD-INFO
 
-      - name: Create package
+      - name: Collect package files
         run: |
-          pwd
-          pushd this-repo
           mkdir "_package"
-          cp -r ./examples/* _package
-          cp LICENSE _package
-          # ./make-package.sh
-          popd
-          pwd
-          find this-repo/_package
+          cp -r ./this-repo/examples/* _package
+          cp ./this-repo/LICENSE _package
+          cp BUILD-INFO _package
+          find _package
 
 
-      - name: Add build info file
+      - name: Zip the package directory
         run: |
-          pwd
-          cp BUILD-INFO this-repo/_package
-          ls -al this-repo/_package
-
-
-      - name: Zip the package
-        run: |
-          pushd this-repo/_package
-          zip -r "../../${PACKAGE_NAME}" *
+          pushd _package
+          zip -r "../${PACKAGE_NAME}" *
           popd
           ls -al
 
