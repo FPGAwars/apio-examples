@@ -1,0 +1,137 @@
+name: "build-and-release"
+
+on:
+  # Run on each commit to this repo.
+  push:
+
+  # Run every day at 2AM.
+  schedule:
+    - cron: '0 2 * * *'
+
+  # Allow manual activations.
+  workflow_dispatch:
+
+permissions:
+  # Allow release creation
+  contents: write
+
+jobs:
+
+  # ----- Parameters collection job
+
+  build-and-release:
+
+    runs-on: ubuntu-latest
+
+
+    steps:
+
+      # E.g. 0.1.2
+      - name: Determine release version
+        run: |
+          release_version="$(date +'%Y.%m.%d')"
+          echo $release_version
+          echo "RELEASE_VERSION=$release_version" >> $GITHUB_ENV
+
+
+      # Release tag is release version with '.' -> '-'.
+      - name: Determine release tag
+        run: |
+          release_tag="${RELEASE_VERSION//./-}"
+          echo $release_tag
+          echo "RELEASE_TAG=$release_tag" >> $GITHUB_ENV
+
+
+      - name: Checkout this repo
+        uses: actions/checkout@v4
+        with:
+          path: this-repo
+
+
+      - name: Determine last commit
+        run: |
+          commit=$(git -C this-repo rev-parse HEAD)
+          echo $commit
+          echo "RELEASE_COMMIT=$commit" >> $GITHUB_ENV
+
+
+      - name: Determine package file name
+        run: |
+          package_name="apio-examples-${RELEASE_TAG}.zip"
+          echo $package_name
+          echo "PACKAGE_NAME=$package_name" >> $GITHUB_ENV
+
+
+      - name: Create build-info file
+        run: |
+          out="BUILD-INFO"
+          echo "Content:      Apio 'examples' package" >> ${out}
+          echo "Time:         $(date +'%Y-%m-%d %H:%M:%S %Z')" >> ${out}
+          echo "Repo:         ${{github.repository}}" >> ${out}
+          echo "Workflow:     ${{github.workflow}}" >> ${out}
+          echo "Run-ID:       ${{github.run_id}}" >> ${out}
+          echo "Run-number:   ${{github.run_number}}" >> ${out}
+          echo "Commit:       $RELEASE_COMMIT" >>  ${out}
+          echo "Version:      $RELEASE_VERSION" >> ${out}
+          echo "Release-tag:  $RELEASE_TAG" >> ${out}
+
+          ls -al
+          cat -n BUILD-INFO
+
+
+      - name: Collect package files
+        run: |
+          mkdir "_package"
+          cp -r ./this-repo/examples/* _package
+          cp ./this-repo/LICENSE _package
+          cp BUILD-INFO _package
+          find _package
+
+
+      - name: Zip the package directory
+        run: |
+          pushd _package
+          zip -r "../${PACKAGE_NAME}" *
+          popd
+          ls -al
+
+
+      - name: Prepare release text
+        run: |
+
+          # echo '${{needs.prepare.outputs.apio_config}}' | jq . > APIO_CONFIG.json
+
+          out=RELEASE_BODY.txt
+          echo "This is an automated release-and-build of the Apio examples package." >> $out
+
+          echo -e "\n<br>\n" >> $out
+
+          echo "BUILD-INFO file:"
+          echo '```' >> $out
+          cat BUILD-INFO >> $out
+          echo '```' >> $out
+
+          echo -e "\n<br>\n" >> $out
+          cat -n $out
+
+
+      # In case we updating an existing daily release, force the
+      # release tag to also be updated.
+      - name: Force release tag to current commit
+        run: |
+          cd this-repo
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git tag -f $RELEASE_TAG
+          git push origin -f refs/tags/$RELEASE_TAG
+
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{env.RELEASE_TAG}}
+          name: ${{env.RELEASE_TAG}}
+          body_path: RELEASE_BODY.txt
+          files: |
+            ${{env.PACKAGE_NAME}}
+
