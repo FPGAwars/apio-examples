@@ -2,7 +2,7 @@ name: "build-and-release"
 
 on:
   # Run on each commit to this repo.
-  # push:
+  push:
 
   # Run every day at 2AM.
   # schedule:
