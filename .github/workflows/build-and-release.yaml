@@ -66,7 +66,7 @@ jobs:
         run: |
           out="BUILD-INFO"
 
-          echo "[apio-package-build]" >> ${out}
+          echo "[apio-build-info]" >> ${out}
           echo "package = examples" >> ${out}
           echo "time = $(date +'%Y-%m-%d %H:%M:%S %Z')" >> ${out}
           echo "repo = ${{github.repository}}" >> ${out}
