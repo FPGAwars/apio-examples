@@ -11,7 +11,6 @@ hardware.bit
 hardware.config
 _build
 .run.sh
-VERSION_BUILD
 _package/
 .DS_Store
 __pycache__

@@ -4,9 +4,9 @@ on:
   # Run on each commit to this repo.
   push:
 
-  # Run every day at 2AM.
+  # Run daily at 10AM UTC
   schedule:
-    - cron: '0 2 * * *'
+    - cron: "0 10 * * *"
 
   # Allow manual activations.
   workflow_dispatch:
@@ -16,15 +16,13 @@ permissions:
   contents: write
 
 jobs:
-
   # ----- Parameters collection job
-
   build-and-release:
-
     runs-on: ubuntu-latest
 
-
     steps:
+      - name: Checkout this repo
+        uses: actions/checkout@v4
 
       # E.g. "2025-11-02"
       - name: Determine release tag
@@ -33,7 +31,6 @@ jobs:
           echo $release_tag
           echo "RELEASE_TAG=$release_tag" >> $GITHUB_ENV
 
-          
       # E.g. "20251102"
       - name: Determine package tag
         run: |
@@ -41,88 +38,89 @@ jobs:
           echo $package_tag
           echo "PACKAGE_TAG=$package_tag" >> $GITHUB_ENV
 
-
-      - name: Checkout this repo
-        uses: actions/checkout@v4
-        with:
-          path: this-repo
-
-
       - name: Determine last commit
         run: |
-          commit=$(git -C this-repo rev-parse HEAD)
+          commit=$(git rev-parse HEAD)
           echo $commit
           echo "RELEASE_COMMIT=$commit" >> $GITHUB_ENV
 
-
       - name: Determine package file name
         run: |
-          package_name="apio-examples-${PACKAGE_TAG}.zip"
+          package_name="apio-examples-${PACKAGE_TAG}.tar.gz"
           echo $package_name
           echo "PACKAGE_NAME=$package_name" >> $GITHUB_ENV
 
-
-      - name: Create build-info file
+      - name: Create build info
         run: |
-          out="BUILD-INFO"
+          cat > build-info.json <<EOF
+          {
+            "name":  "examples",
+            "description" : "Apio examples package",
+            "release-tag":  "$RELEASE_TAG",
+            "target-platform":  "all",
+            "build-repo":  "${{github.repository}}",
+            "build-workflow":  "${{ github.workflow }}",
+            "workflow-run-id":  "${{github.run_id}}",
+            "workflow-run-number": "${{github.run_number}}",
+            "build-time":  "$(date +'%Y-%m-%d %H:%M:%S %Z')",
+            "commit":  "$RELEASE_COMMIT",
+            "file-name":  "$PACKAGE_NAME"
+          }
+          EOF
 
-          echo "[apio-build-info]" >> ${out}
-          echo "package = examples" >> ${out}
-          echo "time = $(date +'%Y-%m-%d %H:%M:%S %Z')" >> ${out}
-          echo "repo = ${{github.repository}}" >> ${out}
-          echo "workflow = ${{github.workflow}}" >> ${out}
-          echo "run-id = ${{github.run_id}}" >> ${out}
-          echo "run-number = ${{github.run_number}}" >> ${out}
-          echo "commit = $RELEASE_COMMIT" >>  ${out}
-          echo "package-tag:  $RELEASE_TAG" >> ${out}
-          echo "release-tag:  $RELEASE_TAG" >> ${out}
+          cat -n build-info.json
 
-          ls -al
-          cat -n BUILD-INFO
-
+      - name: Format build info
+        run: |
+          npm install -g json-align
+          json-align --in-place --spaces 2 build-info.json
+          cat -n build-info.json
 
       - name: Collect package files
         run: |
           mkdir "_package"
-          cp -r ./this-repo/examples/* _package
-          cp ./this-repo/LICENSE _package
-          cp BUILD-INFO _package
+          cp -r ./examples/* _package
+          cp ./LICENSE _package
+          cp build-info.json _package
           find _package
 
-
-      - name: Zip the package directory
+      - name: Compress the package directory
         run: |
           pushd _package
-          zip -r "../${PACKAGE_NAME}" *
+          tar zcf ../${PACKAGE_NAME} ./*
           popd
           ls -al
 
-
       - name: Prepare release text
         run: |
+          cat  > RELEASE_BODY.txt <<EOF
+          This is an automated build-and-release.
 
-          # echo '${{needs.prepare.outputs.apio_config}}' | jq . > APIO_CONFIG.json
+          Build info:
+          \`\`\`
+          $(tr -d '",{}' < build-info.json)
+          \`\`\`
+          EOF
 
-          out=RELEASE_BODY.txt
-          echo "This is an automated release-and-build of the Apio examples package." >> $out
-
-          echo -e "\n<br>\n" >> $out
-
-          echo "BUILD-INFO file:"
-          echo '```' >> $out
-          cat BUILD-INFO >> $out
-          echo '```' >> $out
-
-          echo -e "\n<br>\n" >> $out
           cat -n $out
 
+      - name: Write job summary
+        run: |
+          tr -d '",{}' < build-info.json >> $GITHUB_STEP_SUMMARY
+
+      # In case we overwrite and exiting release.
+      - name: Force tag update
+        run: |
+          git tag -f ${{env.RELEASE_TAG}}
+          git push origin -f ${{env.RELEASE_TAG}}
 
       - name: Create GitHub release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v2.2.2
         with:
           tag_name: ${{env.RELEASE_TAG}}
           name: ${{env.RELEASE_TAG}}
           body_path: RELEASE_BODY.txt
+          preserve_order: true
+          fail_on_unmatched_files: true
           files: |
             ${{env.PACKAGE_NAME}}
-
