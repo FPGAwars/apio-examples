@@ -26,20 +26,20 @@ jobs:
 
     steps:
 
-      # E.g. 0.1.2
-      - name: Determine release version
-        run: |
-          release_version="$(date +'%Y.%m.%d')"
-          echo $release_version
-          echo "RELEASE_VERSION=$release_version" >> $GITHUB_ENV
-
-
-      # Release tag is release version with '.' -> '-'.
+      # E.g. "2025-11-02"
       - name: Determine release tag
         run: |
-          release_tag="${RELEASE_VERSION//./-}"
+          release_tag="$(date +'%Y-%m-%d')"
           echo $release_tag
           echo "RELEASE_TAG=$release_tag" >> $GITHUB_ENV
+
+          
+      # E.g. "20251102"
+      - name: Determine package tag
+        run: |
+          package_tag="${RELEASE_TAG//-/}"
+          echo $package_tag
+          echo "PACKAGE_TAG=$package_tag" >> $GITHUB_ENV
 
 
       - name: Checkout this repo
@@ -57,7 +57,7 @@ jobs:
 
       - name: Determine package file name
         run: |
-          package_name="apio-examples-${RELEASE_TAG}.zip"
+          package_name="apio-examples-${PACKAGE_TAG}.zip"
           echo $package_name
           echo "PACKAGE_NAME=$package_name" >> $GITHUB_ENV
 
@@ -65,15 +65,17 @@ jobs:
       - name: Create build-info file
         run: |
           out="BUILD-INFO"
-          echo "Content:      Apio 'examples' package" >> ${out}
-          echo "Time:         $(date +'%Y-%m-%d %H:%M:%S %Z')" >> ${out}
-          echo "Repo:         ${{github.repository}}" >> ${out}
-          echo "Workflow:     ${{github.workflow}}" >> ${out}
-          echo "Run-ID:       ${{github.run_id}}" >> ${out}
-          echo "Run-number:   ${{github.run_number}}" >> ${out}
-          echo "Commit:       $RELEASE_COMMIT" >>  ${out}
-          echo "Version:      $RELEASE_VERSION" >> ${out}
-          echo "Release-tag:  $RELEASE_TAG" >> ${out}
+
+          echo "[apio-package-build]" >> ${out}
+          echo "package = examples" >> ${out}
+          echo "time = $(date +'%Y-%m-%d %H:%M:%S %Z')" >> ${out}
+          echo "repo = ${{github.repository}}" >> ${out}
+          echo "workflow = ${{github.workflow}}" >> ${out}
+          echo "run-id = ${{github.run_id}}" >> ${out}
+          echo "run-number = ${{github.run_number}}" >> ${out}
+          echo "commit = $RELEASE_COMMIT" >>  ${out}
+          echo "package-tag:  $RELEASE_TAG" >> ${out}
+          echo "release-tag:  $RELEASE_TAG" >> ${out}
 
           ls -al
           cat -n BUILD-INFO
@@ -115,28 +117,6 @@ jobs:
           cat -n $out
 
 
-      # In case we updating an existing daily release, force the
-      # release tag to also be updated.
-      - name: Force release tag to current commit
-        run: |
-          cd this-repo
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git tag -f $RELEASE_TAG
-          git push origin -f refs/tags/$RELEASE_TAG
-
-
-
-      # TODO: Delete this step and artifact. It's for the 
-      # transition period
-      - name: Create legacy file (temporary)
-        run: |
-          legacy_package_name="apio-examples-${RELEASE_VERSION}.zip"
-          echo $legacy_package_name
-          echo "LEGACY_PACKAGE_NAME=$legacy_package_name" >> $GITHUB_ENV
-          cp $PACKAGE_NAME $legacy_package_name
-
-
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
@@ -145,5 +125,4 @@ jobs:
           body_path: RELEASE_BODY.txt
           files: |
             ${{env.PACKAGE_NAME}}
-            ${{env.LEGACY_PACKAGE_NAME}}
 
