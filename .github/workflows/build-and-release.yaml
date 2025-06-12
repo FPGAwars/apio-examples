@@ -54,7 +54,7 @@ jobs:
         run: |
           cat > build-info.json <<EOF
           {
-            "name":  "examples",
+            "package-name":  "examples",
             "description" : "Apio examples package",
             "release-tag":  "$RELEASE_TAG",
             "target-platform":  "all",
