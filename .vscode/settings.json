@@ -3,5 +3,9 @@
         "apio",
         "localparam",
         "tinyfpga"
-    ]
+    ],
+    "[github-workflow]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    }
 }
