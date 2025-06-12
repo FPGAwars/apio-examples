@@ -81,7 +81,7 @@ jobs:
           mkdir "_package"
           cp -r ./examples/* _package
           cp ./LICENSE _package
-          cp build-info.json _package
+          cp build-info.json _package/BUILD-INFO.json
           find _package
 
       - name: Compress the package directory
