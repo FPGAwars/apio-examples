@@ -1,4 +1,4 @@
-name: "build-and-release"
+name: build-and-release
 
 on:
   # Run on each commit to this repo.
