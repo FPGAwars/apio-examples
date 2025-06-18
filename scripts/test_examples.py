@@ -35,7 +35,7 @@ def run_cmd(cmd: List[str], check: bool = False) -> CompletedProcess:
     """Run a given system command. If check = True, also assert that
     it returned an OK status code."""
 
-    print(f"Run: {cmd}")
+    print(f"Run: {cmd}", flush=True)
     result = subprocess.run(cmd, text=True, capture_output=True, check=False)
     if check and result.returncode != 0:
         print(f"Command failed: {result.returncode}")
