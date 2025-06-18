@@ -1,7 +1,10 @@
 {
     "cSpell.words": [
         "apio",
+        "dumpfile",
         "localparam",
+        "testbench",
+        "testbenches",
         "tinyfpga"
     ],
     "[github-workflow]": {
