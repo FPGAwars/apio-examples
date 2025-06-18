@@ -44,6 +44,14 @@ jobs:
           echo $commit
           echo "RELEASE_COMMIT=$commit" >> $GITHUB_ENV
 
+      - name: Call the 'test' workflow.
+        uses: the-actions-org/workflow-dispatch@v4
+        with:
+          workflow: test.yaml
+          wait-for-completion: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          inputs: '{ "commit_sha": "${{env.RELEASE_COMMIT}}" }'
+
       - name: Determine package file name
         run: |
           package_name="apio-examples-${PACKAGE_TAG}.tgz"
