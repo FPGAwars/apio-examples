@@ -44,13 +44,6 @@ jobs:
           echo $commit
           echo "RELEASE_COMMIT=$commit" >> $GITHUB_ENV
 
-      # - name: Call the 'test' workflow.
-      #   uses: the-actions-org/workflow-dispatch@v4
-      #   with:
-      #     workflow: test.yaml
-      #     wait-for-completion: true
-      #     token: ${{ secrets.GITHUB_TOKEN }}
-      #     inputs: '{ "commit_sha": "${{env.RELEASE_COMMIT}}" }'
 
       - name: Determine package file name
         run: |
@@ -98,6 +91,19 @@ jobs:
           tar zcf ../${PACKAGE_NAME} ./*
           popd
           ls -al
+
+      # -- Apio command is required for testing.
+      - name: Install apio dev latest
+        run: |
+          #pip install --force-reinstall -U \ git+https://github.com/FPGAwars/apio.git@develop#egg=apio
+          pip install --force-reinstall -U \ git+https://github.com/zapta/apio.git@develop#egg=apio
+
+      # -- We test the examples after creating the package because the
+      # -- test currently mutates the examples directory when it runs
+      # -- the 'apio format' command.
+      - name: Run test_examples.py
+        run: |
+          python scripts/test_examples.py
 
       - name: Prepare release text
         run: |
