@@ -10,14 +10,44 @@ on:
 
   # Allow manual activations.
   workflow_dispatch:
+    inputs:
+      commit_sha:
+        description: "[Optional] examples commit SHA to test"
+        required: false
+        default: ""
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
+
+      - name: Determine commit to use
+        run: |
+          # Strip leading and trailing spaces
+          sha="$(echo "${{ github.event.inputs.commit_sha }}" | xargs)"
+
+          # User specified commit SHA.
+          if [ -n "$sha" ]; then
+            echo "COMMIT_SHA=$sha" >> $GITHUB_ENV
+            echo "COMMIT_NOTE=Using manual commit" >> $GITHUB_ENV
+
+          # Default behavior, use latest commit.
+          else
+            echo "COMMIT_SHA=${{ github.sha }}" >> $GITHUB_ENV
+            echo "COMMIT_NOTE=Using latest commit" >> $GITHUB_ENV
+          fi
+
+      - name: Show selected commit
+        run: |
+          echo "$COMMIT_NOTE"
+          echo "Selected: $COMMIT_SHA"
+          echo "Latest:   ${{github.sha}}"
+
       - name: Checkout this repo
         uses: actions/checkout@v4
+        with:
+          ref: ${{env.COMMIT_SHA}}
 
       - name: Set up Python 3.13
         uses: actions/setup-python@v5
