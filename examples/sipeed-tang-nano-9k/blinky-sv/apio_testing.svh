@@ -6,14 +6,6 @@ logic clk;
 // Clock signals counter. Helps with diagnostics.
 integer clk_num = 0;
 
-// Determine if running under 'apio sim' or 'apio test'.
-`ifdef INTERACTIVE_SIM
-bit apio_sim = 1;  // apio sim
-`else
-bit apio_sim = 0;  // apio test
-`endif
-
-
 // Generates a continuous clock, and clock num.
 initial begin
   clk = 0;
@@ -22,7 +14,6 @@ initial begin
     if (clk) clk_num += 1;
   end
 end
-
 
 // Assertion that signal == value. Continues if running 'apio sim', aborts if running
 // 'apio test'. 
@@ -35,9 +26,7 @@ task automatic _check_eq(input int signal, input int expected, input string file
   if (signal != expected) begin
     $display("*** Check failed @%s/%1d (clk_num=%0d): expected: 'h%1h (%1d), actual: 'h%1h (%1d)",
              (file), line, clk_num, expected, expected, signal, signal);
-    if (!apio_sim) begin
-      $fatal;
-    end
+    if (!`APIO_SIM) $fatal;
   end
 endtask
 

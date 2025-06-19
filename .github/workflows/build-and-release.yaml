@@ -98,12 +98,16 @@ jobs:
           #pip install --force-reinstall -U \ git+https://github.com/FPGAwars/apio.git@develop#egg=apio
           pip install --force-reinstall -U \ git+https://github.com/zapta/apio.git@develop#egg=apio
 
+      - name: Install apio packages
+        run: |
+          apio packages update
+
       # -- We test the examples after creating the package because the
       # -- test currently mutates the examples directory when it runs
       # -- the 'apio format' command.
       - name: Run test_examples.py
         run: |
-          python scripts/test_examples.py
+          python ./test.py
 
       - name: Prepare release text
         run: |

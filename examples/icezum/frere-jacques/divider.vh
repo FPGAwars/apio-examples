@@ -1,6 +1,8 @@
 //-- Constantes para definir los valores del divisor segun la
 //-- frecuencia deseada
 
+// verilog_format: off
+
 //------------------------- Duraciones
 //-- En segundos
 `define T_1s     12000000

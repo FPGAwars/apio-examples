@@ -65,4 +65,4 @@ jobs:
 
       - name: Run test_examples.py
         run: |
-          python scripts/test_examples.py
+          python ./test.py
