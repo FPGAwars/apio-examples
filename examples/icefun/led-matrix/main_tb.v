@@ -10,9 +10,9 @@ module main_tb;
 
   // Instantiate the DUT (Device Under Test)
   main #(
-      .N1(3),        // Small value for fast sim
-      .N2(40),       // Small value for fast sim
-      .INTENSITY(15) // Max intensity, no pwm
+      .N1       (3),   // Small value for fast sim
+      .N2       (40),  // Small value for fast sim
+      .INTENSITY(15)   // Max intensity, no pwm
   ) main (
       .CLK (clk),
       .ROWS(rows),

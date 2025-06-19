@@ -107,7 +107,7 @@ jobs:
       # -- the 'apio format' command.
       - name: Run test_examples.py
         run: |
-          python scripts/test_examples.py
+          python ./test.py
 
       - name: Prepare release text
         run: |

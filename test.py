@@ -1,5 +1,7 @@
+#!/usr/bin/env python3
+
 """A python script to test the examples in the examples repo.
-Run it at the root directory of the repo. It exist with an 
+Run it at the root directory of the repo. It exist with an
 error status code on the first error it detects.
 """
 
@@ -35,7 +37,8 @@ def run_cmd(cmd: List[str], check: bool = False) -> CompletedProcess:
     """Run a given system command. If check = True, also assert that
     it returned an OK status code."""
 
-    print(f"Run: {cmd}", flush=True)
+    # print(f"Run: {cmd}", flush=True)
+    print(f"RUN: {' '.join(cmd[:2]):12}{' '.join(cmd[2:])}", flush=True)
     result = subprocess.run(cmd, text=True, capture_output=True, check=False)
     if check and result.returncode != 0:
         print(f"Command failed: {result.returncode}")
@@ -104,7 +107,7 @@ def test_example_env(
         run_cmd(["apio", "clean"])
         for testbench in testbenches:
             run_cmd(
-                ["apio", "sim", "--no-gtkwave", "-e", env_name, testbench], check=True
+                ["apio", "sim", "-e", env_name, "--no-gtkwave", testbench], check=True
             )
             test_testbench_output(env_name, testbench)
 

@@ -5,8 +5,8 @@ module main #(
     // it as a parameter we can reduce it in testbench simulations.
     parameter integer DIV = 12000000
 ) (
-    input  logic        CLK,  // 12MHz clock
-    output logic [7:0]  LEDS  // LED to blink
+    input  logic       CLK,  // 12MHz clock
+    output logic [7:0] LEDS  // LED to blink
 );
 
   // Global reset from the reset generator.

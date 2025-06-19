@@ -1,4 +1,4 @@
-`timescale 1ns/1ps
+`timescale 1ns / 1ps
 
 module testbench;
 
@@ -7,10 +7,12 @@ module testbench;
   wire LED1, LED2;
 
   // Instantiate DUT with N = 3 for quick testing
-  Main #(.N(3)) dut (
-    .CLK(CLK),
-    .LED1(LED1),
-    .LED2(LED2)
+  Main #(
+      .N(3)
+  ) dut (
+      .CLK (CLK),
+      .LED1(LED1),
+      .LED2(LED2)
   );
 
   // Generate 12 MHz-like clock (approx. 83 ns period)
@@ -31,9 +33,7 @@ module testbench;
       // Check LED values before updating expected state
       if (LED1 !== expected_led || LED2 !== ~expected_led) begin
         $display("ERROR at cycle %0d: LED1 = %b, expected = %b", i, LED1, expected_led);
-        `ifndef INTERACTIVE_SIM
-          $fatal(1, "LED state mismatch");
-        `endif
+        if (!`APIO_SIM) $fatal(1, "LED state mismatch");
       end
 
       // Update expected LED every N=3 cycles

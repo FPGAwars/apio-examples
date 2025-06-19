@@ -11,10 +11,12 @@ module test_Main;
   // Rule 6: Set to high on first error
   reg tb_error = 0;
 
-  Main #(.N(3)) dut (
-    .CLK(CLK),
-    .ROWS(ROWS),
-    .COLS(COLS)
+  Main #(
+      .N(3)
+  ) dut (
+      .CLK (CLK),
+      .ROWS(ROWS),
+      .COLS(COLS)
   );
 
   // Clock: 10ns period (12MHz is ~83.3ns, simplified for sim)
@@ -28,39 +30,34 @@ module test_Main;
     if (ROWS !== 8'b11111101 || COLS !== 4'b1110) begin
       $display("ERROR at t=0: Expected ROWS=11111101, COLS=1110, got ROWS=%b, COLS=%b", ROWS, COLS);
       tb_error = 1;
-      `ifndef INTERACTIVE_SIM
-        $fatal;
-      `endif
+      if (!`APIO_SIM) $fatal;
     end
 
     // === Toggle 1 ===
-    repeat (3) @(posedge CLK); #1;
+    repeat (3) @(posedge CLK);
+    #1;
     if (ROWS !== 8'b11111110) begin
       $display("ERROR at toggle 1: Expected ROWS=11111110, got ROWS=%b", ROWS);
       tb_error = 1;
-      `ifndef INTERACTIVE_SIM
-        $fatal;
-      `endif
+      if (!`APIO_SIM) $fatal;
     end
 
     // === Toggle 2 ===
-    repeat (3) @(posedge CLK); #1;
+    repeat (3) @(posedge CLK);
+    #1;
     if (ROWS !== 8'b11111101) begin
       $display("ERROR at toggle 2: Expected ROWS=11111101, got ROWS=%b", ROWS);
       tb_error = 1;
-      `ifndef INTERACTIVE_SIM
-        $fatal;
-      `endif
+      if (!`APIO_SIM) $fatal;
     end
 
     // === Toggle 3 ===
-    repeat (3) @(posedge CLK); #1;
+    repeat (3) @(posedge CLK);
+    #1;
     if (ROWS !== 8'b11111110) begin
       $display("ERROR at toggle 3: Expected ROWS=11111110, got ROWS=%b", ROWS);
       tb_error = 1;
-      `ifndef INTERACTIVE_SIM
-        $fatal;
-      `endif
+      if (!`APIO_SIM) $fatal;
     end
 
     // Rule 5: End of simulation message
