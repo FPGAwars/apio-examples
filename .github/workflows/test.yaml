@@ -4,6 +4,11 @@ on:
   # Run on each commit to this repo.
   push:
 
+  # Run on pull requests.
+  pull_request:
+    branches:
+      - master
+
   # Daily at 10AM UTC
   schedule:
     - cron: "0 10 * * *"
