@@ -21,15 +21,6 @@
  * 
  * The design demonstrates high FPGA resource utilization while staying within
  * the available limits of the ice40hx8k device.
- *
- * Copyright (c) 2025 Carlos Venegas <carlos@magnitude.es>More actions
- * X: @cavearr | FPGAwars: charliva@gmail.com
- *
- * -- License:
- * This work is dedicated to the public domain under the Creative Commons Zero (CC0) 1.0 Universal.
- * To the extent possible under law, the author(s) have waived all copyright and related or neighboring
- * rights to this work worldwide. No rights are reserved.
- * Full text: https://creativecommons.org/publicdomain/zero/1.0/
  */
 module area_test (
     input wire CLK,
@@ -99,6 +90,7 @@ module area_test (
             assign bram_wr_n[k] = ~(counter1[k%32] ^ counter2[k%32]); // Write enable logic
             assign bram_rd_n[k] = 1'b0; // Always reading
             
+            // Fixed: Properly extend k to 16 bits
             assign bram_data_in[k] = counter1[15:0] ^ counter2[15:0] ^ {11'b0, k[4:0]};
             
             // Instantiate BRAM module - each BRAM uses its own continuous address
@@ -151,8 +143,10 @@ module area_test (
         end
     endgenerate
     
+    // Remove old bram_filler as we now use all BRAMs directly
     
     // BRAM data processing - XOR all 32 BRAM outputs to ensure usage
+    // Fixed: Properly sized intermediate wires for XOR operations
     wire [15:0] bram_xor_stage1 [0:15];
     wire [15:0] bram_xor_stage2 [0:7];
     wire [15:0] bram_xor_stage3 [0:3];
@@ -181,8 +175,10 @@ module area_test (
         end
     endgenerate
     
+    // Final XOR
     assign bram_xor_final = bram_xor_stage4[0] ^ bram_xor_stage4[1];
     
+    // Fixed: Properly extend to 32 bits
     wire [31:0] all_bram_combined;
     assign all_bram_combined = {16'b0, bram_xor_final};
     
@@ -209,11 +205,10 @@ module area_test (
     
     // Select rotating bits from multiplication result for LSB LEDs
     wire [3:0] mult_rotating_bits;
-    wire [4:0] extended_selector = {1'b0, mult_bit_selector};
-    assign mult_rotating_bits[0] = all_mult_combined[extended_selector];
-    assign mult_rotating_bits[1] = all_mult_combined[(extended_selector + 5'd4) % 5'd16];
-    assign mult_rotating_bits[2] = all_mult_combined[(extended_selector + 5'd8) % 5'd16];
-    assign mult_rotating_bits[3] = all_mult_combined[(extended_selector + 5'd12) % 5'd16];
+    assign mult_rotating_bits[0] = all_mult_combined[mult_bit_selector];
+    assign mult_rotating_bits[1] = all_mult_combined[(mult_bit_selector + 4) % 16];
+    assign mult_rotating_bits[2] = all_mult_combined[(mult_bit_selector + 8) % 16];
+    assign mult_rotating_bits[3] = all_mult_combined[(mult_bit_selector + 12) % 16];
     
     // Register arrays - expanded to 64 registers of 16 bits each
     reg [15:0] reg_array1 [0:63];
@@ -254,9 +249,9 @@ module area_test (
             else if (j < 44)
                 reg_array2[j] <= counter6[15:0] ^ reg_array2[j];
             else if (j < 60)
-                reg_array2[j] <= {8'b0, bram_data_out[j-44][7:0]} ^ reg_array2[j];
+                reg_array2[j] <= bram_data_out[j-44][7:0] ^ reg_array2[j];
             else
-                reg_array2[j] <= {8'b0, bram_data_out[j-44][15:8]} + reg_array2[j];
+                reg_array2[j] <= bram_data_out[j-44][15:8] + reg_array2[j];
         end
         
         // Update third array with third multiplier set
@@ -268,9 +263,9 @@ module area_test (
             else if (j < 24)
                 reg_array3[j] <= counter3[15:0] ^ reg_array3[j];
             else if (j < 40)
-                reg_array3[j] <= reg_array1[j] ^ reg_array2[j] ^ {10'b0, j[5:0]};
+                reg_array3[j] <= reg_array1[j] ^ reg_array2[j] ^ j[5:0];
             else if (j < 56)
-                reg_array3[j] <= reg_array1[j-16] + reg_array2[j-16] ^ {8'b0, counter1[7:0]};
+                reg_array3[j] <= reg_array1[j-16] + reg_array2[j-16] ^ counter1[7:0];
             else
                 reg_array3[j] <= bram_data_out[j-56][15:0] & reg_array3[j];
         end
@@ -292,7 +287,7 @@ module area_test (
             if (j < 32)
                 reg_array5[j] <= bram_data_out[j][15:0] ^ reg_array4[j];
             else
-                reg_array5[j] <= {8'b0, bram_data_out[j-32][7:0]} + reg_array4[j-32] ^ {8'b0, counter4[7:0]};
+                reg_array5[j] <= bram_data_out[j-32][7:0] + reg_array4[j-32] ^ counter4[7:0];
         end
         
         // Update sixth array with all combinations
@@ -304,7 +299,7 @@ module area_test (
             else if (j < 48)
                 reg_array6[j] <= reg_array2[j] & reg_array3[j] + reg_array4[j] ^ reg_array5[j];
             else
-                reg_array6[j] <= reg_array3[j] | reg_array4[j] ^ reg_array5[j] + {8'b0, counter6[7:0]};
+                reg_array6[j] <= reg_array3[j] | reg_array4[j] ^ reg_array5[j] + counter6[7:0];
         end
     end
     
@@ -331,15 +326,12 @@ module area_test (
     wire [31:0] complex_combo [0:7];
     generate
         for (i = 0; i < 8; i = i + 1) begin : complex_array
-            wire [31:0] combo_concat = {combo_logic[i], combo_logic[i+8]};
-            wire [127:0] reg_concat = {reg_array6[i*8], reg_array6[i*8+1], 
+            assign complex_combo[i] = {combo_logic[i], combo_logic[i+8]} ^
+                                     {reg_array6[i*8], reg_array6[i*8+1], 
                                       reg_array6[i*8+2], reg_array6[i*8+3],
                                       reg_array6[i*8+4], reg_array6[i*8+5],
-                                      reg_array6[i*8+6], reg_array6[i*8+7]};
-            wire [31:0] reg_concat_32 = reg_concat[31:0];
-            wire [31:0] mult_upper = {16'b0, mult_result[i%8][31:16]};
-            
-            assign complex_combo[i] = combo_concat ^ reg_concat_32 ^ counter1 ^ counter2 ^ mult_upper;
+                                      reg_array6[i*8+6], reg_array6[i*8+7]} ^
+                                     counter1 ^ counter2 ^ mult_result[i%8][31:16];
         end
     endgenerate
     
