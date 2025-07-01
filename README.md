@@ -1,6 +1,8 @@
 
 ![](https://raw.githubusercontent.com/FPGAwars/Apio-wiki/main/wiki/Logos/Apio-github.png)
 
+> **Note:** Please **do not** open issues in this repository.
+> For any questions, discussions, or bug reports, use the [main Apio repository](https://github.com/FPGAwars/apio).
 
 
 # Apio examples package
