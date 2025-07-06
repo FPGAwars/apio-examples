@@ -1,0 +1,18 @@
+[*]
+[*] GTKWave Analyzer v3.4.0 (w)1999-2022 BSI
+[*] Sun Jun 29 22:15:27 2025
+[*]
+[dumpfile] "/Users/carl/work/apio-examples/examples/alhambra-ii/area-test/_build/default/area_test_tb.vcd"
+[dumpfile_mtime] "Sun Jun 29 22:15:00 2025"
+[dumpfile_size] 10538278
+[savefile] "/Users/carl/work/apio-examples/examples/alhambra-ii/area-test/area_test_tb.gtkw"
+[timestart] 0
+[size] 1000 600
+[pos] -1 -1
+*-25.895750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 253
+[signals_width] 78
+[sst_expanded] 1
+[sst_vpaned_height] 158
+[pattern_trace] 1
+[pattern_trace] 0
