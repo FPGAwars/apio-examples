@@ -1,0 +1,5 @@
+
+set_io LED 45  # output
+
+set_io CLK 49  # input
+
