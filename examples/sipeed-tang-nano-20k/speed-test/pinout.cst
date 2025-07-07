@@ -1,0 +1,13 @@
+// Board details at
+// https://wiki.sipeed.com/hardware/en/tang/tang-nano-20k/nano-20k.html
+
+// See examples here https://github.com/sipeed/TangNano-20K-example
+
+IO_LOC "CLK"  4;
+IO_PORT "CLK" PULL_MODE=UP BANK_VCCIO=1.8;;
+//IO_PORT "CLK" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+
+
+IO_LOC "LED"  15; // Active low
+IO_PORT "LED" PULL_MODE=UP DRIVE=8 BANK_VCCIO=1.8;
+
