@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """A python script that scans the entire examples tree and formats the
 source files.
 
