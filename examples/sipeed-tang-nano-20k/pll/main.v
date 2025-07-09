@@ -10,9 +10,9 @@ module main #(
   wire sys_clk;
   wire lock;
   pll pll (
+      .lock  (lock),
       .clkin (ext_clk),
-      .clkout(sys_clk),
-      .lock  (lock)
+      .clkout(sys_clk)
   );
 
   // ---- Blinker
