@@ -1,19 +1,24 @@
 module main (
-    input      sys_clk,  // 27 Mhz
+    input      ext_clk,  // 27 Mhz
     output reg led       // Active low
 );
 
   wire pll_clk;
 
-  // Clock multiplier.
+  // PLL 27Mhz -> 75Mhz
+  //
+  // Generated with:
+  //   apio raw -- gowin_pll -d "GW1NR-9 C6/I5" -i 27 -o 75 -f pll.v
+  //   apio format pll.v
+  //
   pll pll (
-      .clk_in  (sys_clk),  // 27 Mhz
-      .clk_out (pll_clk),  // 54 Mhz
-      .clk_lock()
+      .clock_in(ext_clk),   // 27 Mhz
+      .clock_out(pll_clk),  // 75 Mhz
+      .locked()
   );
 
   // The blinker. Runs on pll clock and prints once a second.
-  localparam DIV = (54000000 / 2);
+  localparam integer DIV = (75_000_000 / 2);
 
   reg [31:0] blink_counter;
 

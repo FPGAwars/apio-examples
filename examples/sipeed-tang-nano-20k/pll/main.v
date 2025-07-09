@@ -1,6 +1,6 @@
 module main #(
     // Num of click cycle per led toggle.
-    parameter integer DIV = (27_000_000 / 2)
+    parameter integer DIV = (180_000_000 / 2)
 ) (
     input      ext_clk,
     output reg led       // Active low
@@ -13,12 +13,10 @@ module main #(
   //   apio format pll.v
   //
   wire sys_clk;
-  wire locked;
   pll pll (
       .clock_in(ext_clk),
       .clock_out(sys_clk),
-      .locked(locked)
-
+      .locked()
   );
 
   // ---- Blinker

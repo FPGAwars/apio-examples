@@ -3,8 +3,8 @@
 
 // See examples here https://github.com/sipeed/TangNano-9K-example/tree/main
 
-IO_LOC "sys_clk"   52;
-IO_PORT "sys_clk" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_LOC   "ext_clk"   52;
+IO_PORT  "ext_clk"   IO_TYPE=LVCMOS33 PULL_MODE=NONE;
 
-IO_LOC "led"       10; // Active low
+IO_LOC   "led"       10; // Active low
 
