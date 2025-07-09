@@ -6,13 +6,19 @@ module main #(
     output reg led       // Active low
 );
 
-  // ---- PLL, 27Mhz -> 60Mhz
+  // ---- PLL, 27Mhz -> 180Mhz
+  //
+  // Generated using the commands:
+  //   apio raw -- gowin_pll -d "GW2A-18 C8/I7" -i 27 -o 180 -f pll.v
+  //   apio format pll.v
+  //
   wire sys_clk;
-  wire lock;
+  wire locked;
   pll pll (
-      .lock  (lock),
-      .clkin (ext_clk),
-      .clkout(sys_clk)
+      .clock_in(ext_clk),
+      .clock_out(sys_clk),
+      .locked(locked)
+
   );
 
   // ---- Blinker
