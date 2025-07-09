@@ -93,7 +93,7 @@ jobs:
           ls -al
 
       # -- Apio command is required for testing.
-      - name: Install apio dev latest
+      - name: Install latest apio dev
         run: |
           pip install --force-reinstall -U \ git+https://github.com/fpgawars/apio.git@develop
 
