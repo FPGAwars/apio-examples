@@ -3,12 +3,11 @@
 
 // See examples here https://github.com/sipeed/TangNano-20K-example
 
-IO_LOC "sys_clk"  4;
-IO_PORT "sys_clk" PULL_MODE=UP BANK_VCCIO=1.8;;
+IO_LOC "ext_clk"  4;
+IO_PORT "ext_clk" PULL_MODE=UP BANK_VCCIO=1.8;;
 
 IO_LOC "led"      15; // Active low
 IO_PORT "led" PULL_MODE=UP DRIVE=8 BANK_VCCIO=1.8;
 
-// Per https://github.com/YosysHQ/nextpnr/issues/1515
-CLOCK_LOC "sys_clk" BUFG;
+
 

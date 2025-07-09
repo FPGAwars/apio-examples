@@ -1,9 +1,22 @@
 {
     "cSpell.words": [
         "apio",
+        "CLKFB",
+        "clkin",
+        "clkout",
+        "CLKOUTD",
+        "CLKOUTP",
         "dumpfile",
+        "DUTYDA",
         "endmodule",
+        "FBDSEL",
+        "FDLY",
+        "IDSEL",
         "localparam",
+        "ODSEL",
+        "PSDA",
+        "rpll",
+        "SDIV",
         "testbench",
         "testbenches",
         "tinyfpga"
