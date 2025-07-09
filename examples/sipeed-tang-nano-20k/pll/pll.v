@@ -12,7 +12,6 @@ module pll (
   wire clkoutd_o;
   wire clkoutd3_o;
 
-
   rPLL #(
       .FCLKIN("27"),
       .DYN_IDIV_SEL("false"),
@@ -36,6 +35,7 @@ module pll (
       .CLKOUTD_SRC("CLKOUT"),
       .CLKOUTD3_SRC("CLKOUT"),
       .DEVICE("GW2AR-18C")
+
   ) rpll_inst (
       .CLKOUT(clkout),
       .LOCK(lock),
