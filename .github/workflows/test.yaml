@@ -65,8 +65,7 @@ jobs:
 
       - name: Install apio dev latest
         run: |
-          #pip install --force-reinstall -U \ git+https://github.com/FPGAwars/apio.git@develop#egg=apio
-          pip install --force-reinstall -U \ git+https://github.com/zapta/apio.git@develop#egg=apio
+          pip install --force-reinstall -U \ git+https://github.com/fpgawars/apio.git@develop
 
       - name: Run test_examples.py
         run: |
