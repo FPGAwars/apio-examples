@@ -2,6 +2,8 @@
 
 // See the Gowin PLL online calculator at:
 // at https://juj.github.io/gowin_fpga_code_generators/pll_calculator.html
+//
+// Or use: apio raw -- gowin_pll ....
 
 module pll (
     input  clk_in,
