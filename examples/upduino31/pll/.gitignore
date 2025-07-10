@@ -1,8 +1,0 @@
-.sconsign.dblite
-*.vcd
-*.out
-hardware.rpt
-hardware.json
-hardware.asc
-hardware.bin
-hardware.out

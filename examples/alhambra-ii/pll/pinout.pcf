@@ -1,0 +1,6 @@
+
+set_io ext_clk 49   # 12Mhz clock input
+
+set_io LED 45       # LED output
+
+
