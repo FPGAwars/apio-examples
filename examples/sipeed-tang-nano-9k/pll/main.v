@@ -12,7 +12,7 @@ module main (
   //   apio format pll.v
   //
   pll pll (
-      .clock_in(ext_clk),   // 27 Mhz
+      .clock_in(ext_clk),  // 27 Mhz
       .clock_out(pll_clk),  // 75 Mhz
       .locked()
   );

@@ -1,0 +1,12 @@
+# -- Board: ColorLight-5A-75E-V71_(FT2232H)
+
+# -- ext_clk
+LOCATE COMP "ext_clk" SITE "P6";
+IOBUF  PORT "ext_clk" PULLMODE=NONE IO_TYPE=LVCMOS33 DRIVE=4;
+
+# -- LED
+LOCATE COMP "led" SITE "T6";
+IOBUF PORT "led" PULLMODE=NONE IO_TYPE=LVCMOS33 DRIVE=4;
+
+
+
