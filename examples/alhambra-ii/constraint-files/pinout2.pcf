@@ -1,0 +1,15 @@
+
+# The LEDs here are numbered in reversed order to demonstrate
+# the usage of two envs, each with its own constraint file.
+
+set_io -nowarn LED7 45  # output
+set_io -nowarn LED6 44  # output
+set_io -nowarn LED5 43  # output
+set_io -nowarn LED4 42  # output
+set_io -nowarn LED3 41  # output
+set_io -nowarn LED2 39  # output
+set_io -nowarn LED1 38  # output
+set_io -nowarn LED0 37  # output
+
+set_io -nowarn CLK 49  # input
+

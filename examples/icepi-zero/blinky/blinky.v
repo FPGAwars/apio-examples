@@ -1,11 +1,11 @@
 // Blink the on-board leds
-module top (
-    input  clk,        // 50 MHZ
+module blinky (
+    input        clk,  // 50 MHZ
     output [4:0] led   // LEDs
 );
 
   // Turn off all leds
-  assign led[3:0]   = 4'b0;
+  assign led[3:0] = 4'b0;
 
   // Count to 2^25
   reg [25:0] counter = 0;
