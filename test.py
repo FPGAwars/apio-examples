@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """A python script to test the examples in the examples repo.
 Run it at the root directory of the repo. It exist with an
@@ -33,14 +33,18 @@ def read_file_lines(file: Union[str, Path]) -> List[str]:
     return lines
 
 
-def run_cmd(cmd: List[str], check: bool = False) -> CompletedProcess:
-    """Run a given system command. If check = True, also assert that
-    it returned an OK status code."""
+def run_cmd(
+    cmd: List[str],
+) -> CompletedProcess:
+    """Run a given system command and abort if the command fails.
+    Returns the command process result."""
 
     # print(f"Run: {cmd}", flush=True)
     print(f"RUN: {' '.join(cmd[:2]):12}{' '.join(cmd[2:])}", flush=True)
-    result = subprocess.run(cmd, text=True, capture_output=True, check=False)
-    if check and result.returncode != 0:
+    result = subprocess.run(
+        cmd, text=True, capture_output=True, encoding="utf-8", check=False
+    )
+    if result.returncode != 0:
         print(f"Command failed: {result.returncode}")
         print(f"STDOUT: {result.stdout}")
         print(f"STDERR: {result.stderr}")
@@ -85,15 +89,15 @@ def test_example_env(
     example_dir = EXAMPLES_DIR / board_name / example_name
     os.chdir(example_dir)
 
-    run_cmd(["apio", "build", "-e", env_name], check=True)
-    run_cmd(["apio", "lint", "-e", env_name], check=True)
-    run_cmd(["apio", "graph", "-e", env_name], check=True)
-    run_cmd(["apio", "report", "-e", env_name], check=True)
+    run_cmd(["apio", "build", "-e", env_name])
+    run_cmd(["apio", "lint", "-e", env_name])
+    run_cmd(["apio", "graph", "-e", env_name])
+    run_cmd(["apio", "report", "-e", env_name])
 
     # -- Test 'apio test'
     if testbenches:
         run_cmd(["apio", "clean"])
-        run_cmd(["apio", "test", "-e", env_name], check=True)
+        run_cmd(["apio", "test", "-e", env_name])
         for testbench in testbenches:
             test_testbench_output(env_name, testbench)
 
@@ -106,13 +110,11 @@ def test_example_env(
     if testbenches:
         run_cmd(["apio", "clean"])
         for testbench in testbenches:
-            run_cmd(
-                ["apio", "sim", "-e", env_name, "--no-gtkwave", testbench], check=True
-            )
+            run_cmd(["apio", "sim", "-e", env_name, "--no-gtkwave", testbench])
             test_testbench_output(env_name, testbench)
 
     # -- Test format.
-    run_cmd(["apio", "format", "-e", env_name], check=True)
+    run_cmd(["apio", "format", "-e", env_name])
 
 
 def test_example(board_name: str, example_name: str) -> None:
@@ -164,7 +166,7 @@ def test_example(board_name: str, example_name: str) -> None:
         test_example_env(board_name, example_name, env_name, testbenches)
 
     os.chdir(example_dir)
-    run_cmd(["apio", "clean"], check=True)
+    run_cmd(["apio", "clean"])
 
 
 def test_board(board_name: str) -> None:

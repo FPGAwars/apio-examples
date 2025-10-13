@@ -54,10 +54,10 @@ jobs:
         with:
           ref: ${{env.COMMIT_SHA}}
 
-      - name: Set up Python 3.13
+      - name: Install the latest python
         uses: actions/setup-python@v5
-        with:
-          python-version: "3.13"
+        # with:
+        #   python-version: "3.14"
 
       - name: Show python version
         run: |
@@ -67,6 +67,6 @@ jobs:
         run: |
           pip install --force-reinstall -U \ git+https://github.com/fpgawars/apio.git@develop
 
-      - name: Run test_examples.py
+      - name: Run the python test script
         run: |
           python ./test.py

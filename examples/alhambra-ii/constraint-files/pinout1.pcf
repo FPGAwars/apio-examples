@@ -1,0 +1,12 @@
+
+set_io -nowarn LED0 45  # output
+set_io -nowarn LED1 44  # output
+set_io -nowarn LED2 43  # output
+set_io -nowarn LED3 42  # output
+set_io -nowarn LED4 41  # output
+set_io -nowarn LED5 39  # output
+set_io -nowarn LED6 38  # output
+set_io -nowarn LED7 37  # output
+
+set_io -nowarn CLK 49  # input
+
