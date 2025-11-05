@@ -91,7 +91,7 @@ def test_example_env(
 
     run_cmd(["apio", "build", "-e", env_name])
     run_cmd(["apio", "lint", "-e", env_name])
-    run_cmd(["apio", "graph", "-e", env_name])
+    run_cmd(["apio", "graph", "-n", "-e", env_name])
     run_cmd(["apio", "report", "-e", env_name])
 
     # -- Test 'apio test'
