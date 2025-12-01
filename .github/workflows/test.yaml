@@ -21,6 +21,10 @@ on:
         required: false
         default: ""
 
+permissions:
+  # Allow release creation
+  contents: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
