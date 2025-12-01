@@ -1,9 +1,6 @@
 name: build-and-release
 
 on:
-  # Run on each commit to this repo.
-  push:
-
   # Run monthly on the 1st, 10AM UTC
   schedule:
     - cron: "0 10 1 * *"
@@ -125,6 +122,21 @@ jobs:
         run: |
           tr -d '",{}' < build-info.json >> $GITHUB_STEP_SUMMARY
 
+      # Delete old pre-releases, keeps all releases.
+      - name: Delete old pre-releases
+        uses: sgpublic/delete-release-action@v1.2
+        with:
+          # Keep all stable releases .
+          release-drop: false
+          # Delete old pre-releases, keep the newest 10 (excluding the absolute latest)
+          pre-release-drop: true
+          pre-release-keep-count: 5
+          pre-release-drop-tag: true # Also delete tags of deleted pre-releases
+          # Keep all drafts.
+          draft-drop: false
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
       # In case we overwrite and exiting release.
       - name: Force tag update
         run: |
@@ -138,6 +150,7 @@ jobs:
           name: ${{env.RELEASE_TAG}}
           body_path: RELEASE_BODY.txt
           preserve_order: true
+          prerelease: true
           fail_on_unmatched_files: true
           files: |
             apio-examples-${{env.PACKAGE_TAG}}.tgz
