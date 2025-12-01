@@ -1,6 +1,5 @@
 {
     "recommendations": [
-        "kukdh1.verible-formatter",
-        "mshr-h.veriloghdl",
+        "eirikpre.systemverilog",
     ]
 }
