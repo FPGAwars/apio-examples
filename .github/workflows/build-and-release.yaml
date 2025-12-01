@@ -76,7 +76,9 @@ jobs:
 
       - name: Copy common files to each example
         run: |
-          python ./scripts/copy-common-files
+          ls -al .
+          ls -al ./scripts
+          python ./scripts/copy-common-files.py
 
       - name: Collect package files
         run: |
