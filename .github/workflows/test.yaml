@@ -21,6 +21,10 @@ on:
         required: false
         default: ""
 
+permissions:
+  # Allow release creation
+  contents: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -66,6 +70,12 @@ jobs:
       - name: Install latest apio dev
         run: |
           pip install --force-reinstall -U \ git+https://github.com/fpgawars/apio.git@develop
+
+      - name: Copy common files to each example
+        run: |
+          ls -al .
+          ls -al ./scripts
+          python ./scripts/copy-common-files.py
 
       - name: Run the python test script
         run: |
