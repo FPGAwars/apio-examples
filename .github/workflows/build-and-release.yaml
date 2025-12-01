@@ -74,6 +74,10 @@ jobs:
           json-align --in-place --spaces 2 build-info.json
           cat -n build-info.json
 
+      - name: Copy common files to each example
+        run: |
+          python ./scripts/copy-common-files
+
       - name: Collect package files
         run: |
           mkdir "_package"
