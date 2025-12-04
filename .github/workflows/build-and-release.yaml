@@ -1,9 +1,10 @@
 name: build-and-release
 
 on:
-  # Run monthly on the 1st, 10AM UTC
+  # Runs daily at UTC midnight to minimize risk of overstepping
+  # manual builds of same date.
   schedule:
-    - cron: "0 10 1 * *"
+    - cron: "0 0 * * *"
 
   # Allow manual activations.
   workflow_dispatch:
