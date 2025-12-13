@@ -1,3 +1,8 @@
+// A testbench for automatic testing of the module verilog Main.
+// To run the testbench in batch mode, use the Apio 'test' command.
+// To run the testbench with graphical view of the signals, run the 
+// Apio 'sim' (as in simulate) command.
+
 `timescale 1ns / 1ps
 
 module testbench;

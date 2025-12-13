@@ -1,3 +1,4 @@
+// This Verilog file define the Main module of this blinky example.
 
 module Main #(
     parameter integer N = 3_000_000
