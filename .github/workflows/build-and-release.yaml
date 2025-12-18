@@ -13,6 +13,11 @@ permissions:
   # Allow release creation
   contents: write
 
+env:
+  # These are set up latter.
+  RELEASE_TAG: ""
+  PACKAGE_TAG: ""
+
 jobs:
   # ----- Parameters collection job
   build-and-release:
@@ -41,7 +46,6 @@ jobs:
           commit=$(git rev-parse HEAD)
           echo $commit
           echo "RELEASE_COMMIT=$commit" >> $GITHUB_ENV
-
 
       - name: Determine package file name
         run: |
@@ -144,11 +148,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
-      # In case we overwrite and exiting release.
-      - name: Force tag update
-        run: |
-          git tag -f ${{env.RELEASE_TAG}}
-          git push origin -f ${{env.RELEASE_TAG}}
+      - name: Delete existing tag and release (if present)
+        uses: dev-drprasad/delete-tag-and-release@v1.1
+        with:
+          tag_name: ${{env.RELEASE_TAG}}
+          delete_release: true # Deletes release + assets
+          github_token: ${{ github.token }}
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2.2.2
