@@ -3,7 +3,7 @@
 //------------------------------------------------------------------
 
 module main #(
-    parameter integer CLKS_PER_CYCLE = `CLKS_PER_CYCLE 
+    parameter integer CLKS_PER_CYCLE = `CLKS_PER_CYCLE
 ) (
     input  CLK,  // Main clock
     output LED   // LED to blink
