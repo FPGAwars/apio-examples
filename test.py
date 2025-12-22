@@ -8,12 +8,13 @@ error status code on the first error it detects.
 import sys
 import re
 import os
+import json
 from pathlib import Path
 import subprocess
 import configparser
 from glob import glob
 from subprocess import CompletedProcess
-from typing import List, Union
+from typing import List, Union, Dict
 
 # -- Examples repo top dir.
 REPO_DIR = Path(".").absolute()
@@ -49,6 +50,32 @@ def run_cmd(
         print(f"STDOUT: {result.stdout}")
         print(f"STDERR: {result.stderr}")
         sys.exit(1)
+    return result
+
+
+def getApioBoardDefinitions() -> Dict:
+    """Get from 'apio api' the list of all board definitions."""
+    # -- Make sure packages are updated to not contaminate the output
+    # -- of apio api with on the file package update.
+    run_cmd(["apio", "packages", "update"])
+
+    # -- Query apio for boards.
+    cmd_result: CompletedProcess = run_cmd(["apio", "api", "get-boards"])
+
+    # -- Parse the json text into a dict.
+    result = json.loads(cmd_result.stdout)
+
+    # -- Extract the "boards" section
+    result = result["boards"]
+
+    # -- Dump for debugging.
+    print(json.dumps(result, indent=4))
+
+    # -- Sanity check
+    assert 50 < len(result.keys()) < 500
+    assert "alhambra-ii" in result
+
+    # All done
     return result
 
 
@@ -117,7 +144,7 @@ def test_example_env(
     run_cmd(["apio", "format", "-e", env_name])
 
 
-def test_example(board_name: str, example_name: str) -> None:
+def test_example(board_name: str, example_name: str, board_defs: Dict) -> None:
     """Test an example."""
 
     print(f"\nEXAMPLE: {board_name}/{example_name}")
@@ -139,11 +166,21 @@ def test_example(board_name: str, example_name: str) -> None:
     env_names = [s.split(":", 1)[1] for s in sections if s.startswith("env:")]
     assert len(env_names) > 0, sections
 
-    # -- Assert that all 'board = x' match the board name.
+    # -- Assert that all 'board = x' match boards definitions and at
+    # -- least one matches this board (to allow multi board examples)
+    board_matches = 0
     for section in apio_ini.sections():
         if "board" in apio_ini[section]:
             board_val = apio_ini[section]["board"]
-            assert board_val == board_name
+            assert board_val in board_defs
+            if board_val == board_name:
+                board_matches += 1
+
+    # -- At least one of the board specifications should be for the
+    # -- current board. Otherwise the example is in the wrong directory.
+    # -- We assume that every example contains at least one 'board = ...'
+    # -- specification.
+    assert board_matches > 0
 
     # -- Get list of testbenches, relative to project root.
     testbenches = list(Path(".").rglob("*_tb.v")) + list(Path(".").rglob("*_tb.sv"))
@@ -169,7 +206,7 @@ def test_example(board_name: str, example_name: str) -> None:
     run_cmd(["apio", "clean"])
 
 
-def test_board(board_name: str) -> None:
+def test_board(board_name: str, board_defs:Dict) -> None:
     """Test board's examples."""
 
     print("\n--------------------------")
@@ -190,7 +227,7 @@ def test_board(board_name: str) -> None:
         assert (
             example_dir.is_dir()
         ), f"Example {board_name}/{example_name} is not a dir."
-        test_example(board_name, example_name)
+        test_example(board_name, example_name, board_defs)
 
 
 def main() -> None:
@@ -200,6 +237,9 @@ def main() -> None:
     print()
     print(f"{REPO_DIR=}")
     print(f"{EXAMPLES_DIR=}")
+
+    # -- Get apio board definitions
+    board_defs: Dict = getApioBoardDefinitions()
 
     # -- Get names of boards with examples.
     board_names = glob("*", root_dir=EXAMPLES_DIR)
@@ -211,7 +251,7 @@ def main() -> None:
         board_dir = EXAMPLES_DIR / board_name
         assert board_dir.is_dir(), f"Board dir is not a dir: {board_dir}"
         # -- This may call chdir().
-        test_board(board_name)
+        test_board(board_name, board_defs)
 
 
 if __name__ == "__main__":
