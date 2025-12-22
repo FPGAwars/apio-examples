@@ -5,8 +5,8 @@
 module main #(
     parameter CLK_DIV = `CLK_DIV
 ) (
-    input        CLK,  // Main clock
-    output       LED   // LED to blink
+    input  CLK,  // Main clock
+    output LED   // LED to blink
 );
 
   // The counter should count this number of clocks

@@ -10,12 +10,12 @@ module main_tb ();
   `DEF_CLK
 
   // Module's output.
-  wire  led;
+  wire led;
 
   main #(
       .CLK_DIV(6)
   ) main (
-      .CLK (clk),
+      .CLK(clk),
       .LED(led)
   );
 
