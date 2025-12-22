@@ -13,7 +13,7 @@ module main_tb ();
   wire led;
 
   main #(
-      .CLK_DIV(6)
+      .CLKS_PER_CYCLE(6)
   ) main (
       .CLK(clk),
       .LED(led)
