@@ -1,0 +1,8 @@
+# Pinout file for Alhambra-ii example..
+
+# -- 12Mhz clk
+set_io  CLK  49
+
+# --  LED output
+set_io  LED  45
+

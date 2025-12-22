@@ -1,0 +1,35 @@
+[*]
+[*] GTKWave Analyzer v3.4.0 (w)1999-2022 BSI
+[*] Mon Dec 22 19:00:50 2025
+[*]
+[dumpfile] "/Volumes/projects/apio-examples-dev/repo/examples/alhambra-ii/multi-board/_build/alhambra-ii/common/main_tb.vcd"
+[dumpfile_mtime] "Mon Dec 22 18:59:40 2025"
+[dumpfile_size] 1177
+[savefile] "/Volumes/projects/apio-examples-dev/repo/examples/alhambra-ii/multi-board/common/main_tb.gtkw"
+[timestart] 0
+[size] 1280 741
+[pos] -1 -1
+*-19.618412 637000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] main_tb.
+[sst_width] 253
+[signals_width] 179
+[sst_expanded] 1
+[sst_vpaned_height] 220
+@28
+main_tb.clk
+@420
+main_tb.clk_num
+@200
+-
+@420
+main_tb.main.CLK_DIV
+main_tb.main.limit
+@200
+-
+@24
+main_tb.main.counter[23:0]
+@29
+[color] 2
+main_tb.main.led
+[pattern_trace] 1
+[pattern_trace] 0
