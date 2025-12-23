@@ -1,0 +1,35 @@
+[*]
+[*] GTKWave Analyzer v3.4.0 (w)1999-2022 BSI
+[*] Mon Dec 22 23:30:47 2025
+[*]
+[dumpfile] "/Volumes/projects/apio-examples-dev/repo/examples/alhambra-ii/multi-board/_build/tang-nano-9k-fast/common/main_tb.vcd"
+[dumpfile_mtime] "Mon Dec 22 23:30:17 2025"
+[dumpfile_size] 1085
+[savefile] "/Volumes/projects/apio-examples-dev/repo/examples/alhambra-ii/multi-board/common/main_tb.gtkw"
+[timestart] 0
+[size] 1280 741
+[pos] -1 -1
+*-9.653064 572 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] main_tb.
+[sst_width] 253
+[signals_width] 179
+[sst_expanded] 1
+[sst_vpaned_height] 220
+@28
+main_tb.clk
+@420
+main_tb.clk_num
+@200
+-
+@420
+main_tb.main.CLKS_PER_CYCLE
+main_tb.main.LIMIT
+@200
+-
+@25
+main_tb.main.counter[31:0]
+@28
+[color] 2
+main_tb.main.led
+[pattern_trace] 1
+[pattern_trace] 0
