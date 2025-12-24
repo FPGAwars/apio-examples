@@ -17,6 +17,7 @@ env:
   # These are set up latter.
   RELEASE_TAG: ""
   PACKAGE_TAG: ""
+  RELEASE_COMMIT: ""
 
 jobs:
   # ----- Parameters collection job
@@ -27,30 +28,22 @@ jobs:
       - name: Checkout this repo
         uses: actions/checkout@v4
 
-      # E.g. "2025-11-02"
-      - name: Determine release tag
-        run: |
-          release_tag="$(date +'%Y-%m-%d')"
-          echo $release_tag
-          echo "RELEASE_TAG=$release_tag" >> $GITHUB_ENV
+      - name: Get release and package tags
+        uses: fpgawars/apio-workflows/.github/actions/get-release-and-package-tags@main
+        with:
+          release-tag-var: RELEASE_TAG
+          package-tag-var: PACKAGE_TAG
 
-      # E.g. "20251102"
-      - name: Determine package tag
-        run: |
-          package_tag="${RELEASE_TAG//-/}"
-          echo $package_tag
-          echo "PACKAGE_TAG=$package_tag" >> $GITHUB_ENV
-
-      - name: Determine last commit
-        run: |
-          commit=$(git rev-parse HEAD)
-          echo $commit
-          echo "RELEASE_COMMIT=$commit" >> $GITHUB_ENV
+      - name: Get repository commit
+        uses: fpgawars/apio-workflows/.github/actions/get-repo-commit@main
+        with:
+          repo-dir: .
+          env-var-name: RELEASE_COMMIT
 
       - name: Determine package file name
         run: |
           package_name="apio-examples-${PACKAGE_TAG}.tgz"
-          echo $package_name
+          echo "PACKAGE_NAME=$package_name"
           echo "PACKAGE_NAME=$package_name" >> $GITHUB_ENV
 
       - name: Create build info
@@ -73,11 +66,10 @@ jobs:
 
           cat -n build-info.json
 
-      - name: Format build info
-        run: |
-          npm install -g json-align
-          json-align --in-place --spaces 2 build-info.json
-          cat -n build-info.json
+      - name: Format build info json file in-place
+        uses: fpgawars/apio-workflows/.github/actions/format-json-file@main
+        with:
+          json-file: build-info.json
 
       - name: Copy common files to each example
         run: |
@@ -116,67 +108,42 @@ jobs:
         run: |
           python ./test.py
 
+      - name: Convert json build info to text
+        uses: fpgawars/apio-workflows/.github/actions/json-to-text@main
+        with:
+          input-json: build-info.json
+          output-text: build-info.txt
+
       - name: Prepare release text
         run: |
-          cat  > RELEASE_BODY.txt <<EOF
+          cat  > RELEASE-BODY.txt <<EOF
           This is an automated build-and-release.
 
           Build info:
           \`\`\`
-          $(tr -d '",{}' < build-info.json)
+          $(cat build-info.txt)
           \`\`\`
           EOF
 
-          cat -n $out
+          cat -n RELEASE-BODY.txt
 
       - name: Write job summary
         run: |
           tr -d '",{}' < build-info.json >> $GITHUB_STEP_SUMMARY
 
-      # Delete old pre-releases, keeps all releases.
-      - name: Delete old pre-releases
-        uses: sgpublic/delete-release-action@v1.2
-        with:
-          # Keep all stable releases .
-          release-drop: false
-          # Delete old pre-releases, keep the newest 10 (excluding the absolute latest)
-          pre-release-drop: true
-          pre-release-keep-count: 5
-          pre-release-drop-tag: true # Also delete tags of deleted pre-releases
-          # Keep all drafts.
-          draft-drop: false
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+      - name: Cleanup old pre-releases
+        uses: fpgawars/apio-workflows/.github/actions/cleanup-old-prereleases@main
 
-      - name: Delete same tag pre-release if exist.
-        run: |
-          set -e
-          gh release list --limit 100
-          output=$(gh release view "$RELEASE_TAG" --json name,tagName,isDraft,isImmutable,isPrerelease 2>&1 || true)
-          echo $output
-          if [[ "$output" == "release not found" ]]; then
-            echo "Release $RELEASE_TAG does not exist, safe to continue."
-          elif [[ "$(echo "$output" | jq -r '.isPrerelease')" == "true" ]]; then
-            echo "Release $RELEASE_TAG exists and is a pre-release, deleting."
-            gh release delete "$RELEASE_TAG" --yes --cleanup-tag
-          elif [[ "$(echo "$output" | jq -r '.isPrerelease')" == "false" ]]; then
-            echo "Error: A stable release (non pre-release) already exists for tag $RELEASE_TAG."
-            exit 1
-          else
-            echo "Error determining if release $RELEASE_TAG exists"
-            exit 1
-          fi
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-
-      - name: Create GitHub release
-        uses: softprops/action-gh-release@v2.2.2
+      - name: Ensure no conflicting release
+        uses: fpgawars/apio-workflows/.github/actions/ensure-no-conflicting-release@main
         with:
-          tag_name: ${{env.RELEASE_TAG}}
-          name: ${{env.RELEASE_TAG}}
-          body_path: RELEASE_BODY.txt
-          preserve_order: true
-          prerelease: true
-          fail_on_unmatched_files: true
+          release-tag: ${{ env.RELEASE_TAG }}
+
+      - name: Create GitHub pre-release
+        uses: fpgawars/apio-workflows/.github/actions/create-pre-release@main
+        with:
+          release_tag: ${{ env.RELEASE_TAG }}
+          body_path: RELEASE-BODY.txt
+          # We intensionally list explicitly all the expected files.
           files: |
             apio-examples-${{env.PACKAGE_TAG}}.tgz
