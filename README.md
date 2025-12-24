@@ -11,23 +11,17 @@ A package with sample FPGA project for [Apio](https://github.com/fpgawars/apio)
 
 ## Creating a release
 
-Start with a clean repository, with no build artifact. Not sure? Run the script 
-``clean_examples.sh``
+Pre-releases are created daily by the `build-and-release` workflow and are deleted after
+a few days. To keep a release, edit it and unselect `pre-release` checkbox.
 
-1. Decide the new version number, e.g. ``0.1.12``
-2. Update the version number in the file ``build.sh`` and ``VERSION_DEV`` to the new version.
-3. Run ``./build.sh`` to build the new package zip file in the ``_package`` directory.
-4. Commit the changes to ``build.sh`` and ``VERSION_DEV``
-5. Created on github a new release with the new version number and upload to it
-the package's zip file from directory ``_package``.  
+After you unselected the 'pre-release', you can make Apio using it by editing the version
+of the `examples` package in `fpgawars/apio repo` dir `remote-control`.
 
-
-## Updating the examples report
-1. Run the script ``./generate_reports.sh``. This may take a few minutes.
-2. Submit the ``_*.csv`` files it modified. 
-
----------
-
+**LEGACY NODE** : This repo contains the froze old `master` branch which is still used
+by old Apio version (0.95 and older) to read the `VERSION` file of this package. Newer
+version of Apio don't do that anymore because this functionality was moved to the 
+`fpgawars/apio` repo `remote-config` directory and this is the reason that we 
+deleted it from the new  default branch `main` that was created Dec 2025.
 
 ## Guides for authoring examples
 
