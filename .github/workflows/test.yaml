@@ -7,7 +7,7 @@ on:
   # Run on pull requests.
   pull_request:
     branches:
-      - master
+      - main
 
   # Daily at 10AM UTC
   schedule:
