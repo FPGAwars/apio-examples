@@ -1,6 +1,11 @@
 
 ![](https://raw.githubusercontent.com/FPGAwars/Apio-wiki/main/wiki/Logos/Apio-github.png)
 
+**IMPORTANT** [Dec 24th 2025] The main branch of this repository was changed from `master` 
+to `main` and the old `master` branch got frozen in read only state. Please submit all future 
+pull requests on the new branch `main`.
+
+
 > **Note:** Please **do not** open issues in this repository.
 > For any questions, discussions, or bug reports, use the [main Apio repository](https://github.com/FPGAwars/apio).
 
@@ -16,12 +21,6 @@ a few days. To keep a release, edit it and unselect `pre-release` checkbox.
 
 After you unselected the 'pre-release', you can make Apio using it by editing the version
 of the `examples` package in `fpgawars/apio repo` dir `remote-control`.
-
-**LEGACY NODE** : This repo contains the froze old `master` branch which is still used
-by old Apio version (0.95 and older) to read the `VERSION` file of this package. Newer
-version of Apio don't do that anymore because this functionality was moved to the 
-`fpgawars/apio` repo `remote-config` directory and this is the reason that we 
-deleted it from the new  default branch `main` that was created Dec 2025.
 
 ## Guides for authoring examples
 
