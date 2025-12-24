@@ -4,7 +4,6 @@
 > **Note:** Please **do not** open issues in this repository.
 > For any questions, discussions, or bug reports, use the [main Apio repository](https://github.com/FPGAwars/apio).
 
-
 # Apio examples package
 
 A package with sample FPGA project for [Apio](https://github.com/fpgawars/apio)
