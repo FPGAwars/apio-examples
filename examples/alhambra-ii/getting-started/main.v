@@ -1,6 +1,6 @@
 // This Verilog file define the Main module of this blinky example.
 
-module Main #(
+module main #(
     parameter integer N = 3_000_000
 ) (
     input  CLK,   // 12MHz clock
