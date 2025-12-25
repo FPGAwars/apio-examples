@@ -1,4 +1,4 @@
-// A testbench for automatic testing of the module verilog Main.
+// A testbench for automatic testing of the module verilog main.
 // To run the testbench in batch mode, use the Apio 'test' command.
 // To run the testbench with graphical view of the signals, run the 
 // Apio 'sim' (as in simulate) command.
@@ -12,7 +12,7 @@ module testbench;
   wire LED1, LED2;
 
   // Instantiate DUT with N = 3 for quick testing
-  Main #(
+  main #(
       .N(3)
   ) dut (
       .CLK (CLK),
