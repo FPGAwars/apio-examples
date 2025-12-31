@@ -130,9 +130,9 @@ jobs:
           $(cat build-info.txt)
           \`\`\`
 
-          - [Release cutoff commit](https://github.com/${{ github.repository }}/commit/${RELEASE_COMMIT})
+          - [Cutoff commit](https://github.com/${{ github.repository }}/commit/${RELEASE_COMMIT})
 
-          - [Generated package pre-release](https://github.com/${{ github.repository }}/releases/tag/${RELEASE_TAG})
+          - [Generated pre-release](https://github.com/${{ github.repository }}/releases/tag/${RELEASE_TAG})
           EOF
 
           ls -al
