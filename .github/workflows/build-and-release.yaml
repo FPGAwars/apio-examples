@@ -114,22 +114,58 @@ jobs:
           input-json: build-info.json
           output-text: build-info.txt
 
+      - name: Convert json build info to text
+        uses: fpgawars/apio-workflows/.github/actions/json-to-text@main
+        with:
+          input-json: build-info.json
+          output-text: build-info.txt
+
+      # Summary for the workflow run page.
+      - name: Prepare workflow run summary
+        run: |
+          cat  > RUN-SUMMARY.txt <<EOF
+
+          Build info:
+          \`\`\`
+          $(cat build-info.txt)
+          \`\`\`
+
+          - [Release cutoff commit](https://github.com/${{ github.repository }}/commit/${RELEASE_COMMIT})
+
+          - [Generated package pre-release](https://github.com/${{ github.repository }}/releases/tag/${RELEASE_TAG})
+          EOF
+
+          ls -al
+          cat -n RUN-SUMMARY.txt
+
+      - name: Post workflow run summary
+        run: |
+          cat RUN-SUMMARY.txt >> $GITHUB_STEP_SUMMARY
+
       - name: Prepare release text
         run: |
           cat  > RELEASE-BODY.txt <<EOF
-          This is an automated build-and-release.
 
-          Build info:
+          > ### Pre-release note
+          >
+          > This daily release was created as a pre-release and
+          > will be deleted after 5 days unless if it's marked as a stable release. To make
+          > this a  stable release, do the following:
+          > * Open the release for editing.
+          > * Turn off the `Set as a pre-release` checkbox below.
+          > * (optional) Turn on the `Set as the latest release` checkbox.
+          > * Remove this pre-release note.
+          > * (optional) Add release notes.
+          > * Click `Update Release` button to save your changes.
+
+          ### Build info
+
           \`\`\`
           $(cat build-info.txt)
           \`\`\`
           EOF
 
           cat -n RELEASE-BODY.txt
-
-      - name: Write job summary
-        run: |
-          tr -d '",{}' < build-info.json >> $GITHUB_STEP_SUMMARY
 
       - name: Cleanup old pre-releases
         uses: fpgawars/apio-workflows/.github/actions/cleanup-old-prereleases@main
