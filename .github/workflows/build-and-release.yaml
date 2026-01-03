@@ -34,11 +34,17 @@ jobs:
           release-tag-var: RELEASE_TAG
           package-tag-var: PACKAGE_TAG
 
+      # - name: Get repository commit
+      #   uses: fpgawars/apio-workflows/.github/actions/get-repo-commit@main
+      #   with:
+      #     repo-dir: .
+      #     env-var-name: RELEASE_COMMIT
+
       - name: Get repository commit
-        uses: fpgawars/apio-workflows/.github/actions/get-repo-commit@main
+        uses: fpgawars/apio-workflows/.github/actions/get-repo-info@main
         with:
           repo-dir: .
-          env-var-name: RELEASE_COMMIT
+          commit-var: RELEASE_COMMIT
 
       - name: Determine package file name
         run: |
