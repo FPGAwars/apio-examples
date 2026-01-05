@@ -1,4 +1,3 @@
-![](https://raw.githubusercontent.com/FPGAwars/Apio-wiki/main/wiki/Logos/Apio-github.png)
 
 **IMPORTANT** [Dec 24th 2025] The main branch of this repository was changed from `master`
 to a new branch called `main` and the old `master` branch is now frozen in read-only state. Please submit all future pull requests on the new branch `main`. The frozen branch should keep serving
