@@ -57,7 +57,7 @@ def getApioBoardDefinitions() -> Dict:
     """Get from 'apio api' the list of all board definitions."""
     # -- Make sure packages are updated to not contaminate the output
     # -- of apio api with on the file package update.
-    run_cmd(["apio", "packages", "update"])
+    run_cmd(["apio", "packages", "install"])
 
     # -- Query apio for boards.
     cmd_result: CompletedProcess = run_cmd(["apio", "api", "get-boards"])
@@ -143,6 +143,10 @@ def test_example_env(
     # -- Test format.
     run_cmd(["apio", "format", "-e", env_name])
 
+    # -- Test apio api
+    run_cmd(["apio", "api", "get-system"])
+    run_cmd(["apio", "api", "get-project", "-e", env_name])
+
 
 def test_example(board_name: str, example_name: str, board_defs: Dict) -> None:
     """Test an example."""
@@ -206,7 +210,7 @@ def test_example(board_name: str, example_name: str, board_defs: Dict) -> None:
     run_cmd(["apio", "clean"])
 
 
-def test_board(board_name: str, board_defs:Dict) -> None:
+def test_board(board_name: str, board_defs: Dict) -> None:
     """Test board's examples."""
 
     print("\n--------------------------")
