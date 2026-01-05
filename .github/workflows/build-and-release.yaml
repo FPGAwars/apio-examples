@@ -101,7 +101,7 @@ jobs:
       # -- Apio command is required for testing.
       - name: Install latest apio dev
         run: |
-          pip install --force-reinstall -U \ git+https://github.com/fpgawars/apio.git@develop
+          pip install --force-reinstall -U \ git+https://github.com/fpgawars/apio.git
 
       - name: Install apio packages
         run: |
