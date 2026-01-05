@@ -1,4 +1,3 @@
-![](https://raw.githubusercontent.com/FPGAwars/Apio-wiki/main/wiki/Logos/Apio-github.png)
 
 **IMPORTANT** [Dec 24th 2025] The main branch of this repository was changed from `master`
 to a new branch called `main` and the old `master` branch is now frozen in read-only state. Please submit all future pull requests on the new branch `main`. The frozen branch should keep serving
@@ -122,9 +121,15 @@ Having a .gtkw file for each testbench makes your example more user friedly.
 You can the .gtkw files by running `apio sim <testbench>`,
 selecting in the GUI the signals to display, and saving the .gtkw file using the menu entry `File | Write Save File`.
 
-**Consistnet example names**
+**Consistent example names**
 If you create a hello-world example that turn on or blinks a led, prefer to reuse
 common example name from other boards, such as `ledon` or `blinky` rathe than
 inventing new names.
 
 ---
+
+## License
+
+The Apio project itself is licensed under the GNU General Public License version 3.0 (GPL-3.0).
+Pre-built packages may include third-party tools and components, which are subject to their
+respective license terms.
