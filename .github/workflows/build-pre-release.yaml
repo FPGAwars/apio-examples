@@ -1,4 +1,4 @@
-name: build-and-release
+name: build-pre-release
 
 on:
   # Runs daily at UTC midnight to minimize risk of overstepping
@@ -21,7 +21,7 @@ env:
 
 jobs:
   # ----- Parameters collection job
-  build-and-release:
+  build-pre-release:
     runs-on: ubuntu-latest
 
     steps:
