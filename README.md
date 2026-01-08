@@ -13,7 +13,7 @@ A package with sample FPGA project for [Apio](https://github.com/fpgawars/apio)
 
 ## Creating a release
 
-Pre-releases are created daily by the `build-and-release` workflow and are deleted after
+Pre-releases are created daily by the `build-pre-release` workflow and are deleted after
 a few days. To keep a release, edit it and unselect `pre-release` checkbox.
 
 After you unselected the 'pre-release', you can make Apio using it by editing the version
