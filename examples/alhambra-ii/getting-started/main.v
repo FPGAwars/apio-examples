@@ -1,7 +1,9 @@
 // This Verilog file define the Main module of this blinky example.
 
 module main #(
-    parameter integer N = 3_000_000
+    // Get the default blink divider from a macro defined in apio.ini.
+    // In testing, the testbench override it with a very low value.
+    parameter integer N = `N
 ) (
     input  CLK,   // 12MHz clock
     output LED1,
