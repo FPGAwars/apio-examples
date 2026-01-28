@@ -16,6 +16,10 @@ module pll (
     output locked
 );
 
+`ifdef SYNTHESIS
+
+  // Real implemenation using a primitive cell for synthesis.
+
   SB_PLL40_CORE #(
       .FEEDBACK_PATH("SIMPLE"),
       .DIVR(4'b0000),  // DIVR =  0
@@ -38,5 +42,14 @@ module pll (
       .SCLK(),
       .DYNAMICDELAY()
   );
+
+`else
+
+  // Fake implementation for simulation
+
+  assign clock_out = clock_in;
+  assign locked = 1'b1;
+
+`endif
 
 endmodule
