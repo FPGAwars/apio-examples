@@ -118,6 +118,7 @@ def test_example_env(
 
     run_cmd(["apio", "build", "-e", env_name])
     run_cmd(["apio", "lint", "-e", env_name])
+    run_cmd(["apio", "lint", "--nosynth", "-e", env_name])
     run_cmd(["apio", "graph", "-n", "-e", env_name])
     run_cmd(["apio", "report", "-e", env_name])
 
@@ -127,6 +128,10 @@ def test_example_env(
         run_cmd(["apio", "test", "-e", env_name])
         for testbench in testbenches:
             test_testbench_output(env_name, testbench)
+
+    # -- Test 'apio test --default'
+    if testbenches:
+        run_cmd(["apio", "test", "--default", "-e", env_name])
 
     # -- Test 'apio sim' (default testbench)
     if testbenches:
