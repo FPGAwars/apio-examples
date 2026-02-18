@@ -25,6 +25,11 @@ EXAMPLES_DIR = REPO_DIR / "examples"
 # Valid format of board and example names.
 NAME_REGEX = r"^[a-z][a-z0-9-]*$"
 
+# List of examples that break the Verible formatter.
+# TODO: Report to Verible
+# TODO: Can we find a more reliable formatter.
+NO_FORMAT_EXAMPLES = ["fomu/blink", "icezum/marcha-imperial"]
+
 
 def read_file_lines(file: Union[str, Path]) -> List[str]:
     """Read the file, return a list of its lines rstrip'ed.."""
@@ -107,7 +112,11 @@ def test_testbench_output(env_name: str, testbench: str) -> Path:
 
 
 def test_example_env(
-    board_name: str, example_name: str, env_name: str, testbenches: List[str]
+    board_name: str,
+    example_name: str,
+    env_name: str,
+    source_files: List[str],
+    testbenches: List[str],
 ) -> None:
     """Test the given env of an example."""
 
@@ -119,6 +128,7 @@ def test_example_env(
     run_cmd(["apio", "build", "-e", env_name])
     run_cmd(["apio", "lint", "-e", env_name])
     run_cmd(["apio", "lint", "--nosynth", "-e", env_name])
+    # run_cmd(["apio", "lint", source_files[0], "-e", env_name])
     run_cmd(["apio", "graph", "-n", "-e", env_name])
     run_cmd(["apio", "report", "-e", env_name])
 
@@ -146,7 +156,12 @@ def test_example_env(
             test_testbench_output(env_name, testbench)
 
     # -- Test format.
-    run_cmd(["apio", "format", "-e", env_name])
+    example_key = f"{board_name}/{example_name}"
+    # print(f"{example_key=}")
+    if example_key not in NO_FORMAT_EXAMPLES:
+        run_cmd(["apio", "format", "-e", env_name])
+    else:
+        print("*** SKIPPING FORMAT command")
 
     # -- Test apio api
     run_cmd(["apio", "api", "get-system"])
@@ -195,6 +210,11 @@ def test_example(board_name: str, example_name: str, board_defs: Dict) -> None:
     testbenches = list(Path(".").rglob("*_tb.v")) + list(Path(".").rglob("*_tb.sv"))
     testbenches = [str(t) for t in testbenches]
 
+    # -- Get a list of source files, relative to project root.
+    source_files = list(Path(".").rglob("*.v")) + list(Path(".").rglob("*.sv"))
+    source_files = [str(f) for f in source_files if f not in testbenches]
+    assert source_files
+
     # -- Check the testbenches files, without running them yet.
     for testbench in testbenches:
         # -- Assert the testbench doesn't contain $dumpfile() or VCD_OUTPUT
@@ -209,7 +229,7 @@ def test_example(board_name: str, example_name: str, board_defs: Dict) -> None:
 
     # -- Test each env
     for env_name in env_names:
-        test_example_env(board_name, example_name, env_name, testbenches)
+        test_example_env(board_name, example_name, env_name, source_files, testbenches)
 
     os.chdir(example_dir)
     run_cmd(["apio", "clean"])
@@ -261,6 +281,9 @@ def main() -> None:
         assert board_dir.is_dir(), f"Board dir is not a dir: {board_dir}"
         # -- This may call chdir().
         test_board(board_name, board_defs)
+
+    print()
+    print("Test completed OK.")
 
 
 if __name__ == "__main__":
