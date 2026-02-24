@@ -22,7 +22,8 @@ end
 
 
 // Helper task. Do not call directly, use `CHECK_EQ() instead.
-task automatic _check_eq(input logic signal, input logic expected, input string file, input int line);
+task automatic _check_eq(input logic signal, input logic expected, input string file,
+                         input int line);
   if (signal != expected) begin
     $display("*** Check failed @%s/%1d (clk_num=%0d): expected: 'h%1h (%1d), actual: 'h%1h (%1d)",
              (file), line, clk_num, expected, expected, signal, signal);
