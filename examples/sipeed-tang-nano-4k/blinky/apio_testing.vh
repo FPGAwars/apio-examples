@@ -61,8 +61,6 @@
 // Place this macro immediatly after the 'initial begin' statement of the testbench.
 // 'testbench' is the name of the testbench module. The macro sets the file
 // that will contains the simulation results.
-// The macro VCD_OUTPUT is defined automatically by the apio commands sim and test
-// and contains base name of the expected output file.
 `define TEST_BEGIN(testbench) \
     begin \
             $dumpvars(0, testbench); \
