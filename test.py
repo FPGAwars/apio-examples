@@ -67,8 +67,13 @@ def getApioBoardDefinitions() -> Dict:
     # -- Query apio for boards.
     cmd_result: CompletedProcess = run_cmd(["apio", "api", "get-boards"])
 
+    # -- Filter out optional env var info message at the beginning of the outout.
+    start =  cmd_result.stdout.find('{')
+    assert start >= 0, "Error, '{' not found in get-boards json."
+    json_text = cmd_result.stdout[start:]
+
     # -- Parse the json text into a dict.
-    result = json.loads(cmd_result.stdout)
+    result = json.loads(json_text)
 
     # -- Extract the "boards" section
     result = result["boards"]
