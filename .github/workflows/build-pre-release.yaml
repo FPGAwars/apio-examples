@@ -12,7 +12,7 @@ on:
       # Use this in emergency when Apio is broken because the remote
       # config points to a non existing examples release.
       skip_testing:
-        description: "Skip testing (if Apio is broken)"
+        description: "Skip testing (emergency, Apio is broken)"
         required: false
         type: boolean
         default: false
@@ -67,7 +67,7 @@ jobs:
             "workflow-run-id":  "${{github.run_id}}",
             "workflow-run-number": "${{github.run_number}}",
             "build-time":  "$(date +'%Y-%m-%d %H:%M:%S %Z')",
-            "skip-tests": "${{ inputs.skip_testing }}",
+            "skip-testing": "${{ inputs.skip_testing }}",
             "commit":  "$RELEASE_COMMIT",
             "file-name":  "$PACKAGE_NAME"
           }
