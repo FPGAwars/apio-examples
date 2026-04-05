@@ -8,6 +8,14 @@ on:
 
   # Allow manual activations.
   workflow_dispatch:
+    inputs:
+      # Use this in emergency when Apio is broken because the remote
+      # config points to a non existing examples release.
+      skip_testing:
+        description: "Skip testing (emergency, Apio is broken)"
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   # Allow release creation
@@ -34,12 +42,6 @@ jobs:
           release-tag-var: RELEASE_TAG
           package-tag-var: PACKAGE_TAG
 
-      # - name: Get repository commit
-      #   uses: fpgawars/apio-workflows/.github/actions/get-repo-commit@main
-      #   with:
-      #     repo-dir: .
-      #     env-var-name: RELEASE_COMMIT
-
       - name: Get repository commit
         uses: fpgawars/apio-workflows/.github/actions/get-repo-info@main
         with:
@@ -65,6 +67,7 @@ jobs:
             "workflow-run-id":  "${{github.run_id}}",
             "workflow-run-number": "${{github.run_number}}",
             "build-time":  "$(date +'%Y-%m-%d %H:%M:%S %Z')",
+            "skip-testing": "${{ inputs.skip_testing }}",
             "commit":  "$RELEASE_COMMIT",
             "file-name":  "$PACKAGE_NAME"
           }
@@ -100,17 +103,20 @@ jobs:
 
       # -- Apio command is required for testing.
       - name: Install latest apio dev
+        if: ${{ !inputs.skip_testing }}
         run: |
           pip install --force-reinstall -U \ git+https://github.com/fpgawars/apio.git
 
       - name: Install apio packages
+        if: ${{ !inputs.skip_testing }}
         run: |
           apio packages install
 
       # -- We test the examples after creating the package because the
       # -- test currently mutates the examples directory when it runs
       # -- the 'apio format' command.
-      - name: Run test_examples.py
+      - name: Run test.py
+        if: ${{ !inputs.skip_testing }}
         run: |
           python ./test.py
 
