@@ -1,0 +1,24 @@
+[*]
+[*] GTKWave Analyzer v3.4.0 (w)1999-2022 BSI
+[*] Wed Jun 17 08:04:24 2026
+[*]
+[dumpfile] "/home/obijuan/Develop/Learn-Basys-3-board-OpenFPGA/verilog/05-blinky/_build/default/blinky_tb.vcd"
+[dumpfile_mtime] "Wed Jun 17 08:03:49 2026"
+[dumpfile_size] 892
+[savefile] "/home/obijuan/Develop/Learn-Basys-3-board-OpenFPGA/verilog/05-blinky/blinky_tb.gtkw"
+[timestart] 0
+[size] 1497 600
+[pos] -1 -1
+*-9.267305 894000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] blinky_tb.
+[sst_width] 297
+[signals_width] 198
+[sst_expanded] 1
+[sst_vpaned_height] 158
+@28
+blinky_tb.clk
+blinky_tb.led0
+[color] 3
+blinky_tb.led_sim
+[pattern_trace] 1
+[pattern_trace] 0
