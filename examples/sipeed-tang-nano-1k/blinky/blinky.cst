@@ -1,0 +1,19 @@
+// Board details at
+// https://wiki.sipeed.com/hardware/en/tang/tang-nano-1k/nano-1k.html
+
+// Pin assignment from the official Sipeed example at
+// https://github.com/sipeed/TangNano-1K-examples/tree/main/example_led
+
+IO_LOC "sys_clk" 47;  // 27 MHz oscillator.
+IO_PORT "sys_clk" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+IO_LOC "sys_rst_n" 13;  // Button 'A', active low (on-board pull-up).
+IO_PORT "sys_rst_n" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// RGB led, active low.
+IO_LOC "led[0]" 9;  // Red.
+IO_PORT "led[0]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_LOC "led[1]" 10;  // Blue.
+IO_PORT "led[1]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_LOC "led[2]" 11;  // Green.
+IO_PORT "led[2]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
