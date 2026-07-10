@@ -1,0 +1,37 @@
+//-------------------------------------------------------------------
+//-- Testbench
+//-------------------------------------------------------------------
+`default_nettype none `timescale 100 ns / 10 ns
+
+module blinky_tb ();
+
+  //-- Simulation time: 3us (30 * 100ns)
+  parameter DURATION = 10 * 3;
+
+  //-- System clock
+  reg clk;
+
+  //-- Led port
+  wire led;
+
+  //-- Instantiate the unit to test
+  main UUT (
+      .clk(clk),
+      .led(led)
+  );
+
+  //-- Clock generation
+  always #0.5 clk = ~clk;
+
+  initial begin
+    clk = 0;
+
+    //-- File were to store the simulation results
+    $dumpfile("blinky_tb.vcd");
+    $dumpvars(0, blinky_tb);
+
+    #(DURATION) $display("End of simulation");
+    $finish;
+  end
+
+endmodule
