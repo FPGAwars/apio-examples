@@ -1,0 +1,18 @@
+[*]
+[*] GTKWave Analyzer v3.4.0 (w)1999-2022 BSI
+[*]
+[dumpfile] "_build/default/blinky_tb.vcd"
+[timestart] 0
+[size] 1200 400
+[pos] -1 -1
+[treeopen] blinky_tb.
+[sst_width] 250
+[signals_width] 180
+[sst_expanded] 1
+@28
+blinky_tb.clk
+blinky_tb.led0
+[color] 3
+blinky_tb.led_sim
+[pattern_trace] 1
+[pattern_trace] 0

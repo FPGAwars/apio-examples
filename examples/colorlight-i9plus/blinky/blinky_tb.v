@@ -5,7 +5,7 @@
 
 module blinky_tb ();
 
-  //-- Simulation time: 3us (30 * 100ns)
+  //-- Simulation time: 3us (10 * 3 * 100ns)
   parameter DURATION = 10 * 3;
 
   //-- System clock
@@ -20,14 +20,27 @@ module blinky_tb ();
       .led(led)
   );
 
-  //-- Clock generation
-  always #0.5 clk = ~clk;
+  //-- Real blinking led
+  //-- It is always constant because the simulation is too short
+  wire led0 = led;
+
+  //-- Virtual led, to see it blinking in simulation
+  //-- The internal counter bit 1 is used instead of the
+  //-- one used for the real blinky
+  wire led_sim = UUT.counter[1];
+
+  // System clock
+  initial begin
+      clk = 1;
+      forever begin
+          #1;
+          clk = ~clk;
+      end
+  end
 
   initial begin
-    clk = 0;
 
-    //-- File were to store the simulation results
-    $dumpfile("blinky_tb.vcd");
+    //-- Dump vars to the .vcd output file
     $dumpvars(0, blinky_tb);
 
     #(DURATION) $display("End of simulation");
